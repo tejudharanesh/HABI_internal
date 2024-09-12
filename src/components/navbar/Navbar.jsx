@@ -10,11 +10,12 @@ import report from "../../assets/svg/report.svg";
 import team from "../../assets/svg/team.svg";
 import vendors from "../../assets/svg/vendors.svg";
 import logo from "../../assets/habi_logo.png";
+import logout from "../../assets/svg/logout.svg";
 
 const Navbar = ({ isExpanded }) => {
   const location = useLocation();
   const [selected, setSelected] = useState(
-    location.pathname.split("/")[2] || "meet"
+    location.pathname.split("/")[2] || "home"
   );
 
   const buttons = [
@@ -57,7 +58,7 @@ const Navbar = ({ isExpanded }) => {
       id: "team",
       icon: team,
       alt: "Team",
-      label: "team",
+      label: "Team",
       link: "/",
     },
     {
@@ -67,29 +68,35 @@ const Navbar = ({ isExpanded }) => {
       label: "Report",
       link: "/",
     },
+    {
+      id: "logout",
+      icon: logout,
+      alt: "Logout",
+      label: "Logout",
+      link: "/",
+    },
   ];
 
   return (
     <nav
-      className={`fixed bottom-0 left-0 bg-layoutColor md:sticky ${
-        isExpanded ? "md:w-[81px]" : "md:w-[150px]"
-      } md:flex-shrink-0 h-screen w-full border-r-2 z-10 md:z-10`}
+      className={`bg-layoutColor sticky h-screen w-auto border-r-2 z-10 md:z-10`}
     >
-      <div className="flex flex-col justify-between relative h-auto">
+      <div className="flex flex-col justify-between h-screen">
         <div className={`hidden md:flex justify-center px-4 items-center py-4`}>
-          <img
-            src={logo}
-            alt="Logo"
-            className={`h-auto ml-3 ${isExpanded ? "w-[40px]" : "w-[80px]"}`}
-          />
+          <img src={logo} alt="Logo" className={`ml-3 w-10 h-10`} />
         </div>
 
-        <div className="flex justify-around md:items-start md:flex-col md:space-y-5 w-full">
+        <div className="flex md:flex-col w-auto gap-y-4 h-screen relative">
           {buttons.map((button) => (
-            <div key={button.id} className="relative w-full">
+            <div
+              key={button.id}
+              className={`relative w-auto ${
+                button.id === "logout" ? "absolute top-60" : ""
+              }`}
+            >
               <Link
                 to={button.link}
-                className={`btn border-none flex flex-col md:flex-row md:items-center md:justify-start shadow-none md:space-x-3 hover:bg-primaryO w-full rounded-none ${
+                className={`pl-4 pr-7 py-2 flex flex-col md:flex-row md:space-x-2 hover:bg-primaryO w-full rounded-l-3xl ${
                   selected === button.id ? " bg-primaryO" : "bg-inherit"
                 }`}
                 onClick={() => setSelected(button.id)}
@@ -104,9 +111,9 @@ const Navbar = ({ isExpanded }) => {
                   }`}
                 />
                 <span
-                  className={`hidden md:inline font-[18px] ${
+                  className={`hidden lg:flex  font-[18px]  ${
                     selected === button.id ? "text-primary" : "text-black"
-                  } ${isExpanded ? "md:hidden" : ""}`}
+                  }`}
                 >
                   {button.label}
                 </span>
