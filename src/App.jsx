@@ -6,14 +6,14 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Navbar from "./components/navbar/Navbar";
+import Dashboard from "./pages/dashboard/dashboard";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Navbar />} />
+          <Route path="/" element={<Dashboard />} />
         </Routes>
       </Router>
     </AuthProvider>
