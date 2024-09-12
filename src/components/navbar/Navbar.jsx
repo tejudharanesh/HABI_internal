@@ -89,7 +89,7 @@ const Navbar = () => {
       {/* Side Navbar */}
       <div
         className={`fixed top-0 left-0 h-full w-auto bg-layoutColor text-white transform ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          isOpen ? "translate-x-0 animate-elasticSlide" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out md:translate-x-0`}
       >
         <nav
@@ -147,14 +147,10 @@ const Navbar = () => {
 
       {/* Hamburger Button */}
       <button
-        className="md:hidden fixed top-0 left-2 z-50 bg-layoutColor w-20 border-none"
+        className="md:hidden fixed top-0 left-2 z-50 bg-layoutColor"
         onClick={toggleMenu}
       >
-        <img
-          src={isOpen ? close : hamberger}
-          alt=""
-          className="w-10 p-0 h-10"
-        />
+        <img src={isOpen ? close : hamberger} alt="" className="w-6 p-0 h-6" />
       </button>
     </div>
   );

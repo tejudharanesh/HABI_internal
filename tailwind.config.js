@@ -19,15 +19,15 @@ export default {
         BlackO: "#111111",
       },
       keyframes: {
-        "grow-shrink": {
-          "0%": { width: "0", opacity: "0" },
-          "50%": { width: "100%", opacity: "1" },
-          "75%": { width: "100%", opacity: "1" },
-          "100%": { width: "0", opacity: "1" },
+        elasticSlide: {
+          "0%": { transform: "translateX(-100%)" },
+          "60%": { transform: "translateX(10%)" },
+          "80%": { transform: "translateX(-5%)" },
+          "100%": { transform: "translateX(0)" },
         },
       },
       animation: {
-        "grow-shrink": "grow-shrink 6s ease-in-out", // Total duration (3s grow + 3s stay + 3s shrink)
+        elasticSlide: "elasticSlide 0.8s ease-in-out",
       },
     },
   },
