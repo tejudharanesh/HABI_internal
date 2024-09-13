@@ -126,11 +126,11 @@ const Navbar = () => {
                   <div>{selected === button.id && <SelectionIndicator />}</div>
                 </div>
               ))}
-              <button className="bg-layoutColor absolute bottom-10">
+              <button className="bg-layoutColor absolute bottom-10 outline-none focus:outline-none border-none ring-0">
                 <img
                   src={logout}
                   alt="Logout"
-                  className="inline-block mr-2 ml-2"
+                  className="inline-block mr-3 ml-4"
                 />
                 <span className="text-black inline-block md:hidden lg:inline">
                   Logout
