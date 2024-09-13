@@ -78,16 +78,14 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="flex h-screen">
+    <div className="fixed top-0 left-0 md:w-20 lg:w-40">
       {/* Side Navbar */}
       <div
-        className={`fixed top-0 left-0 h-full w-auto bg-layoutColor text-white transform ${
+        className={`h-full bg-layoutColor text-white transform ${
           isOpen ? "translate-x-0 animate-elasticSlide" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out md:translate-x-0`}
       >
-        <nav
-          className={`bg-layoutColor w-auto border-r-2 pt-10 md:pt-0 h-screen`}
-        >
+        <nav className={`bg-layoutColor border-r-2 pt-10 md:pt-0 h-screen`}>
           <div className="flex flex-col justify-between h-screen relative">
             <div className={`flex justify-center px-4 items-center py-4`}>
               <img
@@ -102,7 +100,7 @@ const Navbar = () => {
                 <div key={button.id} className={`relative w-auto `}>
                   <Link
                     to={button.link}
-                    className={`px-7 md:px-3  lg:pl-3 lg:pr-6 py-2.5 flex flex-row space-x-2 hover:bg-primaryO w-full ${
+                    className={`px-7 md:px-3  lg:pl-3 lg:pr-6 py-2.5 flex flex-row space-x-3 hover:bg-primaryO w-full ${
                       selected === button.id ? " bg-primaryO" : "bg-inherit"
                     }`}
                     onClick={() => setSelected(button.id)}
@@ -129,7 +127,11 @@ const Navbar = () => {
                 </div>
               ))}
               <button className="bg-layoutColor absolute bottom-10">
-                <img src={logout} alt="Logout" className="inline-block mr-2" />
+                <img
+                  src={logout}
+                  alt="Logout"
+                  className="inline-block mr-2 ml-2"
+                />
                 <span className="text-black inline-block md:hidden lg:inline">
                   Logout
                 </span>

@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar";
+import React from "react";
+import Navbar from "../../components/navbar/Navbar";
 import Home from "../Admin/Home";
 
 function Dashboard() {
   return (
-    <div className="flex">
+    <div className="flex h-screen overflow-hidden">
       {/* Navbar */}
       <Navbar />
 
       {/* Main Content */}
+      {/* Add ml-64 to create space for the navbar */}
       <div className="flex flex-col flex-grow">
-        {/* Routes */}
         <Home />
       </div>
     </div>
