@@ -10,17 +10,8 @@ function Home() {
     {
       title: "Interior Design",
       project: "Charan Project",
-      dates: "25 May 2024 - 26 May 2024",
-      status: "In Progress",
-      priority: "low",
-      team: [
-        { name: "Person 1", avatar: "avatar-url" },
-        { name: "Person 2", avatar: "avatar-url" },
-      ],
-    },
-    {
-      title: "Interior Design",
-      project: "Charan Project",
+      projectId: "CHA2024",
+      category: "Architecture design",
       dates: "25 May 2024 - 26 May 2024",
       status: "In Progress",
       priority: "High",
@@ -32,6 +23,21 @@ function Home() {
     {
       title: "Interior Design",
       project: "Charan Project",
+      projectId: "CHA2024",
+      category: "Architecture design",
+      dates: "25 May 2024 - 26 May 2024",
+      status: "In Progress",
+      priority: "High",
+      team: [
+        { name: "Person 1", avatar: "avatar-url" },
+        { name: "Person 2", avatar: "avatar-url" },
+      ],
+    },
+    {
+      title: "Interior Design",
+      project: "Charan Project",
+      projectId: "CHA2024",
+      category: "Architecture design",
       dates: "25 May 2024 - 26 May 2024",
       status: "In Progress",
       priority: "High",
@@ -54,7 +60,26 @@ function Home() {
     // Add more tasks
   ];
   const meetings = [
-    { project: "Charan Project", date: "10 August 2024", time: "4:00 PM" },
+    {
+      project: "Charan Project",
+      date: "10 August 2024",
+      time: "4:00 PM",
+      projectId: "CHA2024",
+    },
+    {
+      project: "Charan Project",
+      date: "10 August 2024",
+      time: "4:00 PM",
+      projectId: "CHA2024",
+    },
+
+    {
+      project: "Charan Project",
+      date: "10 August 2024",
+      time: "4:00 PM",
+      projectId: "CHA2024",
+    },
+
     // Add more meetings
   ];
 

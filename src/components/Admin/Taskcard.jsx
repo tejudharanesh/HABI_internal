@@ -15,11 +15,11 @@ function Taskcard({ task }) {
           {task.priority}
         </span>
       </div>
-      <p className="text-sm text-gray-500">{task.project}</p>
-      <p className="text-sm text-gray-500">{task.dates}</p>
-      <div className="mt-2 flex justify-between items-center">
-        <span className="text-sm text-gray-500">{task.status}</span>
 
+      <p className="text-sm text-gray-500">{task.project}</p>
+      <div className="flex justify-between items-center">
+        <p className="text-sm text-black bg-background p-1 px-3 rounded-lg">{task.projectId}</p>
+        <p className="text-sm text-black bg-background p-1 px-3 rounded-lg">{task.category}</p>
         <div className="flex -space-x-2">
           {task.team.map((member, idx) => (
             <img
@@ -30,6 +30,10 @@ function Taskcard({ task }) {
             />
           ))}
         </div>
+      </div>
+      <p className="text-sm text-gray-500">{task.dates}</p>
+      <div className="mt-2 flex justify-between items-center">
+        <span className="text-sm text-gray-500">{task.status}</span>
       </div>
     </div>
   );
