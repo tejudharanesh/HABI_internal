@@ -9,7 +9,7 @@ function Dashboard() {
 
       {/* Main Content */}
       {/* Add ml-64 to create space for the navbar */}
-      <div className="">
+      <div className="flex-grow overflow-y-auto">
         <Home />
       </div>
     </div>
