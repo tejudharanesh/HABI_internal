@@ -15,7 +15,9 @@ export default {
 
         background: "#EEEEEE",
         layoutColor: "#F8F8FF",
-        secondary: "#C0C0C0",
+        secondary: "#FFB400",
+        secondary1: "rgba(255, 180, 0, 0.1)",
+
         BlackO: "#111111",
       },
       keyframes: {

@@ -62,24 +62,58 @@ function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center bg-background font-poppins w-full">
       <div
-        className={`w-screen flex flex-col bg-layoutColor p-2 h-auto md:pl-24 lg:pl-44`}
+        className={`w-screen flex flex-col bg-layoutColor px-2 h-auto md:pl-24 lg:pl-44 md:px-10`}
       >
         <Header />
         <TaskFilters />
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-2">
           <div className="lg:col-span-2">
             <Task title="My Task" tasks={tasks} />
             <Task title="Assigned Task" tasks={tasks} />
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             <Meetings meetings={meetings} />
-            <div className="bg-white p-4 rounded shadow">
-              <h3 className="font-semibold">Tasks Overview</h3>
-              <PieChart data={taskOverviewData} />
+            <div className="bg-layoutColor p-4 rounded shadow">
+              <h3 className="font-semibold text-black">Tasks Overview</h3>
+              <div className="w-60 mx-auto">
+                <PieChart data={taskOverviewData} />
+              </div>
+              <div className="flex space-x-4 justify-center mt-2">
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <p className="text-black">In Progress</p>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <p className="text-black">In Progress</p>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <p className="text-black">In Progress</p>
+                </div>
+              </div>
             </div>
-            <div className="bg-white p-4 rounded shadow">
-              <h3 className="font-semibold">Assigned Tasks Overview</h3>
-              <PieChart data={taskOverviewData} />
+            <div className="bg-layoutColor p-4 rounded shadow">
+              <h3 className="font-semibold text-black">
+                Assigned Tasks Overview
+              </h3>
+              <div className="w-60 mx-auto">
+                <PieChart data={taskOverviewData} />
+              </div>
+              <div className="flex space-x-4 justify-center mt-2">
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <p className="text-black">In Progress</p>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <p className="text-black">In Progress</p>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <p className="text-black">In Progress</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

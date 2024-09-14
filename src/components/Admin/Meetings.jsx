@@ -2,7 +2,7 @@ import React from "react";
 
 function Meetings({ meetings }) {
   return (
-    <div className="p-4 bg-white rounded shadow-sm">
+    <div className="p-4 bg-layoutColor rounded shadow-sm">
       <div className="flex justify-between items-center">
         <h3 className="font-semibold text-black">My Meeting</h3>
         <a href="#" className="text-sm text-blue-500">

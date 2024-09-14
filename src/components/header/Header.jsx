@@ -12,7 +12,7 @@ const Header = () => {
         placeholder="Search Task, Meeting, Projects..."
         className="border rounded-xl p-2 w-1/3 absolute right-40 bg-layoutColor"
       />
-      <div className="flex absolute right-0">
+      <div className="flex absolute right-4">
         <div className="flex items-center">
           <div className="ml-2">
             <p className="text-black">Hi, Anil Kumar</p>
