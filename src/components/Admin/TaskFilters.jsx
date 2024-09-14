@@ -1,21 +1,24 @@
 import React from "react";
 function TaskFilters() {
   return (
-    <div className="min-h-screen items-center bg-background font-poppins w-full">
-      <div
-        className={`w-screen bg-layoutColor shadow p-4 h-auto mb-3 md:pl-20 lg:pl-40`}
-      >
-        {" "}
-        {["High Priority", "In Progress", "Pending", "On Hold"].map(
-          (status, index) => (
-            <button
-              key={index}
-              className="px-4 py-2 rounded bg-layoutColor text-gray-400 border-2 border-gray-300"
-            >
-              {status}
-            </button>
-          )
-        )}
+    <div className="relative py-3">
+      {["High Priority", "In Progress", "Pending", "On Hold"].map(
+        (status, index) => (
+          <button
+            key={index}
+            className="px-4 py-1 rounded-xl bg-layoutColor text-gray-400 border-2 border-gray-300 mr-2 outline-none focus:outline-none"
+          >
+            {status}
+          </button>
+        )
+      )}
+      <div className="absolute right-2 inline">
+        <button className="px-4 py-1 rounded-xl bg-primary text-white border-2 mr-2 outline-none focus:outline-none">
+          Assign task
+        </button>
+        <button className="px-4 py-1 rounded-xl bg-primaryO text-primary border-2 border-primary mr-2 outline-none focus:outline-none">
+          Add Employee
+        </button>
       </div>
     </div>
   );
