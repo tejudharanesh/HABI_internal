@@ -78,7 +78,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed top-0 left-0 md:w-20 lg:w-40">
+    <div className="fixed top-0 left-0 md:w-20 lg:w-40 z-10">
       {/* Side Navbar */}
       <div
         className={`h-full bg-layoutColor text-white transform ${
@@ -143,7 +143,7 @@ const Navbar = () => {
 
       {/* Hamburger Button */}
       <button
-        className="md:hidden fixed top-0 left-2 z-50 bg-layoutColor outline-none focus:outline-none border-none ring-0"
+        className="md:hidden fixed top-2 z-50 bg-layoutColor outline-none focus:outline-none border-none ring-0"
         onClick={toggleMenu}
       >
         <img src={isOpen ? close : hamberger} alt="" className="w-6 p-0 h-6" />

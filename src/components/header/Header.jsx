@@ -3,8 +3,10 @@ import profile from "../../assets/images/profile.png";
 
 const Header = () => {
   return (
-    <div className="relative h-10">
-      <p className="text-black text-lg absolute top-2">Home</p>
+    <div className="relative h-14">
+      <p className="text-black text-lg absolute left-20 md:left-0 top-2">
+        Home
+      </p>
       <input
         type="text"
         placeholder="Search Task, Meeting, Projects..."
