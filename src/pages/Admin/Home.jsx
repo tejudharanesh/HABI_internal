@@ -87,7 +87,7 @@ function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center bg-background font-poppins w-full">
       <div
-        className={`w-screen flex flex-col bg-layoutColor px-2 h-auto md:pl-28 lg:pl-40`}
+        className={`w-screen flex flex-col bg-layoutColor px-2 h-auto md:pl-24 lg:pl-40`}
       >
         <Header />
         <TaskFilters />
