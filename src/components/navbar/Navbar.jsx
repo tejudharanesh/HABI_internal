@@ -78,7 +78,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed top-0 left-0 md:w-20 lg:w-36 z-10">
+    <div className="fixed top-0 left-0 md:w-24 lg:w-40 z-10">
       {/* Side Navbar */}
       <div
         className={`h-full bg-layoutColor text-white transform ${
@@ -95,7 +95,7 @@ const Navbar = () => {
               />
             </div>
 
-            <div className="flex flex-col w-auto gap-y-1 h-screen relative">
+            <div className="flex flex-col w-auto gap-y-4 h-screen relative">
               {buttons.map((button) => (
                 <div key={button.id} className={`relative w-auto `}>
                   <Link
