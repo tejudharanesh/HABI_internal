@@ -95,12 +95,12 @@ const Navbar = () => {
               />
             </div>
 
-            <div className="flex flex-col w-auto gap-y-3 h-screen relative">
+            <div className="flex flex-col w-auto gap-y-1 h-screen relative">
               {buttons.map((button) => (
                 <div key={button.id} className={`relative w-auto `}>
                   <Link
                     to={button.link}
-                    className={`px-7 md:px-3 lg:pl-2 lg:pr-5 py-2.5 flex flex-row space-x-3 hover:bg-primaryO w-full ${
+                    className={`px-7 md:px-3 lg:pl-2 lg:pr-5 py-2 flex flex-row space-x-3 hover:bg-primaryO w-full ${
                       selected === button.id ? " bg-primaryO" : "bg-inherit"
                     }`}
                     onClick={() => setSelected(button.id)}
