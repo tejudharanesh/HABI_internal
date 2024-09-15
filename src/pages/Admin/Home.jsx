@@ -91,12 +91,12 @@ function Home() {
       >
         <Header />
         <TaskFilters />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pl-4">
-          <div className="lg:col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pl-4 gap-4">
+          <div className="md:col-span-1 lg:col-span-2 xl:col-span-3">
             <Task title="My Task" tasks={tasks} />
             <Task title="Assigned Task" tasks={tasks} />
           </div>
-          <div className="space-y-4 mx-3">
+          <div className="space-y-4 mx-3 md:col-span-1 xl:col-span-1">
             <Meetings meetings={meetings} />
             <div className="bg-layoutColor py-2 px-2 rounded border-2">
               <h3 className="font-semibold text-black">Tasks Overview</h3>
