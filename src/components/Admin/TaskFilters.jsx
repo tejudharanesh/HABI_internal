@@ -1,7 +1,7 @@
 import React from "react";
 function TaskFilters() {
   return (
-    <div className="relative py-3">
+    <div className="relative py-3 pl-4">
       {["High Priority", "In Progress", "Pending", "On Hold"].map(
         (status, index) => (
           <button

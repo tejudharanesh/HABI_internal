@@ -87,18 +87,18 @@ function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center bg-background font-poppins w-full">
       <div
-        className={`w-screen flex flex-col bg-layoutColor px-2 h-auto md:pl-24 lg:pl-44 md:px-10`}
+        className={`w-screen flex flex-col bg-layoutColor px-2 h-auto md:pl-20 lg:pl-36`}
       >
         <Header />
         <TaskFilters />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pl-4">
           <div className="lg:col-span-2">
             <Task title="My Task" tasks={tasks} />
             <Task title="Assigned Task" tasks={tasks} />
           </div>
-          <div className="space-y-4 ">
+          <div className="space-y-4 mx-3">
             <Meetings meetings={meetings} />
-            <div className="bg-layoutColor p-4 rounded shadow">
+            <div className="bg-layoutColor py-2 px-2 rounded border-2">
               <h3 className="font-semibold text-black">Tasks Overview</h3>
               <div className="w-60 mx-auto">
                 <PieChart data={taskOverviewData} />
@@ -118,7 +118,7 @@ function Home() {
                 </div>
               </div>
             </div>
-            <div className="bg-layoutColor p-4 rounded shadow">
+            <div className="bg-layoutColor p-2 rounded border-2">
               <h3 className="font-semibold text-black">
                 Assigned Tasks Overview
               </h3>

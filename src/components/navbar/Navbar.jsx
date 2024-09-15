@@ -78,7 +78,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed top-0 left-0 md:w-20 lg:w-40 z-10">
+    <div className="fixed top-0 left-0 md:w-20 lg:w-36 z-10">
       {/* Side Navbar */}
       <div
         className={`h-full bg-layoutColor text-white transform ${
@@ -100,7 +100,7 @@ const Navbar = () => {
                 <div key={button.id} className={`relative w-auto `}>
                   <Link
                     to={button.link}
-                    className={`px-7 md:px-3  lg:pl-3 lg:pr-6 py-2.5 flex flex-row space-x-3 hover:bg-primaryO w-full ${
+                    className={`px-7 md:px-3 lg:pl-2 lg:pr-5 py-2.5 flex flex-row space-x-3 hover:bg-primaryO w-full ${
                       selected === button.id ? " bg-primaryO" : "bg-inherit"
                     }`}
                     onClick={() => setSelected(button.id)}

@@ -2,11 +2,11 @@ import React from "react";
 
 function Taskcard({ task }) {
   return (
-    <div className="p-3 border rounded shadow-sm bg-layoutColor">
+    <div className="p-3 border-2 rounded-lg bg-layoutColor">
       <div className="flex justify-between items-center">
-        <h3 className="font-semibold text-black">{task.title}</h3>
+        <h3 className="font-semibold text-black text-sm">{task.title}</h3>
         <span
-          className={`px-2 py-1 text-sm rounded ${
+          className={`px-1 py-1 text-[10px] rounded-lg ${
             task.priority === "High"
               ? "bg-secondary1 text-secondary"
               : "bg-primaryO text-primary"
@@ -18,8 +18,12 @@ function Taskcard({ task }) {
 
       <p className="text-sm text-gray-500">{task.project}</p>
       <div className="flex justify-between items-center">
-        <p className="text-sm text-black bg-background p-1 px-3 rounded-lg">{task.projectId}</p>
-        <p className="text-sm text-black bg-background p-1 px-3 rounded-lg">{task.category}</p>
+        <p className="text-xs text-black bg-background p-1 px-3 rounded-lg">
+          {task.projectId}
+        </p>
+        <p className="text-xs text-black bg-background p-1 px-3 rounded-lg">
+          {task.category}
+        </p>
         <div className="flex -space-x-2">
           {task.team.map((member, idx) => (
             <img
@@ -31,9 +35,10 @@ function Taskcard({ task }) {
           ))}
         </div>
       </div>
-      <p className="text-sm text-gray-500">{task.dates}</p>
       <div className="mt-2 flex justify-between items-center">
-        <span className="text-sm text-gray-500">{task.status}</span>
+        <p className="text-xs text-gray-500">{task.dates}</p>
+
+        <span className="text-xs text-gray-500">{task.status}</span>
       </div>
     </div>
   );
