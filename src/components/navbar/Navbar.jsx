@@ -95,7 +95,7 @@ const Navbar = () => {
               />
             </div>
 
-            <div className="flex flex-col w-auto gap-y-4 h-screen relative">
+            <div className="flex flex-col w-auto gap-y-2 lg:gap-y-4 h-screen relative">
               {buttons.map((button) => (
                 <div key={button.id} className={`relative w-auto `}>
                   <Link
