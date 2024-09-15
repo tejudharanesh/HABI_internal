@@ -13,7 +13,7 @@ export default {
         lg: "1024px",
         // => @media (min-width: 1024px) { ... }
 
-        xl: "1320px",
+        xl: "1400px",
         // => @media (min-width: 1280px) { ... }
 
         "2xl": "1536px",
