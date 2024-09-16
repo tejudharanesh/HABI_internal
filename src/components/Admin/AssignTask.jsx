@@ -27,7 +27,7 @@ const AssignTask = ({ closeDrawer }) => {
       </div>
       <form onSubmit={handleSubmit} className="px-4">
         {/* Task Title */}
-        <div className="relative mb-6">
+        <div className="relative mb-4 lg:mb-6">
           <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
             Task Title*
           </label>
@@ -41,7 +41,7 @@ const AssignTask = ({ closeDrawer }) => {
         </div>
 
         {/* Description */}
-        <div className="relative mb-6">
+        <div className="relative mb-4 lg:mb-6">
           <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
             Description
           </label>
@@ -54,7 +54,7 @@ const AssignTask = ({ closeDrawer }) => {
         </div>
 
         {/* Members */}
-        <div className="relative mb-6">
+        <div className="relative mb-4 lg:mb-6">
           <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
             Members*
           </label>
@@ -69,7 +69,7 @@ const AssignTask = ({ closeDrawer }) => {
 
         {/* Duration */}
         <div className="flex space-x-4">
-          <div className="relative mb-6 flex-1">
+          <div className="relative mb-4 lg:mb-6 flex-1">
             <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
               Days*
             </label>
@@ -84,7 +84,7 @@ const AssignTask = ({ closeDrawer }) => {
               }}
             />
           </div>
-          <div className="relative mb-6">
+          <div className="relative mb-4 lg:mb-6">
             <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
               Type
             </label>
@@ -100,7 +100,7 @@ const AssignTask = ({ closeDrawer }) => {
         {/* Type */}
 
         {/* Attach Files */}
-        <div className="relative mb-6">
+        <div className="relative mb-4 lg:mb-6">
           <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
             Attach Files
           </label>
@@ -115,7 +115,7 @@ const AssignTask = ({ closeDrawer }) => {
         </div>
 
         {/* Priority */}
-        <p className="text-black ml-2 mb-2">Priority</p>
+        <p className="text-black ml-2 mb-4 lg:mb-6">Priority</p>
         <div className="grid grid-cols-1 space-y-3 md:space-y-0 md:grid-cols-2 justify-between">
           <div className="">
             <div className="inline mr-4">
