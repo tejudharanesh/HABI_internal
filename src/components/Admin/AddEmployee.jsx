@@ -133,6 +133,7 @@ const AddEmployee = ({ closeDrawer }) => {
             <button
               className="bg-layoutColor text-black p-0 w-fit"
               onClick={(e) => {
+                e.preventDefault();
                 e.stopPropagation(); // Prevent closing the parent
                 setIsCustomRoleModalOpen(true); // Open modal
               }}
@@ -156,7 +157,7 @@ const AddEmployee = ({ closeDrawer }) => {
       {/* Render the CustomRoleModal if showModal is true */}
       {isCustomRoleModalOpen && (
         <CustomRoleModel
-          closeModal={() => setShowModal(false)}
+          closeModal={() => setIsCustomRoleModalOpen(false)}
           customRole={customRole}
           setCustomRole={setCustomRole}
           handleAddCustomRole={handleAddCustomRole}

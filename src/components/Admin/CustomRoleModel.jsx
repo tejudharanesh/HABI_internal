@@ -8,7 +8,7 @@ const CustomRoleModel = ({
 }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-8 rounded-lg w-1/3">
+      <div className="bg-white p-8 rounded-lg w-full">
         <h3 className="text-xl font-semibold text-black mb-4">
           Add Custom Role
         </h3>
