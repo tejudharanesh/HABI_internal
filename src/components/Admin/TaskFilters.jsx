@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import assignTask from "../../assets/svg/assignTask.svg";
 import addEmployee from "../../assets/svg/addEmployee.svg";
 
-function TaskFilters() {
+function TaskFilters({ toggleTaskDrawer }) {
   const [selectedStatus, setSelectedStatus] = useState("");
 
   return (
@@ -45,7 +45,10 @@ function TaskFilters() {
       </div>
 
       <div className="absolute right-2 inline">
-        <button className="px-3 py-1 rounded-xl bg-primary text-white border-2 mr-2 outline-none focus:outline-none">
+        <button
+          className="px-3 py-1 rounded-xl bg-primary text-white border-2 mr-2 outline-none focus:outline-none"
+          onClick={toggleTaskDrawer}
+        >
           <img src={assignTask} alt="Assign Task" className="inline mr-1" />
           <span className="hidden lg:inline">Assign Task</span>
         </button>
