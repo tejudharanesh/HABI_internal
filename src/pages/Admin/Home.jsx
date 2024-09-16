@@ -5,14 +5,19 @@ import Task from "../../components/Admin/Task";
 import Meetings from "../../components/Admin/Meetings";
 import PieChart from "../../components/Admin/PieChart";
 import AssignTask from "../../components/Admin/AssignTask";
-
+import AddEmployee from "../../components/Admin/AddEmployee";
 function Home() {
   const [isTaskDrawerOpen, setTaskDrawerOpen] = useState(false);
+  const [isAddEmployeeDrawerOpen, setAddEmployeeDrawerOpen] = useState(false);
 
   // Function to toggle the task drawer
   const toggleTaskDrawer = () => {
     setTaskDrawerOpen(!isTaskDrawerOpen);
   };
+  const toggleAddEmployeeDrawer = () => {
+    setAddEmployeeDrawerOpen(!isAddEmployeeDrawerOpen);
+  };
+
   const tasks = [
     {
       title: "Interior Design",
@@ -97,7 +102,10 @@ function Home() {
         className={`flex flex-col bg-layoutColor px-4 h-auto w-screen md:pl-24 lg:pl-40`}
       >
         <Header />
-        <TaskFilters toggleTaskDrawer={toggleTaskDrawer} />
+        <TaskFilters
+          toggleTaskDrawer={toggleTaskDrawer}
+          toggleAddEmployeeDrawer={toggleAddEmployeeDrawer}
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pr-3 md:px-4 gap-4">
           <div className="md:col-span-1 lg:col-span-2 xl:col-span-3">
             <Task title="My Task" tasks={tasks} />
@@ -149,7 +157,6 @@ function Home() {
             </div>
           </div>
         </div>
-        {/* Overlay for the sliding drawer */}
         {isTaskDrawerOpen && (
           <div
             className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40"
@@ -164,6 +171,23 @@ function Home() {
           }`}
         >
           <AssignTask closeDrawer={toggleTaskDrawer} />
+        </div>
+
+        {/* Overlay for Add Employee Drawer */}
+        {isAddEmployeeDrawerOpen && (
+          <div
+            className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40"
+            onClick={toggleAddEmployeeDrawer}
+          ></div>
+        )}
+
+        {/* Sliding Drawer for Add Employee */}
+        <div
+          className={`fixed top-0 right-0 w-full md:w-1/2 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 ${
+            isAddEmployeeDrawerOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <AddEmployee closeDrawer={toggleAddEmployeeDrawer} />
         </div>
       </div>
     </div>

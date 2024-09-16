@@ -23,13 +23,11 @@ const AssignTask = ({ closeDrawer }) => {
     <div className="">
       <div className="flex justify-between items-center mb-8 bg-secondary1 px-8 py-3">
         <h2 className="text-xl font-semibold text-black">Assign Task</h2>
-        <button className="bg-transparent">
-          <img src={close} alt="" onClick={closeDrawer} />
-        </button>
+        <img src={close} alt="" onClick={closeDrawer} />
       </div>
       <form onSubmit={handleSubmit} className="px-4">
         {/* Task Title */}
-        <div className="relative mb-5">
+        <div className="relative mb-6">
           <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
             Task Title*
           </label>
@@ -43,7 +41,7 @@ const AssignTask = ({ closeDrawer }) => {
         </div>
 
         {/* Description */}
-        <div className="relative mb-5">
+        <div className="relative mb-6">
           <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
             Description
           </label>
@@ -56,7 +54,7 @@ const AssignTask = ({ closeDrawer }) => {
         </div>
 
         {/* Members */}
-        <div className="relative mb-5">
+        <div className="relative mb-6">
           <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
             Members*
           </label>
@@ -71,13 +69,13 @@ const AssignTask = ({ closeDrawer }) => {
 
         {/* Duration */}
         <div className="flex space-x-4">
-          <div className="relative mb-4 flex-1">
+          <div className="relative mb-6 flex-1">
             <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-              Start Date*
+              Days*
             </label>
             <input
-              type="date"
-              placeholder="Start"
+              type="number"
+              placeholder=""
               className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
@@ -86,42 +84,27 @@ const AssignTask = ({ closeDrawer }) => {
               }}
             />
           </div>
-          <div className="relative mb-5 flex-1">
+          <div className="relative mb-6">
             <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-              End Date*
+              Type
             </label>
             <input
-              type="date"
+              type="text"
               className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              style={{
-                colorScheme: "light", // Makes the calendar icon and text dark themed
-              }}
+              value={type}
+              onChange={(e) => setType(e.target.value)}
             />
           </div>
         </div>
 
         {/* Type */}
-        <div className="relative mb-5">
-          <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-            Type
-          </label>
-          <input
-            type="text"
-            className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-            placeholder="Type"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-          />
-        </div>
 
         {/* Attach Files */}
-        <div className="relative mb-5">
+        <div className="relative mb-6">
           <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
             Attach Files
           </label>
-          <div className="h-20 border border-dashed border-gray-300 p-4 rounded-xl flex flex-col items-center justify-center text-center bg-layoutColor text-white">
+          <div className="h-28 border border-dashed border-gray-300 p-4 rounded-xl flex flex-col items-center justify-center text-center bg-layoutColor text-white">
             <img src={upload} alt="Upload" />
             <p className="text-sm text-gray-400">JPG, PNG, PDF • Up to 10Mb</p>
             <input
@@ -129,34 +112,6 @@ const AssignTask = ({ closeDrawer }) => {
               className="absolute inset-0 opacity-0 cursor-pointer"
             />
           </div>
-        </div>
-
-        {/* Project */}
-        <div className="relative mb-5">
-          <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-            Project
-          </label>
-          <input
-            type="text"
-            className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-            placeholder="Project Task"
-            value={project}
-            onChange={(e) => setProject(e.target.value)}
-          />
-        </div>
-
-        {/* Category */}
-        <div className="relative mb-4">
-          <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-            Category
-          </label>
-          <input
-            type="text"
-            className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-            placeholder="Category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          />
         </div>
 
         {/* Priority */}
