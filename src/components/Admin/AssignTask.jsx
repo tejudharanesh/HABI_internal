@@ -27,7 +27,7 @@ const AssignTask = ({ closeDrawer }) => {
           <img src={close} alt="" onClick={closeDrawer} />
         </button>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-6 px-4">
+      <form onSubmit={handleSubmit} className="px-4">
         {/* Task Title */}
         <div className="relative mb-5">
           <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
@@ -86,7 +86,7 @@ const AssignTask = ({ closeDrawer }) => {
               }}
             />
           </div>
-          <div className="relative mb-4 flex-1">
+          <div className="relative mb-5 flex-1">
             <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
               End Date*
             </label>
@@ -146,7 +146,7 @@ const AssignTask = ({ closeDrawer }) => {
         </div>
 
         {/* Category */}
-        <div className="relative mb-5">
+        <div className="relative mb-4">
           <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
             Category
           </label>
@@ -160,10 +160,10 @@ const AssignTask = ({ closeDrawer }) => {
         </div>
 
         {/* Priority */}
-        <p className="text-black ml-2">Priority</p>
-        <div className="flex justify-between">
+        <p className="text-black ml-2 mb-2">Priority</p>
+        <div className="grid grid-cols-1 space-y-3 md:space-y-0 md:grid-cols-2 justify-between">
           <div className="">
-            <div className="flex items-center space-x-2">
+            <div className="inline mr-4">
               <button
                 type="button"
                 className="bg-layoutColor border-1 border-gray-400 text-black"
@@ -172,7 +172,7 @@ const AssignTask = ({ closeDrawer }) => {
                 High
               </button>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="inline">
               <button
                 type="button"
                 className="bg-layoutColor border-1 border-gray-400 text-black"
