@@ -4,7 +4,7 @@ import bell from "../../assets/svg/bell.svg";
 import search from "../../assets/svg/search.svg";
 const Header = () => {
   return (
-    <div className="relative h-14 border-b p-2">
+    <div className="sticky top-0 left-0 h-14 border-b p-2 bg-layoutColor z-10">
       <p className="text-black text-lg absolute left-20 md:left-4 top-4 font-semibold">
         Home
       </p>

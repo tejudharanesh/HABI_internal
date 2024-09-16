@@ -78,7 +78,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed top-0 left-0 md:w-24 lg:w-40 z-10">
+    <div className="fixed top-0 left-0 md:w-24 lg:w-40 z-20">
       {/* Side Navbar */}
       <div
         className={`h-full bg-layoutColor text-white transform ${

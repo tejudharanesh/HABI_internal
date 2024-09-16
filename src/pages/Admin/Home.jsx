@@ -85,20 +85,20 @@ function Home() {
 
   const taskOverviewData = [50, 30, 20]; // Sample data for Pie Chart
   return (
-    <div className="min-h-screen flex flex-col items-center bg-background font-poppins w-full">
+    <div className="min-h-screen flex flex-col items-center bg-background font-poppins">
       <div
-        className={`w-screen flex flex-col bg-layoutColor px-2 h-auto md:pl-24 lg:pl-40`}
+        className={`flex flex-col bg-layoutColor px-4 h-auto w-screen md:pl-24 lg:pl-40`}
       >
         <Header />
         <TaskFilters />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pl-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pr-3 md:px-4 gap-4">
           <div className="md:col-span-1 lg:col-span-2 xl:col-span-3">
             <Task title="My Task" tasks={tasks} />
             <Task title="Assigned Task" tasks={tasks} />
           </div>
-          <div className="space-y-4 mx-3 md:col-span-1 xl:col-span-1">
+          <div className="space-y-4  md:col-span-1 xl:col-span-1">
             <Meetings meetings={meetings} />
-            <div className="bg-layoutColor py-2 px-2 rounded border-2">
+            <div className="bg-layoutColor py-2 px-2 rounded-lg border-2">
               <h3 className="font-semibold text-black">Tasks Overview</h3>
               <div className="w-60 mx-auto">
                 <PieChart data={taskOverviewData} />
@@ -106,19 +106,19 @@ function Home() {
               <div className="flex space-x-4 justify-center mt-2">
                 <div className="flex items-center space-x-1">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <p className="text-black">In Progress</p>
+                  <p className="text-black text-xs">In Progress</p>
                 </div>
                 <div className="flex items-center space-x-1">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <p className="text-black">In Progress</p>
+                  <p className="text-black text-xs">In Progress</p>
                 </div>
                 <div className="flex items-center space-x-1">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <p className="text-black">In Progress</p>
+                  <p className="text-black text-xs">In Progress</p>
                 </div>
               </div>
             </div>
-            <div className="bg-layoutColor p-2 rounded border-2">
+            <div className="bg-layoutColor p-2 rounded-lg border-2">
               <h3 className="font-semibold text-black">
                 Assigned Tasks Overview
               </h3>
@@ -128,15 +128,15 @@ function Home() {
               <div className="flex space-x-4 justify-center mt-2">
                 <div className="flex items-center space-x-1">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <p className="text-black">In Progress</p>
+                  <p className="text-black text-xs">In Progress</p>
                 </div>
                 <div className="flex items-center space-x-1">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <p className="text-black">In Progress</p>
+                  <p className="text-black text-xs">In Progress</p>
                 </div>
                 <div className="flex items-center space-x-1">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <p className="text-black">In Progress</p>
+                  <p className="text-black text-xs">In Progress</p>
                 </div>
               </div>
             </div>
