@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import close from "../../assets/svg/close1.svg";
 import add from "../../assets/images/add.png";
 import CustomRoleModel from "./CustomRoleModel";
+import delete1 from "../../assets/svg/delete.svg";
 
 const AddEmployee = ({ closeDrawer }) => {
   const [formData, setFormData] = useState({
@@ -9,16 +10,14 @@ const AddEmployee = ({ closeDrawer }) => {
     email: "",
     employeeId: "",
     password: "",
-    selectedRoles: [],
+    selectedRole: "", // Update for single role selection
   });
-  const [customRole, setCustomRole] = useState("");
+
+  const [customRoles, setCustomRoles] = useState([]);
   const [isCustomRoleModalOpen, setIsCustomRoleModalOpen] = useState(false);
-  const [roles, setRoles] = useState([
-    "Architect",
-    "Project Manager",
-    "Sales",
-    "Admin",
-  ]); // moved roles to state
+
+  const predefinedRoles = ["Architect", "Project Manager", "Sales", "Admin"];
+  const roles = [...predefinedRoles, ...customRoles]; // Merge predefined and custom roles
 
   // Handle input changes for form data
   const handleInputChange = (e) => {
@@ -26,33 +25,37 @@ const AddEmployee = ({ closeDrawer }) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // Toggle role selection
+  // Handle single role selection (radio button)
   const handleRoleChange = (role) => {
     setFormData((prevData) => ({
       ...prevData,
-      selectedRoles: prevData.selectedRoles.includes(role)
-        ? prevData.selectedRoles.filter((r) => r !== role)
-        : [...prevData.selectedRoles, role],
+      selectedRole: role,
     }));
-  };
-
-  // Add new custom role to roles array
-  const handleAddCustomRole = (roleName, accessOptions) => {
-    if (roleName && !roles.includes(roleName)) {
-      setRoles((prevRoles) => [...prevRoles, roleName]);
-      setFormData((prevData) => ({
-        ...prevData,
-        selectedRoles: [...prevData.selectedRoles, roleName],
-      }));
-      setCustomRole("");
-      setIsCustomRoleModalOpen(false);
-    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
     closeDrawer();
+  };
+
+  const addNewCustomRole = (newRole) => {
+    setCustomRoles((prevRoles) => [...prevRoles, newRole]); // Add the new custom role to the list
+    setFormData((prevData) => ({
+      ...prevData,
+      selectedRole: newRole, // Automatically select the custom role
+    }));
+    setIsCustomRoleModalOpen(false); // Close the modal
+  };
+
+  const deleteCustomRole = (role) => {
+    setCustomRoles((prevRoles) => prevRoles.filter((r) => r !== role)); // Remove the custom role from the list
+    if (formData.selectedRole === role) {
+      setFormData((prevData) => ({
+        ...prevData,
+        selectedRole: "", // Deselect if the deleted role was selected
+      }));
+    }
   };
 
   return (
@@ -83,18 +86,30 @@ const AddEmployee = ({ closeDrawer }) => {
           <p className="text-black ml-2">Role</p>
           <div className="grid grid-cols-3 lg:grid-cols-4 gap-2 px-3 p-1">
             {roles.map((role) => (
-              <label key={role} className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={formData.selectedRoles.includes(role)}
-                  onChange={() => handleRoleChange(role)}
-                  className="h-4 w-4 text-primary bg-layoutColor border-gray-300 border-2 rounded focus:ring-primary appearance-none checked:appearance-auto checked:bg-layoutColor checked:border-black checked:text-black"
-                />
-                <span className="text-black text-xs">{role}</span>
-              </label>
+              <div key={role} className="flex items-center space-x-2">
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="role"
+                    value={role}
+                    checked={formData.selectedRole === role}
+                    onChange={() => handleRoleChange(role)}
+                    className="h-4 w-4 text-primary bg-layoutColor border-gray-300 border-2 rounded-full focus:ring-primary appearance-none checked:appearance-auto checked:bg-layoutColor checked:border-black checked:text-black"
+                  />
+                  <span className="text-black text-xs">{role}</span>
+                </label>
+                {customRoles.includes(role) && (
+                  <img
+                    src={delete1}
+                    alt="Delete"
+                    className="cursor-pointer"
+                    onClick={() => deleteCustomRole(role)} // Handle role deletion
+                  />
+                )}
+              </div>
             ))}
             <button
-              className="bg-layoutColor text-black p-0 w-fit ring-0 border-0 hover:outline-none"
+              className="bg-layoutColor text-black p-0 w-fit hover:outline-none border-none"
               onClick={(e) => {
                 e.preventDefault();
                 setIsCustomRoleModalOpen(true);
@@ -119,9 +134,7 @@ const AddEmployee = ({ closeDrawer }) => {
       {isCustomRoleModalOpen && (
         <CustomRoleModel
           closeModal={() => setIsCustomRoleModalOpen(false)}
-          customRole={customRole}
-          setCustomRole={setCustomRole}
-          handleAddCustomRole={handleAddCustomRole} // pass the function
+          addNewCustomRole={addNewCustomRole} // Pass callback to add custom role
         />
       )}
     </div>
