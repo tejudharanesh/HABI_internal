@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../components/header/Header";
 import TaskFilters from "../../components/Admin/TaskFilters";
 import Task from "../../components/Admin/Task";
@@ -6,11 +6,15 @@ import Meetings from "../../components/Admin/Meetings";
 import PieChart from "../../components/Admin/PieChart";
 import AssignTask from "../../components/Admin/AssignTask";
 import AddEmployee from "../../components/Admin/AddEmployee";
+import TaskDetails from "../../components/Admin/TaskDetails";
 function Home() {
   const [isTaskDrawerOpen, setTaskDrawerOpen] = useState(false);
   const [isAddEmployeeDrawerOpen, setAddEmployeeDrawerOpen] = useState(false);
+  const [isTaskDetailsOpen, setTaskDetailsOpen] = useState(false);
 
   const [filter, setFilter] = useState(""); // New state for filter
+
+  const [selectedTask, setSelectedTask] = useState({}); // New state for selected task
 
   // Function to toggle the task drawer
   const toggleTaskDrawer = () => {
@@ -19,6 +23,30 @@ function Home() {
   const toggleAddEmployeeDrawer = () => {
     setAddEmployeeDrawerOpen(!isAddEmployeeDrawerOpen);
   };
+  const toggleTaskDetails = (task) => {
+    if (task) {
+      setSelectedTask(task);
+      console.log(task);
+
+      setTaskDetailsOpen(true);
+    } else {
+      setTaskDetailsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    const body = document.body;
+    if (isTaskDrawerOpen || isAddEmployeeDrawerOpen || isTaskDetailsOpen) {
+      body.classList.add("no-scroll");
+    } else {
+      body.classList.remove("no-scroll");
+    }
+
+    // Cleanup on component unmount
+    return () => {
+      body.classList.remove("no-scroll", "no-pointer-events");
+    };
+  }, [isTaskDrawerOpen, isAddEmployeeDrawerOpen, isTaskDetailsOpen]);
 
   const tasks = [
     {
@@ -36,7 +64,7 @@ function Home() {
     },
     {
       title: "Interior Design",
-      project: "Charan Project",
+      project: "Teju project",
       projectId: "CHA2024",
       category: "Architecture design",
       dates: "25 May 2024 - 26 May 2024",
@@ -49,7 +77,7 @@ function Home() {
     },
     {
       title: "Interior Design",
-      project: "Charan Project",
+      project: "Balaji Project",
       projectId: "CHA2024",
       category: "Architecture design",
       dates: "25 May 2024 - 26 May 2024",
@@ -107,7 +135,7 @@ function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center bg-background font-poppins">
       <div
-        className={`flex flex-col bg-layoutColor pl-2 md:p-2 h-auto w-screen md:pl-24 lg:pl-40`}
+        className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
       >
         <Header />
         <TaskFilters
@@ -117,8 +145,16 @@ function Home() {
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pr-3 md:px-4 gap-4">
           <div className="md:col-span-1 lg:col-span-2 xl:col-span-3">
-            <Task title="My Task" tasks={filteredTasks} />
-            <Task title="Assigned Task" tasks={filteredTasks} />
+            <Task
+              title="My Task"
+              tasks={filteredTasks}
+              toggleTaskDetails={toggleTaskDetails}
+            />
+            <Task
+              title="Assigned Task"
+              tasks={filteredTasks}
+              toggleTaskDetails={toggleTaskDetails}
+            />
           </div>
           <div className="space-y-4  md:col-span-1 xl:col-span-1">
             <Meetings meetings={meetings} />
@@ -175,7 +211,7 @@ function Home() {
 
         {/* Sliding Drawer for Assign Task */}
         <div
-          className={`fixed top-0 right-0 w-full md:w-1/2 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
+          className={`fixed top-0 right-0 w-full md:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
             isTaskDrawerOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -192,11 +228,33 @@ function Home() {
 
         {/* Sliding Drawer for Add Employee */}
         <div
-          className={`fixed top-0 right-0 w-full md:w-1/2 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
+          className={`fixed top-0 right-0 w-full md:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
             isAddEmployeeDrawerOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
           <AddEmployee closeDrawer={toggleAddEmployeeDrawer} />
+        </div>
+
+        {/* Overlay for task Details */}
+        {isTaskDetailsOpen && (
+          <div
+            className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40"
+            onClick={toggleTaskDetails}
+          ></div>
+        )}
+
+        {/* Sliding Drawer for Task Details */}
+        <div
+          className={`fixed top-0 right-0 w-full md:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
+            isTaskDetailsOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <TaskDetails
+            closeDrawer={() => {
+              toggleTaskDetails(false);
+            }}
+            task={selectedTask}
+          />
         </div>
       </div>
     </div>

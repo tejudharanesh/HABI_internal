@@ -23,7 +23,7 @@ const AssignTask = ({ closeDrawer }) => {
     <div className="">
       <div className="flex justify-between items-center mb-8 bg-secondary1 px-8 py-3">
         <h2 className="text-xl font-semibold text-black">Assign Task</h2>
-        <img src={close} alt="" onClick={closeDrawer} />
+        <img src={close} alt="" onClick={closeDrawer} className="cursor-pointer"/>
       </div>
       <form onSubmit={handleSubmit} className="px-4">
         {/* Task Title */}

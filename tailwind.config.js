@@ -49,7 +49,22 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities(
+        {
+          ".no-scroll": {
+            overflow: "hidden",
+            height: "100%",
+          },
+          ".no-pointer-events": {
+            "pointer-events": "none",
+          },
+        },
+        ["responsive", "hover"]
+      );
+    },
+  ],
 };
 
 // screens: {

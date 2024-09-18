@@ -64,7 +64,12 @@ const AddEmployee = ({ closeDrawer }) => {
     <div>
       <div className="flex justify-between items-center mb-8 bg-secondary1 px-8 py-3">
         <h2 className="text-xl font-semibold text-black">Add Employee</h2>
-        <img src={close} alt="Close" onClick={closeDrawer} />
+        <img
+          src={close}
+          alt="Close"
+          onClick={closeDrawer}
+          className="cursor-pointer"
+        />
       </div>
 
       <form onSubmit={handleSubmit} className="px-4">
@@ -88,7 +93,7 @@ const AddEmployee = ({ closeDrawer }) => {
           <p className="text-black m-2">Role</p>
           <div className="grid grid-cols-3 lg:grid-cols-4 gap-2 md:px-3 p-1 justify-between">
             {roles.map((role) => (
-              <div key={role} className="flex space-x-2 justify-between">
+              <div key={role} className="flex space-x-2">
                 <label className="flex items-center space-x-1">
                   <input
                     type="radio"

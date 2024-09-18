@@ -1,8 +1,14 @@
 import React from "react";
 
-function Taskcard({ task }) {
+function Taskcard({ task, toggleTaskDetails }) {
+  const handleTaskClick = (task) => {
+    toggleTaskDetails(task); // Pass the task object to toggleTaskDetails
+  };
   return (
-    <div className="p-3 border-2 rounded-lg bg-layoutColor">
+    <div
+      className="p-3 border-2 rounded-lg bg-layoutColor cursor-pointer"
+      onClick={() => handleTaskClick(task)}
+    >
       <div className="flex justify-between items-center">
         <h3 className="font-semibold text-black text-sm">{task.title}</h3>
         <span
