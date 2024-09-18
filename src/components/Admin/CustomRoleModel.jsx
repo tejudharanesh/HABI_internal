@@ -14,6 +14,7 @@ const CustomRoleModel = ({ closeModal, addNewCustomRole }) => {
     addEmployee: false,
     createMeeting: false,
   });
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, checked } = e.target;

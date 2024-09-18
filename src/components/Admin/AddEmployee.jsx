@@ -3,6 +3,7 @@ import close from "../../assets/svg/close1.svg";
 import add from "../../assets/images/add.png";
 import CustomRoleModel from "./CustomRoleModel";
 import delete1 from "../../assets/svg/delete.svg";
+import EmployeeSuccess from "./EmployeeSuccess";
 
 const AddEmployee = ({ closeDrawer }) => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ const AddEmployee = ({ closeDrawer }) => {
 
   const [customRoles, setCustomRoles] = useState([]);
   const [isCustomRoleModalOpen, setIsCustomRoleModalOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const predefinedRoles = ["Architect", "Project Manager", "Sales", "Admin"];
   const roles = [...predefinedRoles, ...customRoles]; // Merge predefined and custom roles
@@ -83,18 +85,18 @@ const AddEmployee = ({ closeDrawer }) => {
         ))}
 
         <div>
-          <p className="text-black ml-2">Role</p>
-          <div className="grid grid-cols-3 lg:grid-cols-4 gap-2 px-3 p-1">
+          <p className="text-black m-2">Role</p>
+          <div className="grid grid-cols-3 lg:grid-cols-4 gap-2 md:px-3 p-1 justify-between">
             {roles.map((role) => (
-              <div key={role} className="flex items-center space-x-2">
-                <label className="flex items-center space-x-2">
+              <div key={role} className="flex space-x-2 justify-between">
+                <label className="flex items-center space-x-1">
                   <input
                     type="radio"
                     name="role"
                     value={role}
                     checked={formData.selectedRole === role}
                     onChange={() => handleRoleChange(role)}
-                    className="h-4 w-4 text-primary bg-layoutColor border-gray-300 border-2 rounded-full focus:ring-primary appearance-none checked:appearance-auto checked:bg-layoutColor checked:border-black checked:text-black"
+                    className="h-4 w-4 text-primary bg-layoutColor border-gray-300 border-2 rounded-full focus:ring-primary appearance-none checked:appearance-auto checked:bg-primary checked:border-black checked:text-black"
                   />
                   <span className="text-black text-xs">{role}</span>
                 </label>
@@ -125,6 +127,10 @@ const AddEmployee = ({ closeDrawer }) => {
           <button
             type="submit"
             className="bg-primary text-white px-6 py-2 rounded-lg w-full md:w-28"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsSuccess(true);
+            }}
           >
             Add
           </button>
@@ -137,6 +143,7 @@ const AddEmployee = ({ closeDrawer }) => {
           addNewCustomRole={addNewCustomRole} // Pass callback to add custom role
         />
       )}
+      {isSuccess && <EmployeeSuccess closeModal={() => setIsSuccess(false)} />}
     </div>
   );
 };
