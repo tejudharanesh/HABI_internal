@@ -20,7 +20,7 @@ function TaskFilters({ toggleTaskDrawer, toggleAddEmployeeDrawer, setFilter }) {
       {/* Dropdown for mobile screens */}
       <div className="inline-block md:hidden">
         <select
-          className="py-2 px-4 w-40 border-2 border-gray-300 rounded-lg focus:outline-none bg-layoutColor text-gray-400"
+          className="py-2 w-40 px-2 border-2 border-gray-300 rounded-lg focus:outline-none bg-layoutColor text-gray-400 cursor-pointer"
           onChange={(e) => handleFilterChange(e.target.value)}
           value={selectedStatus}
         >
