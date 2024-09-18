@@ -7,12 +7,12 @@ function Taskcard({ task }) {
         <h3 className="font-semibold text-black text-sm">{task.title}</h3>
         <span
           className={`px-1 py-1 text-[10px] rounded-lg ${
-            task.priority === "High"
+            task.priority === "High Priority"
               ? "bg-secondary1 text-secondary"
               : "bg-primaryO text-primary"
           }`}
         >
-          {task.priority}
+          {task.priority === "High Priority" ? "High" : "Low"}
         </span>
       </div>
 

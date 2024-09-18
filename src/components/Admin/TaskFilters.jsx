@@ -2,8 +2,18 @@ import React, { useState } from "react";
 import assignTask from "../../assets/svg/assignTask.svg";
 import addEmployee from "../../assets/svg/addEmployee.svg";
 
-function TaskFilters({ toggleTaskDrawer, toggleAddEmployeeDrawer }) {
+function TaskFilters({ toggleTaskDrawer, toggleAddEmployeeDrawer, setFilter }) {
   const [selectedStatus, setSelectedStatus] = useState("");
+
+  const handleFilterChange = (status) => {
+    if (selectedStatus === status) {
+      setSelectedStatus(""); // Remove filter if already selected
+      setFilter(""); // Pass empty string to reset the filter in Home
+    } else {
+      setSelectedStatus(status); // Apply new filter
+      setFilter(status); // Pass the selected status to Home
+    }
+  };
 
   return (
     <div className="relative py-3 md:pl-4">
@@ -11,7 +21,7 @@ function TaskFilters({ toggleTaskDrawer, toggleAddEmployeeDrawer }) {
       <div className="inline-block md:hidden">
         <select
           className="py-2 px-4 w-40 border-2 border-gray-300 rounded-lg focus:outline-none bg-layoutColor text-gray-400"
-          onChange={(e) => setSelectedStatus(e.target.value)}
+          onChange={(e) => handleFilterChange(e.target.value)}
           value={selectedStatus}
         >
           <option value="">Filter</option>
@@ -36,7 +46,7 @@ function TaskFilters({ toggleTaskDrawer, toggleAddEmployeeDrawer }) {
                   ? "bg-primary text-white"
                   : "bg-layoutColor text-gray-400"
               }`}
-              onClick={() => setSelectedStatus(status)}
+              onClick={() => handleFilterChange(status)}
             >
               {status}
             </button>

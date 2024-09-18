@@ -10,6 +10,8 @@ function Home() {
   const [isTaskDrawerOpen, setTaskDrawerOpen] = useState(false);
   const [isAddEmployeeDrawerOpen, setAddEmployeeDrawerOpen] = useState(false);
 
+  const [filter, setFilter] = useState(""); // New state for filter
+
   // Function to toggle the task drawer
   const toggleTaskDrawer = () => {
     setTaskDrawerOpen(!isTaskDrawerOpen);
@@ -25,8 +27,8 @@ function Home() {
       projectId: "CHA2024",
       category: "Architecture design",
       dates: "25 May 2024 - 26 May 2024",
-      status: "In Progress",
-      priority: "High",
+      status: "Pending",
+      priority: "High Priority",
       team: [
         { name: "Person 1", avatar: "avatar-url" },
         { name: "Person 2", avatar: "avatar-url" },
@@ -39,7 +41,7 @@ function Home() {
       category: "Architecture design",
       dates: "25 May 2024 - 26 May 2024",
       status: "In Progress",
-      priority: "High",
+      priority: "Low",
       team: [
         { name: "Person 1", avatar: "avatar-url" },
         { name: "Person 2", avatar: "avatar-url" },
@@ -52,7 +54,7 @@ function Home() {
       category: "Architecture design",
       dates: "25 May 2024 - 26 May 2024",
       status: "In Progress",
-      priority: "High",
+      priority: "Low",
       team: [
         { name: "Person 1", avatar: "avatar-url" },
         { name: "Person 2", avatar: "avatar-url" },
@@ -62,8 +64,8 @@ function Home() {
       title: "Interior Design",
       project: "Charan Project",
       dates: "25 May 2024 - 26 May 2024",
-      status: "In Progress",
-      priority: "High",
+      status: "Pending",
+      priority: "High Priority",
       team: [
         { name: "Person 1", avatar: "avatar-url" },
         { name: "Person 2", avatar: "avatar-url" },
@@ -96,6 +98,12 @@ function Home() {
   ];
 
   const taskOverviewData = [50, 30, 20]; // Sample data for Pie Chart
+
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "") return true; // No filter applied
+    return task.status === filter || task.priority === filter; // Matching either status or priority
+  });
+
   return (
     <div className="min-h-screen flex flex-col items-center bg-background font-poppins">
       <div
@@ -105,11 +113,12 @@ function Home() {
         <TaskFilters
           toggleTaskDrawer={toggleTaskDrawer}
           toggleAddEmployeeDrawer={toggleAddEmployeeDrawer}
+          setFilter={setFilter} // Pass setFilter function
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pr-3 md:px-4 gap-4">
           <div className="md:col-span-1 lg:col-span-2 xl:col-span-3">
-            <Task title="My Task" tasks={tasks} />
-            <Task title="Assigned Task" tasks={tasks} />
+            <Task title="My Task" tasks={filteredTasks} />
+            <Task title="Assigned Task" tasks={filteredTasks} />
           </div>
           <div className="space-y-4  md:col-span-1 xl:col-span-1">
             <Meetings meetings={meetings} />
