@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/header/Header";
-import TaskFilters from "../../components/Admin/TaskFilters";
-import Task from "../../components/Admin/Task";
-import Meetings from "../../components/Admin/Meetings";
-import PieChart from "../../components/Admin/PieChart";
-import AssignTask from "../../components/Admin/AssignTask";
-import AddEmployee from "../../components/Admin/AddEmployee";
-import TaskDetails from "../../components/Admin/TaskDetails";
+import TaskFilters from "../../components/Home/TaskFilters";
+import Task from "../../components/Home/Task";
+import Meetings from "../../components/Home/Meetings";
+import PieChart from "../../components/Home/PieChart";
+import AssignTask from "../../components/Home/AssignTask";
+import AddEmployee from "../../components/Home/AddEmployee";
+import TaskDetails from "../../components/Home/TaskDetails";
 import profile from "../../assets/images/profile.png";
 
 function Home() {

@@ -81,8 +81,8 @@ const Navbar = () => {
     <div className="fixed top-0 left-0 md:w-24 lg:w-40 z-20">
       {/* Side Navbar */}
       <div
-        className={`h-full bg-layoutColor text-white transform ${
-          isOpen ? "translate-x-0 animate-elasticSlide" : "hidden"
+        className={`h-full bg-layoutColor text-white transform md:translate-x-0 ${
+          isOpen ? "translate-x-0 animate-elasticSlide " : "hidden md:inline"
         } transition-transform duration-300 ease-in-out md:translate-x-0`}
       >
         <nav className={`bg-layoutColor border-r-2 pt-10 md:pt-0 h-screen`}>
