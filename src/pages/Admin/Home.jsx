@@ -138,7 +138,7 @@ function Home() {
   });
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-background font-poppins">
+    <div className="min-h-screen flex flex-col items-center bg-layoutColor font-poppins">
       <div
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
       >
