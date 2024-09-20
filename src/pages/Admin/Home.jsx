@@ -7,6 +7,8 @@ import PieChart from "../../components/Admin/PieChart";
 import AssignTask from "../../components/Admin/AssignTask";
 import AddEmployee from "../../components/Admin/AddEmployee";
 import TaskDetails from "../../components/Admin/TaskDetails";
+import profile from "../../assets/images/profile.png";
+
 function Home() {
   const [isTaskDrawerOpen, setTaskDrawerOpen] = useState(false);
   const [isAddEmployeeDrawerOpen, setAddEmployeeDrawerOpen] = useState(false);
@@ -44,7 +46,7 @@ function Home() {
 
     // Cleanup on component unmount
     return () => {
-      body.classList.remove("no-scroll", "no-pointer-events");
+      body.classList.remove("no-scroll");
     };
   }, [isTaskDrawerOpen, isAddEmployeeDrawerOpen, isTaskDetailsOpen]);
 
@@ -53,14 +55,17 @@ function Home() {
       title: "Interior Design",
       project: "Charan Project",
       projectId: "CHA2024",
+      clientId: "1272829",
       category: "Architecture design",
-      dates: "25 May 2024 - 26 May 2024",
+      dueDate: "26 mar 2024",
       status: "Pending",
       priority: "High Priority",
+      description: "this is a description for the task so complete fast ",
       team: [
-        { name: "Person 1", avatar: "avatar-url" },
-        { name: "Person 2", avatar: "avatar-url" },
+        { name: "Darshan", desgn: "architect", avatar: profile },
+        { name: "Teju", desgn: "Developer", avatar: profile },
       ],
+      attachments: [{}],
     },
     {
       title: "Interior Design",
@@ -156,7 +161,7 @@ function Home() {
               toggleTaskDetails={toggleTaskDetails}
             />
           </div>
-          <div className="space-y-4  md:col-span-1 xl:col-span-1">
+          <div className="space-y-4 md:col-span-1 xl:col-span-1">
             <Meetings meetings={meetings} />
             <div className="bg-layoutColor py-2 px-2 rounded-lg border-2">
               <h3 className="font-semibold text-black">Tasks Overview</h3>
@@ -211,7 +216,7 @@ function Home() {
 
         {/* Sliding Drawer for Assign Task */}
         <div
-          className={`fixed top-0 right-0 w-full md:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
+          className={`fixed top-0 right-0 w-full md:w-2/4 xl:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
             isTaskDrawerOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -228,7 +233,7 @@ function Home() {
 
         {/* Sliding Drawer for Add Employee */}
         <div
-          className={`fixed top-0 right-0 w-full md:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
+          className={`fixed top-0 right-0 w-full md:w-2/4 xl:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
             isAddEmployeeDrawerOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -239,13 +244,15 @@ function Home() {
         {isTaskDetailsOpen && (
           <div
             className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40"
-            onClick={toggleTaskDetails}
+            onClick={() => {
+              setTaskDetailsOpen(false);
+            }}
           ></div>
         )}
 
         {/* Sliding Drawer for Task Details */}
         <div
-          className={`fixed top-0 right-0 w-full md:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
+          className={`fixed top-0 right-0 w-full md:w-2/4 xl:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
             isTaskDetailsOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >

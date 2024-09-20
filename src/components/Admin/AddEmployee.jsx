@@ -62,7 +62,7 @@ const AddEmployee = ({ closeDrawer }) => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8 bg-secondary1 px-8 py-3">
+      <div className="flex justify-between items-center mb-8 bg-secondary1 px-8 py-4">
         <h2 className="text-xl font-semibold text-black">Add Employee</h2>
         <img
           src={close}
