@@ -45,7 +45,7 @@ const Navbar = () => {
       icon: projects,
       alt: "Projects",
       label: "Projects",
-      link: "/",
+      link: "/projects",
     },
     {
       id: "leads",
