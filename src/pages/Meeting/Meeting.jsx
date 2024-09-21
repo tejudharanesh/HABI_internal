@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../components/header/Header";
 import gmeet from "../../assets/svg/gmeet.svg";
 import link from "../../assets/svg/link.svg";
+import option from "../../assets/images/option.png";
+import NewMeeting from "../../components/Meeting/NewMeeting";
 
 const meetingsData = [
   {
@@ -56,13 +58,19 @@ const Meeting = () => {
   const leadMeetings = meetingsData.filter(
     (meeting) => meeting.type === "lead"
   );
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen); // Toggle modal visibility
+  };
 
   const renderMeetingTableRow = (meeting, index) => (
-    <div className="grid grid-cols-5 mx-4 mr-10" key={index}>
-      <p className="py-2 text-black">{meeting.name}</p>
-      <p className="py-2 text-black">{meeting.id}</p>
-      <p className="py-2 text-black">{meeting.date}</p>
-      <p className="py-2 text-black">{meeting.time}</p>
+    <div className="grid grid-cols-5 mx-4 mr-10 space-y-4 relative" key={index}>
+      <p className="pt-4 text-black">{meeting.name}</p>
+      <p className="p-1 text-black bg-background w-fit ml-2 rounded-lg">
+        {meeting.id}
+      </p>
+      <p className="p-1 text-black">{meeting.date}</p>
+      <p className="p-1 text-black">{meeting.time}</p>
       <a
         href="#"
         className="text-black flex items-center space-x-1"
@@ -73,35 +81,57 @@ const Meeting = () => {
         <span>Meet</span>
         <img src={link} alt="->" />
       </a>
+      <img
+        src={option}
+        alt="more"
+        className="absolute right-0 top-1 cursor-pointer"
+      />
     </div>
   );
 
   const renderMeetingCard = (meeting, index) => (
     <div
       key={index}
-      className="border bg-layoutColor rounded-lg p-4 mb-4 flex flex-col gap-2"
+      className="border bg-layoutColor rounded-lg px-4 py-2 mb-4 grid grid-cols"
     >
-      <div className="flex justify-between">
-        <span className="font-semibold text-black">Name:</span>
-        <span className="text-black">{meeting.name}</span>
+      <div className="flex relative">
+        <span className="font-semibold text-black py-1">Name </span>
+        <span className="text-black py-1 absolute left-[30%] ">
+          {meeting.name}
+        </span>
+        <img
+          src={option}
+          alt=""
+          className="h-5 cursor-pointer absolute right-2 top-2"
+        />
       </div>
-      <div className="flex justify-between">
-        <span className="font-semibold text-black">Client ID:</span>
-        <span className="text-black">{meeting.id}</span>
+      <div className="flex  relative">
+        <span className="font-semibold text-black py-1">Client ID </span>
+        <span className="text-black bg-background py-1 px-2 mb-1 absolute left-[30%]">
+          {meeting.id}
+        </span>
+        <span></span>
       </div>
-      <div className="flex justify-between">
-        <span className="font-semibold text-black">Date:</span>
-        <span className="text-black">{meeting.date}</span>
+      <div className="flex relative">
+        <span className="font-semibold text-black py-1">Date </span>
+        <span className="text-black py-1 absolute left-[30%]">
+          {meeting.date}
+        </span>
+        <span></span>
       </div>
-      <div className="flex justify-between">
-        <span className="font-semibold text-black">Time:</span>
-        <span className="text-black">{meeting.time}</span>
+      <div className="flex relative">
+        <span className="font-semibold text-black py-1">Time </span>
+        <span className="text-black py-1 absolute left-[30%]">
+          {meeting.time}
+        </span>
+        <span></span>
       </div>
-      <div className="flex justify-between items-center text-black">
-        <span className="font-semibold">Link:</span>
+      <div className="flex text-black relative">
+        <span className="font-semibold py-1">Link </span>
+
         <a
           href="#"
-          className="text-black flex items-center space-x-1"
+          className="text-black flex items-center space-x-1 py-1 absolute left-[30%]"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -109,9 +139,24 @@ const Meeting = () => {
           <span>Meet</span>
           <img src={link} alt="->" />
         </a>
+        <span></span>
       </div>
     </div>
   );
+
+  useEffect(() => {
+    const body = document.body;
+    if (isModalOpen) {
+      body.classList.add("no-scroll");
+    } else {
+      body.classList.remove("no-scroll");
+    }
+
+    // Cleanup on component unmount
+    return () => {
+      body.classList.remove("no-scroll");
+    };
+  }, [isModalOpen]);
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-layoutColor font-poppins">
@@ -119,14 +164,17 @@ const Meeting = () => {
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
       >
         <Header />
-        <div className="p-6 lg:mx-14 xl:mx-32">
+        <div className="p-2 md:p-6 lg:mx-14 xl:mx-32">
           {/* Client Meeting Section */}
           <div className="mb-8">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-semibold text-gray-600">
                 Client Meeting
               </h2>
-              <button className="bg-primaryO text-primary px-3 py-1.5 rounded-lg border-1 border-primary text-sm">
+              <button
+                className="bg-primaryO text-primary px-3 py-1.5 rounded-lg border-1 border-primary text-sm"
+                onClick={toggleModal} // Open the modal on button click
+              >
                 + Create
               </button>
             </div>
@@ -134,11 +182,11 @@ const Meeting = () => {
             {/* Large Screen: Table Layout */}
             <div className="hidden md:block">
               <div className="grid grid-cols-5 bg-secondary1 px-4">
-                <p className="py-2 text-black">Name</p>
-                <p className="py-2 text-black">Lead ID</p>
-                <p className="py-2 text-black">Date</p>
-                <p className="py-2 text-black">Time</p>
-                <p className="py-2 text-black">Link</p>
+                <p className="py-2 pl-4 text-black font-semibold">Name</p>
+                <p className="py-2 p-3 text-black font-semibold">Lead ID</p>
+                <p className="py-2 text-black font-semibold">Date</p>
+                <p className="py-2 text-black font-semibold">Time</p>
+                <p className="py-2 text-black font-semibold">Link</p>
               </div>
               <div>{leadMeetings.map(renderMeetingTableRow)}</div>
             </div>
@@ -159,12 +207,12 @@ const Meeting = () => {
 
             {/* Large Screen: Table Layout */}
             <div className="hidden md:block">
-              <div className="grid grid-cols-5 bg-secondary1 px-4 ">
-                <p className="py-2 text-black">Name</p>
-                <p className="py-2 text-black">Lead ID</p>
-                <p className="py-2 text-black">Date</p>
-                <p className="py-2 text-black">Time</p>
-                <p className="py-2 text-black">Link</p>
+              <div className="grid grid-cols-5 bg-secondary1 px-4">
+                <p className="py-2 pl-4 text-black font-semibold">Name</p>
+                <p className="py-2 p-3 text-black font-semibold">Lead ID</p>
+                <p className="py-2 text-black font-semibold">Date</p>
+                <p className="py-2 text-black font-semibold">Time</p>
+                <p className="py-2 text-black font-semibold">Link</p>
               </div>
               <div>{leadMeetings.map(renderMeetingTableRow)}</div>
             </div>
@@ -177,6 +225,8 @@ const Meeting = () => {
             </div>
           </div>
         </div>
+        {isModalOpen && <NewMeeting onClose={toggleModal} />}
+        {/* Render the modal if open */}
       </div>
     </div>
   );
