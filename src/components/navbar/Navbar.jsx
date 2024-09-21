@@ -37,7 +37,7 @@ const Navbar = () => {
       id: "meeting",
       icon: meeting,
       alt: "Meeting",
-      label: "Meeting",
+      label: "Meetings",
       link: "/meeting",
     },
     {
@@ -64,8 +64,8 @@ const Navbar = () => {
     {
       id: "team",
       icon: team,
-      alt: "Team",
-      label: "Team",
+      alt: "Teams",
+      label: "Teams",
       link: "/",
     },
     {
