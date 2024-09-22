@@ -16,6 +16,9 @@ function ProjectDetails() {
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
       >
         <Header />
+        <div className="md:hidden px-4 p-2">
+          <TimelinePayment />
+        </div>
         <div className="p-4 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4">
             <div className="col-span-1 lg:col-span-2 border-2 rounded-xl p-2">
@@ -34,12 +37,20 @@ function ProjectDetails() {
                 </div>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
-                <div className="lg:col-span-1 p-1">
+                <div className="lg:col-span-1 p-1 lg:hidden">
+                  <PersonalInformation />
+                  <ProjectInformation />
+                  <Gallery />
+                </div>
+                <div className="hidden lg:inline lg:col-span-1 p-1">
                   <PersonalInformation />
                   <DVisualise />
                   <Gallery />
                 </div>
-                <div className="lg:col-span-1 p-1">
+                <div className="lg:col-span-1 p-1 lg:hidden">
+                  <Materials />
+                </div>
+                <div className="hidden lg:inline lg:col-span-1 p-1">
                   <ProjectInformation />
                   <Materials />
                 </div>

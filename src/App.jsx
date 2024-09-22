@@ -12,7 +12,7 @@ function App() {
     <Router>
       <Routes>
         {/* Redirect from "/" to "/dashboard" */}
-        <Route path="/" element={<Navigate to="/dashboard/*" />} />
+        <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
       </Routes>
     </Router>
