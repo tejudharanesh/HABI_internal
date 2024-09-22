@@ -2,7 +2,7 @@ import React from "react";
 
 function PersonalInformation() {
   return (
-    <div>
+    <div className="mb-4">
       <p className="text-black font-semibold">Personal Information</p>
 
       <form className="mt-4 space-y-7 w-full px-4 md:px-0 mb-3">

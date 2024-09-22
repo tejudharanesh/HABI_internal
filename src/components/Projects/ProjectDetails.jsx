@@ -7,6 +7,8 @@ import ProjectInformation from "./ProjectInformation";
 import DVisualise from "./DVisualise";
 import Gallery from "./Gallery";
 import Materials from "./Materials";
+import TimelinePayment from "./TimelinePayment";
+import Documents from "./Documents";
 function ProjectDetails() {
   return (
     <div className="min-h-screen flex flex-col items-center bg-layoutColor font-poppins">
@@ -43,7 +45,10 @@ function ProjectDetails() {
                 </div>
               </div>
             </div>
-            <div className="col-span-1 bg-green-200">dfrfdff</div>
+            <div className="col-span-1 p-1">
+              <TimelinePayment />
+              <Documents />
+            </div>
           </div>
         </div>
       </div>
