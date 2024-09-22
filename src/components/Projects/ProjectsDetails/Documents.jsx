@@ -1,6 +1,6 @@
 import React from "react";
-import pdf from "../../assets/images/pdf.png";
-import more from "../../assets/images/option.png";
+import pdf from "../../../assets/images/pdf.png";
+import more from "../../../assets/images/option.png";
 
 const sections = [
   {

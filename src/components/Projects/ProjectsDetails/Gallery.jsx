@@ -1,13 +1,11 @@
 import React from "react";
-import site from "../../assets/images/site.png";
+import site from "../../../assets/images/site.png";
 
-function DVisualise() {
+function Gallery() {
   return (
-    <div className="mb-4">
+    <div>
       <header className="m-2 relative">
-        <p className="text-lg font-semibold text-black inline-block">
-          3D Visualize
-        </p>
+        <p className="text-lg font-semibold text-black inline-block">Gallery</p>
         <p className="inline-block absolute right-0 top-0 xl:right-40 text-primary cursor-pointer">
           View more
         </p>
@@ -21,7 +19,7 @@ function DVisualise() {
         <img
           src={site}
           alt="Site Photo 1"
-          className="w-[60px] h-[60px] object-cover rounded-lg "
+          className="w-[60px] h-[60px] object-cover rounded-lg"
         />
         <img
           src={site}
@@ -38,4 +36,4 @@ function DVisualise() {
   );
 }
 
-export default DVisualise;
+export default Gallery;

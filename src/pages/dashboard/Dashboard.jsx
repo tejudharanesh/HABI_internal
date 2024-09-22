@@ -4,7 +4,9 @@ import Navbar from "../../components/navbar/Navbar";
 import Home from "../Admin/Home";
 import Meeting from "../Meeting/Meeting";
 import Project from "../Projects/Project";
-import ProjectDetails from "../../components/Projects/ProjectDetails";
+import ProjectDetails from "../../components/Projects/ProjectsDetails/ProjectDetails";
+import Timeline from "../../components/Projects/Timeline/Timeline";
+import Payment from "../../components/Projects/Payment/Payment";
 
 function Dashboard() {
   return (
@@ -20,6 +22,8 @@ function Dashboard() {
           <Route path="/meeting" element={<Meeting />} />
           <Route path="/projects" element={<Project />} />
           <Route path="/projectsDetails" element={<ProjectDetails />} />
+          <Route path="/timeline" element={<Timeline />} />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </div>
     </div>

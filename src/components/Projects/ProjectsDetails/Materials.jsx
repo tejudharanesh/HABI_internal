@@ -1,5 +1,5 @@
 import React from "react";
-import steel from "../../assets/images/steel.png";
+import steel from "../../../assets/images/steel.png";
 
 function Materials() {
   return (
