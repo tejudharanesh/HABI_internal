@@ -1,6 +1,7 @@
 import React from "react";
 import background from "../../assets/images/background.png";
 import Header from "../../components/header/Header";
+import { useNavigate } from "react-router-dom";
 
 const projects = [
   {
@@ -117,26 +118,32 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-const ProjectCard = ({ project }) => (
-  <div
-    className="bg-layoutColor rounded-3xl bg-no-repeat w-[173px] h-[262px] md:w-[270px] md:h-[323px] relative cursor-pointer"
-    style={{ backgroundImage: `url(${background})` }}
-  >
-    <div className="relative">
-      <div className="absolute top-11 left-4 md:left-auto md:top-2 md:right-2">
-        <StatusBadge status={project.status} />
+const ProjectCard = ({ project }) => {
+  const navigate = useNavigate();
+  return (
+    <div
+      className="bg-layoutColor rounded-3xl bg-no-repeat w-[173px] h-[262px] md:w-[270px] md:h-[323px] relative cursor-pointer"
+      style={{ backgroundImage: `url(${background})` }}
+      onClick={() => {
+        navigate("/dashboard/projectsDetails");
+      }} // Navigate on click
+    >
+      <div className="relative">
+        <div className="absolute top-11 left-4 md:left-auto md:top-2 md:right-2">
+          <StatusBadge status={project.status} />
+        </div>
+        <div className="absolute top-2 left-4 border border-white p-1 px-2 rounded-xl text-sm bg-layoutColor1">
+          {project.id}
+        </div>
       </div>
-      <div className="absolute top-2 left-4 border border-white p-1 px-2 rounded-xl text-sm bg-layoutColor1">
-        {project.id}
+      <div className="p-2 absolute bg-white w-[157px] md:w-[250px] h-[118px] md:h-[126px] rounded-b-xl bottom-3 left-2">
+        <p className="text-black font-semibold">{project.name}</p>
+        <p className="text-black text-sm mb-3">{project.location}</p>
+        <p className="text-black text-sm">{project.date}</p>
       </div>
     </div>
-    <div className="p-2 absolute bg-white w-[157px] md:w-[250px] h-[118px] md:h-[126px] rounded-b-xl bottom-3 left-2">
-      <p className="text-black font-semibold">{project.name}</p>
-      <p className="text-black text-sm mb-3">{project.location}</p>
-      <p className="text-black text-sm">{project.date}</p>
-    </div>
-  </div>
-);
+  );
+};
 
 const Project = () => {
   return (
