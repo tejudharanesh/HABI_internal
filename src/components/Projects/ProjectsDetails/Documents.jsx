@@ -45,16 +45,16 @@ function Documents() {
               key={doc.id}
               className="flex justify-between items-center my-1"
             >
-              <div className="flex items-center space-x-2">
-                <p className="text-black text-lg mr-2">{doc.id}.</p>
+              <div className="flex items-center space-x-1">
+                <p className="text-black text-lg mr-1 xl:mr-4">{doc.id}.</p>
                 <img src={pdf} alt="pdf icon" />
                 <div>
-                  <p className="text-black text-lg">{doc.name}</p>
-                  <p className="text-gray-400 text-sm">{doc.date}</p>
+                  <p className="text-black">{doc.name}</p>
+                  <p className="text-gray-400 text-xs">{doc.date}</p>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
-                <button className="bg-primaryO text-primary px-2 rounded-md border border-primary py-0 mr-2">
+              <div className="flex items-center space-x-3 xl:mr-5">
+                <button className="bg-primaryO text-primary px-2 rounded-md border border-primary py-0 h-6 mr-2">
                   {doc.version}
                 </button>
                 <img src={more} alt="more" />
