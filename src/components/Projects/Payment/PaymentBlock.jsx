@@ -12,8 +12,15 @@ function PaymentBlock({ data, currentStage, stageNumber }) {
           <div className="absolute top-5 right-11 rounded-full">
             <img src={done} alt="done" />
           </div>
-          <div className="absolute top-14 right-2">
-            <h2 className="bg-layoutColor p-1">{data.date}</h2>
+          <div className="absolute top-11 right-2 lg:top-4 lg:-right-20">
+            <h2 className="bg-layoutColor p-1 lg:text-lg text-gray-400">
+              {data.date}
+            </h2>
+          </div>
+          <div className="absolute top-[75px] right-4 lg:top-12 lg:-right-16">
+            <h2 className="bg-layoutColor p-1 lg:text-lg text-black">
+              ₹ XXXXXX
+            </h2>
           </div>
         </div>
       );
@@ -22,13 +29,23 @@ function PaymentBlock({ data, currentStage, stageNumber }) {
         <div>
           <div className="absolute top-6 right-14 h-full border-l-2 border-dashed"></div>
 
-          <div className="absolute top-5 right-4 rounded-full">
-            <button className="bg-primary text-white p-2 rounded-lg">
+          <div className="absolute top-4 right-1 lg:top-4 lg:right-20 rounded-full">
+            <button className="bg-primary text-white px-3 py-2 rounded-lg">
               Notify User
             </button>
           </div>
-          <div className="absolute top-16 right-2">
-            <h2 className="bg-layoutColor p-1">Due on {data.dueDate}</h2>
+          <div className="absolute top-5 right-11 rounded-full hidden lg:inline">
+            <img src={circle} alt="done" className="h-7 w-7" />
+          </div>
+          <div className="absolute top-16 right-0 lg:top-4 lg:-right-24">
+            <h2 className="bg-layoutColor p-1 lg:text-lg text-gray-400">
+              Due on {data.dueDate}
+            </h2>
+          </div>
+          <div className="absolute top-24 right-4 lg:top-12 lg:-right-16">
+            <h2 className="bg-layoutColor p-1 lg:text-lg text-black">
+              ₹ XXXXXX
+            </h2>
           </div>
         </div>
       );
@@ -39,6 +56,11 @@ function PaymentBlock({ data, currentStage, stageNumber }) {
 
           <div className="absolute top-5 right-11 rounded-full">
             <img src={circle} alt="done" className="h-7 w-7" />
+          </div>
+          <div className="absolute top-12 right-4 lg:top-4 lg:-right-16">
+            <h2 className="bg-layoutColor p-1 lg:text-lg text-black">
+              ₹ XXXXXX
+            </h2>
           </div>
         </div>
       );

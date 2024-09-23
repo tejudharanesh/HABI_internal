@@ -17,7 +17,7 @@ const paymentStages = [
     cost: "20% of the Total cost",
     stages: ["Site Marking", "Excavation", "Foundation", "Upto Plinth Level"],
     week: "2nd Week",
-    date: "",
+    date: "25 May 2024",
     dueDate: "22 June",
   },
   {
@@ -59,7 +59,7 @@ function Payment() {
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24  lg:pl-40`}
       >
         <Header />
-        <div className="flex flex-col md:pl-10 md:pr-60 lg:pr-[40%] lg:pl-[15%] xl:px-96 xl:mr-60">
+        <div className="flex flex-col md:pl-10 md:pr-60 lg:pr-[45%] lg:pl-[10%]">
           {paymentStages.map((stages, index) => (
             <PaymentBlock
               key={index}
