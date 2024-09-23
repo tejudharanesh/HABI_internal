@@ -6,7 +6,7 @@ function Payment() {
       <div
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
       >
-        <h1>dkjlhferf</h1>
+        <h1></h1>
       </div>
     </div>
   );
