@@ -29,22 +29,18 @@ if ("serviceWorker" in navigator) {
 let deferredPrompt;
 
 window.addEventListener("beforeinstallprompt", (e) => {
-  // Prevent the mini-infobar from appearing on mobile
   e.preventDefault();
-  // Stash the event so it can be triggered later.
   deferredPrompt = e;
-
-  // Optionally, show a custom UI or wait for a specific user interaction
-  showInstallPrompt();
+  showInstallButton();
 });
 
-function showInstallPrompt() {
-  // Example: Prompt the user after a delay (e.g., 10 seconds)
-  setTimeout(() => {
+function showInstallButton() {
+  const installButton = document.getElementById("installButton");
+  installButton.style.display = "block";
+
+  installButton.addEventListener("click", () => {
     if (deferredPrompt) {
-      // Show the prompt
       deferredPrompt.prompt();
-      // Wait for the user to respond to the prompt
       deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === "accepted") {
           console.log("User accepted the A2HS prompt");
@@ -52,7 +48,13 @@ function showInstallPrompt() {
           console.log("User dismissed the A2HS prompt");
         }
         deferredPrompt = null;
+        installButton.style.display = "none";
       });
     }
-  }, 3000); // Delay of 3 seconds
+  });
 }
+
+// Detect if the app was installed
+window.addEventListener("appinstalled", (evt) => {
+  console.log("PWA was installed");
+});

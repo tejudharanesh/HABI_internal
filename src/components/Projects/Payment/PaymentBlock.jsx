@@ -6,7 +6,7 @@ function PaymentBlock({ data, currentStage, stageNumber }) {
   const renderStatus = () => {
     if (currentStage > stageNumber) {
       return (
-        <div>
+        <div className="text-black">
           <div className="absolute top-6 right-14 h-full border-l-2  border-black border-dashed"></div>
 
           <div className="absolute top-5 right-11 rounded-full">
@@ -51,7 +51,7 @@ function PaymentBlock({ data, currentStage, stageNumber }) {
         <p className="text-black font-semibold text-[16px] m-1">{data.title}</p>
 
         {data.stages.map((stage, index) => (
-          <p className="text-xs ml-1">{stage}</p>
+          <p className="text-xs ml-1 text-black">{stage}</p>
         ))}
 
         {/* sub lists will be in p tag*/}
