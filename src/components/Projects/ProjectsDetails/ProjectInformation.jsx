@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import location from "../../../assets/svg/location.svg";
 function ProjectInformation() {
   const [projectCost, setProjectCost] = useState("1.5 cr");
   const [duration, setDuration] = useState("25 May 2024");
@@ -119,18 +119,25 @@ function ProjectInformation() {
             />
           </div>
         </div>
-
-        {/* Status */}
-        <div className="relative mb-7">
-          <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-gray-400">
-            Status
-          </label>
-          <input
-            type="text"
-            className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          />
+        <div className="grid grid-cols-2 gap-4">
+          {/* Status */}
+          <div className="relative mb-7">
+            <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-gray-400">
+              Status
+            </label>
+            <input
+              type="text"
+              className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            />
+          </div>
+          <div className="relative mb-7">
+            <button className="w-full px-3 py-2 rounded-xl bg-blue-100 text-blue-400">
+              Location
+              <img src={location} alt="" className="inline ml-1" />
+            </button>
+          </div>
         </div>
 
         {/* Site Location */}
