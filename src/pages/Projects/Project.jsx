@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import background from "../../assets/images/background.png";
 import Header from "../../components/header/Header";
 import { useNavigate } from "react-router-dom";
+import AddProject from "../../components/Projects/AddProject/AddProject";
 
 const projects = [
   {
@@ -146,6 +147,25 @@ const ProjectCard = ({ project }) => {
 };
 
 const Project = () => {
+  const [isAddProjectDrawerOpen, setAddProjectDrawerOpen] = useState(false);
+  const toggleAddProject = () => {
+    setAddProjectDrawerOpen(!isAddProjectDrawerOpen);
+  };
+
+  useEffect(() => {
+    const body = document.body;
+    if (isAddProjectDrawerOpen) {
+      body.classList.add("no-scroll");
+    } else {
+      body.classList.remove("no-scroll");
+    }
+
+    // Cleanup on component unmount
+    return () => {
+      body.classList.remove("no-scroll");
+    };
+  }, [isAddProjectDrawerOpen]);
+
   return (
     <div className="min-h-screen flex flex-col items-center bg-layoutColor font-poppins">
       <div
@@ -156,9 +176,12 @@ const Project = () => {
           {/* Active Projects */}
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold text-gray-600">
-              Client Meeting
+              Active Projects
             </h2>
-            <button className="bg-primaryO text-primary px-3 py-1.5 rounded-lg border-1 border-primary text-sm">
+            <button
+              className="bg-primaryO text-primary px-3 py-1.5 rounded-lg border-1 border-primary text-sm"
+              onClick={toggleAddProject}
+            >
               + Add project
             </button>
           </div>
@@ -181,6 +204,21 @@ const Project = () => {
               ))}
             </div>
           </div>
+        </div>
+        {isAddProjectDrawerOpen && (
+          <div
+            className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40"
+            onClick={toggleAddProject}
+          ></div>
+        )}
+
+        {/* Sliding Drawer for Assign Task */}
+        <div
+          className={`fixed top-0 right-0 w-full md:w-2/4 xl:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
+            isAddProjectDrawerOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <AddProject closeDrawer={toggleAddProject} />
         </div>
       </div>
     </div>
