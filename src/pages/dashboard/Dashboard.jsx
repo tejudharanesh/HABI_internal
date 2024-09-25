@@ -7,6 +7,7 @@ import Project from "../Projects/Project";
 import ProjectDetails from "../../components/Projects/ProjectsDetails/ProjectDetails";
 import Timeline from "../../components/Projects/Timeline/Timeline";
 import Payment from "../../components/Projects/Payment/Payment";
+import Leads from "../Leads/Leads";
 
 function Dashboard() {
   return (
@@ -24,6 +25,7 @@ function Dashboard() {
           <Route path="/projectsDetails" element={<ProjectDetails />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/leads" element={<Leads />} />
         </Routes>
       </div>
     </div>

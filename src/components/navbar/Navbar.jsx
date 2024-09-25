@@ -52,7 +52,7 @@ const Navbar = () => {
       icon: leads,
       alt: "Leads",
       label: "Leads",
-      link: "/",
+      link: "/dashboard/leads",
     },
     {
       id: "vendors",
