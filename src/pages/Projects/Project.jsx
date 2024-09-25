@@ -194,7 +194,7 @@ const Project = () => {
           </div>
 
           {/* Completed Projects */}
-          <div>
+          <div className="md:pr-[20%] lg:pr-0">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               Completed Projects
             </h2>
