@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import option from "../../assets/images/option.png";
 import Header from "../../components/header/Header";
 import AddLeads from "../../components/Leads/AddLeads";
 
 const Leads = () => {
+  const navigate = useNavigate();
+
+  const handleLeadClick = (lead) => {
+    navigate(`/dashboard/lead-details/${lead.id}`, { state: { lead } });
+  };
+
   const [selectedLeads, setSelectedLeads] = useState([]);
   const [showDropdown, setShowDropdown] = useState(null); // Change to hold ID or null
   const toggleDropdown = (leadId) => {
@@ -13,10 +20,9 @@ const Leads = () => {
   const [isAddLeadsDrawerOpen, setAddLeadsDrawerOpen] = useState(false);
 
   const toggleAddLeads = () => {
-    console.log("lkjflkr");
-
     setAddLeadsDrawerOpen(!isAddLeadsDrawerOpen);
   };
+
   useEffect(() => {
     const body = document.body;
     if (isAddLeadsDrawerOpen) {
@@ -39,6 +45,8 @@ const Leads = () => {
       phone: "1234567890",
       email: "Charan@gmail.com",
       level: "", // Blank level
+      PinCode: "577527",
+      address: "kodihalli aralihalli hosadurga chittradurga karnataka",
     },
     {
       id: 2,
@@ -47,6 +55,8 @@ const Leads = () => {
       phone: "1234567890",
       email: "Chdran@gmail.com",
       level: "Level 0",
+      pinCode: "577527",
+      address: "kodihalli aralihalli hosadurga chittradurga karnataka",
     },
     {
       id: 3,
@@ -131,12 +141,16 @@ const Leads = () => {
     <div
       key={index}
       className="border-2 bg-layoutColor rounded-lg p-4 pr-12 mb-4 space-y-2 relative"
+      onClick={() => handleLeadClick(lead)} // Add click handler here
     >
       <img
         src={option}
         alt="Options"
         className="h-5 cursor-pointer absolute right-2 top-6"
-        onClick={() => toggleDropdown(lead.id)}
+        onClick={(e) => {
+          e.stopPropagation(); // Prevent click on the options from triggering the lead click
+          toggleDropdown(lead.id);
+        }}
       />
       {/* Name Section */}
       <div className="flex justify-between">
