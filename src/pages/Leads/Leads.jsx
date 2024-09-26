@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import option from "../../assets/images/option.png";
 import Header from "../../components/header/Header";
+import AddLeads from "../../components/Leads/AddLeads";
 
 const Leads = () => {
   const [selectedLeads, setSelectedLeads] = useState([]);
@@ -8,6 +9,27 @@ const Leads = () => {
   const toggleDropdown = (leadId) => {
     setShowDropdown(showDropdown === leadId ? null : leadId); // Toggle dropdown for specific lead
   };
+
+  const [isAddLeadsDrawerOpen, setAddLeadsDrawerOpen] = useState(false);
+
+  const toggleAddLeads = () => {
+    console.log("lkjflkr");
+
+    setAddLeadsDrawerOpen(!isAddLeadsDrawerOpen);
+  };
+  useEffect(() => {
+    const body = document.body;
+    if (isAddLeadsDrawerOpen) {
+      body.classList.add("no-scroll");
+    } else {
+      body.classList.remove("no-scroll");
+    }
+
+    // Cleanup on component unmount
+    return () => {
+      body.classList.remove("no-scroll");
+    };
+  }, [isAddLeadsDrawerOpen]);
 
   const [leads, setLeads] = useState([
     {
@@ -23,7 +45,7 @@ const Leads = () => {
       name: "Charan",
       leadId: "CHA2024",
       phone: "1234567890",
-      email: "Charan@gmail.com",
+      email: "Chdran@gmail.com",
       level: "Level 0",
     },
     {
@@ -52,6 +74,10 @@ const Leads = () => {
     },
     // More leads can be added
   ]);
+
+  const addLead = (newLead) => {
+    setLeads((prevLeads) => [...prevLeads, newLead]); // Add the new lead to leads array
+  };
 
   const handleCheckboxChange = (id) => {
     setSelectedLeads((prevSelected) =>
@@ -177,7 +203,10 @@ const Leads = () => {
         <div className="p-2 md:p-4">
           {/* Add Lead Button */}
           <div className="flex justify-end mb-4">
-            <button className="bg-primaryO p-2 rounded-lg text-primary border border-primary">
+            <button
+              className="bg-primaryO p-2 rounded-lg text-primary border border-primary"
+              onClick={toggleAddLeads}
+            >
               + Add Lead
             </button>
           </div>
@@ -347,7 +376,20 @@ const Leads = () => {
             </table>
           </div>
         </div>
-        {/* Footer with "Change Levels" and "Delete" options */}
+        {isAddLeadsDrawerOpen && (
+          <div
+            className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40"
+            onClick={toggleAddLeads}
+          ></div>
+        )}
+        {/* Sliding Drawer for Assign Task */}
+        <div
+          className={`fixed top-0 right-0 w-full md:w-2/4 xl:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
+            isAddLeadsDrawerOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <AddLeads closeDrawer={toggleAddLeads} addLead={addLead} />
+        </div>
       </div>
       {selectedLeads.length > 0 && (
         <div className="hidden mt-4 md:flex justify-between items-center border-2 fixed bottom-2 px-4 rounded-lg text-black mx-auto w-[80%] ml-10 lg:ml-32">
