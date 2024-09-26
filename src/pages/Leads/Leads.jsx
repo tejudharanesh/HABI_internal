@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import option from "../../assets/images/option.png";
+import Header from "../../components/header/Header";
 
 const Leads = () => {
   const [selectedLeads, setSelectedLeads] = useState([]);
@@ -100,12 +101,80 @@ const Leads = () => {
       lead.level === "Level 3"
   );
 
+  const renderLeadCard = (lead, index) => (
+    <div
+      key={index}
+      className="border-2 bg-layoutColor rounded-lg p-4 pr-12 mb-4 space-y-2 relative"
+    >
+      <img
+        src={option}
+        alt="Options"
+        className="h-5 cursor-pointer absolute right-2 top-6"
+        onClick={() => toggleDropdown(lead.id)}
+      />
+      {/* Name Section */}
+      <div className="flex justify-between">
+        <span className="font-semibold text-black">Name</span>
+        <span className="text-black align">{lead.name}</span>
+      </div>
+
+      {/* Lead ID Section */}
+      <div className="flex justify-between">
+        <span className="font-semibold text-black">Lead ID</span>
+        <span className="text-black bg-background py-1 px-2 rounded">
+          {lead.leadId}
+        </span>
+      </div>
+
+      {/* Phone Section */}
+      <div className="flex justify-between">
+        <span className="font-semibold text-black">Phone No.</span>
+        <span className="text-black">{lead.phone}</span>
+      </div>
+
+      {/* Email Section */}
+      <div className="flex justify-between">
+        <span className="font-semibold text-black">Email</span>
+        <span className="text-black">{lead.email}</span>
+      </div>
+
+      {/* Level Section */}
+      <div className="flex justify-between">
+        <span className="font-semibold text-black">Level</span>
+        <select
+          value={lead.level}
+          className="border border-gray-300 rounded-lg p-2 focus:outline-none text-black bg-white"
+          onChange={(e) => handleLevelChange(lead.id, e.target.value)}
+        >
+          <option></option>
+          <option>Level 0</option>
+          <option>Level 1</option>
+          <option>Level 2</option>
+          <option>Level 3</option>
+        </select>
+      </div>
+
+      {/* Dropdown for delete (conditional display) */}
+      {showDropdown === lead.id && (
+        <div className="mt-2 bg-layoutColor shadow-lg z-10 rounded-full absolute top-10 right-1">
+          <button
+            className="block w-full px-3 py-1 text-red-600 hover:bg-gray-100 rounded-full"
+            onClick={() => DeleteLead(lead.id)}
+          >
+            Delete
+          </button>
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <div className="min-h-screen flex flex-col items-center bg-layoutColor font-poppins">
       <div
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 min-h-screen h-auto w-screen md:pl-24 lg:pl-40 text-black`}
       >
-        <div className="p-4">
+        <Header />
+        <div className="p-2 md:p-4">
           {/* Add Lead Button */}
           <div className="flex justify-end mb-4">
             <button className="bg-primaryO p-2 rounded-lg text-primary border border-primary">
@@ -113,8 +182,19 @@ const Leads = () => {
             </button>
           </div>
 
+          <div className="md:hidden">
+            {/* Render leads */}
+            {leadsWithBlankLevel.map(renderLeadCard)}
+          </div>
+          <div className="md:hidden">
+            {/* Render leads */}
+            <h3 className="px-4 py-2 text-left text-gray-500">Leads Level</h3>
+
+            {leadsWithLevels.map(renderLeadCard)}
+          </div>
+
           {/* First block: Leads with blank levels */}
-          <div className="mb-6">
+          <div className="mb-6 hidden md:inline">
             <table className="min-w-full">
               <thead className="bg-secondary1">
                 <tr>
@@ -191,7 +271,7 @@ const Leads = () => {
           </div>
 
           {/* Second block: Leads with Levels 0 to 3 */}
-          <div className="">
+          <div className="hidden md:inline">
             <h3 className="px-4 py-2 text-left text-gray-500">Leads Level</h3>
             <table className="min-w-full">
               <thead className="bg-secondary1">
@@ -270,7 +350,7 @@ const Leads = () => {
         {/* Footer with "Change Levels" and "Delete" options */}
       </div>
       {selectedLeads.length > 0 && (
-        <div className="mt-4 flex justify-between items-center border-2 fixed bottom-2 px-4 rounded-lg text-black mx-auto w-[80%] ml-10 lg:ml-32">
+        <div className="hidden mt-4 md:flex justify-between items-center border-2 fixed bottom-2 px-4 rounded-lg text-black mx-auto w-[80%] ml-10 lg:ml-32">
           <p>{selectedLeads.length} Selected </p>
           <div className="flex items-center space-x-4">
             <p>Change Levels</p>
