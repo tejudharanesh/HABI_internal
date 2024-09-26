@@ -57,11 +57,16 @@ function LeadInformation() {
   );
 
   const handleEdit = () => {
+    setShowDropdown(false);
     setIsEditable(true);
   };
 
+  const handleDone = () => {
+    setIsEditable(false);
+    // Optionally, add save functionality here
+  };
+
   const handleDelete = () => {
-    // Implement delete functionality here
     console.log("Lead deleted");
   };
 
@@ -89,12 +94,21 @@ function LeadInformation() {
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 mt-2 relative">
-                <img
-                  src={option}
-                  alt="more"
-                  className="absolute right-3 cursor-pointer"
-                  onClick={() => toggleDropdown()}
-                />
+                {isEditable ? (
+                  <button
+                    className="absolute right-4 -top-1 bg-blue-600 text-white px-3 py-1 rounded-lg"
+                    onClick={handleDone}
+                  >
+                    Done
+                  </button>
+                ) : (
+                  <img
+                    src={option}
+                    alt="more"
+                    className="absolute right-4 -top-1 cursor-pointer"
+                    onClick={() => toggleDropdown()}
+                  />
+                )}
                 {showDropdown && (
                   <div className="absolute right-2 top-4 mt-2 bg-layoutColor shadow-lg rounded-lg z-10">
                     <button
