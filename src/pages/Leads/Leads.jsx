@@ -140,7 +140,7 @@ const Leads = () => {
   const renderLeadCard = (lead, index) => (
     <div
       key={index}
-      className="border-2 bg-layoutColor rounded-lg p-4 pr-12 mb-4 space-y-2 relative"
+      className="border-2 bg-layoutColor rounded-lg p-4 pr-12 mb-4 space-y-2 relative cursor-pointer"
       onClick={() => handleLeadClick(lead)} // Add click handler here
     >
       <img
@@ -263,7 +263,11 @@ const Leads = () => {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {leadsWithBlankLevel.map((lead) => (
-                  <tr key={lead.id} className="hover:bg-gray-50 relative">
+                  <tr
+                    key={lead.id}
+                    className="hover:bg-gray-50 relative cursor-pointer"
+                    onClick={() => handleLeadClick(lead)} // Add click handler here
+                  >
                     <td className="px-4 py-2">
                       <input
                         type="checkbox"
@@ -295,7 +299,10 @@ const Leads = () => {
                       src={option}
                       alt="more"
                       className="absolute right-0 top-3 cursor-pointer"
-                      onClick={() => toggleDropdown(lead.id)}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent click on the options from triggering the lead click
+                        toggleDropdown(lead.id);
+                      }}
                     />
                     {showDropdown === lead.id && ( // Check if the dropdown should be shown for this specific lead
                       <div className="absolute right-2 top-4 mt-2 bg-layoutColor shadow-lg rounded-lg z-10">
@@ -341,7 +348,11 @@ const Leads = () => {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {leadsWithLevels.map((lead) => (
-                  <tr key={lead.id} className="hover:bg-gray-50 relative">
+                  <tr
+                    key={lead.id}
+                    className="hover:bg-gray-50 relative cursor-pointer"
+                    onClick={() => handleLeadClick(lead)} // Add click handler here
+                  >
                     <td className="px-4 py-2">
                       <input
                         type="checkbox"
@@ -372,7 +383,10 @@ const Leads = () => {
                       src={option}
                       alt="more"
                       className="absolute right-0 top-3 cursor-pointer"
-                      onClick={() => toggleDropdown(lead.id)}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent click on the options from triggering the lead click
+                        toggleDropdown(lead.id);
+                      }}
                     />
                     {showDropdown === lead.id && ( // Check if the dropdown should be shown for this specific lead
                       <div className="absolute right-2 top-4 mt-2 bg-layoutColor shadow-lg rounded-lg z-10">
