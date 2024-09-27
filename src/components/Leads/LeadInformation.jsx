@@ -4,6 +4,7 @@ import Header from "../header/Header";
 import cover from "../../assets/images/cover.png";
 import profile from "../../assets/images/profile.png";
 import option from "../../assets/images/option.png";
+import ConfirmDelete from "./ConfirmDelete";
 
 function LeadInformation() {
   const [showDropdown, setShowDropdown] = useState(null);
@@ -27,6 +28,13 @@ function LeadInformation() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
+  const confirmDelete = () => {
+    console.log("Lead deleted");
+    setIsModalOpen(false); // Close modal after confirming deletion
+    // Here you can also handle the actual deletion logic
   };
 
   const InputField = ({ label, name, value, onChange, isTextarea }) => (
@@ -67,11 +75,17 @@ function LeadInformation() {
   };
 
   const handleDelete = () => {
-    console.log("Lead deleted");
+    setShowDropdown(false);
+    setIsModalOpen(true); // Open the modal when delete is clicked
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-layoutColor font-poppins">
+      <ConfirmDelete
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={confirmDelete}
+      />
       <div
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
       >
@@ -96,7 +110,7 @@ function LeadInformation() {
               <div className="grid grid-cols-1 md:grid-cols-2 mt-2 relative">
                 {isEditable ? (
                   <button
-                    className="absolute right-4 -top-1 bg-blue-600 text-white px-3 py-1 rounded-lg"
+                    className="absolute right-4 -top-1 bg-primary    text-white px-3 py-1 rounded-lg"
                     onClick={handleDone}
                   >
                     Done
@@ -110,15 +124,15 @@ function LeadInformation() {
                   />
                 )}
                 {showDropdown && (
-                  <div className="absolute right-2 top-4 mt-2 bg-layoutColor shadow-lg rounded-lg z-10">
+                  <div className="absolute right-2 top-4 mt-2 bg-layoutColor rounded-lg z-10">
                     <button
-                      className="block w-full px-3 text-red-600 hover:bg-layoutColor"
+                      className="block w-full px-4 py-1 text-black bg-background rounded-tl-2xl rounded-none"
                       onClick={handleEdit}
                     >
                       Edit
                     </button>
                     <button
-                      className="block w-full px-3 text-red-600 hover:bg-layoutColor"
+                      className="block w-full px-4 py-1 text-red-600 bg-background rounded-br-2xl rounded-none"
                       onClick={handleDelete}
                     >
                       Delete
