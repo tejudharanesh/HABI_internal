@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import Header from "../header/Header";
+import upload from "../../assets/svg/upload.svg";
+import add from "../../assets/svg/add.svg";
 
 const AddVendors = () => {
   const [CIN, setCIN] = useState("");
@@ -40,6 +42,38 @@ const AddVendors = () => {
   const [materialName, setMaterialName] = useState("");
   const [materialPrice, setMaterialPrice] = useState("");
   const [materialDescription, setMaterialDescription] = useState("");
+
+  const [serviceableCities, setServiceableCities] = useState([]);
+  const [newCity, setNewCity] = useState("");
+  const [subPlaceInput, setSubPlaceInput] = useState({});
+
+  const addCity = () => {
+    if (newCity.trim() !== "") {
+      setServiceableCities([
+        ...serviceableCities,
+        { city: newCity, subPlaces: [] },
+      ]);
+      setNewCity("");
+    }
+  };
+
+  // Function to handle sub-place input change for a specific city
+  const handleSubPlaceChange = (city, value) => {
+    setSubPlaceInput({ ...subPlaceInput, [city]: value });
+  };
+
+  // Function to add a sub-place under a city
+  const addSubPlace = (cityIndex) => {
+    const city = serviceableCities[cityIndex];
+    const subPlace = subPlaceInput[city.city];
+
+    if (subPlace && subPlace.trim() !== "") {
+      const updatedCities = [...serviceableCities];
+      updatedCities[cityIndex].subPlaces.push(subPlace);
+      setServiceableCities(updatedCities);
+      setSubPlaceInput({ ...subPlaceInput, [city.city]: "" });
+    }
+  };
 
   const addMaterial = () => {
     const newMaterial = {
@@ -129,7 +163,7 @@ const AddVendors = () => {
                         {CIN ? CIN : ""}
                       </div>
                       <div
-                        className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor"
+                        className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor text-center"
                         onClick={handleUploadClick}
                       >
                         <input
@@ -138,6 +172,7 @@ const AddVendors = () => {
                           ref={fileInputRef}
                           onChange={handleFileChange}
                         />
+                        <img src={upload} alt="" className="inline mr-2 pb-1" />
                         Upload
                       </div>
                     </div>
@@ -151,7 +186,7 @@ const AddVendors = () => {
                         {CIN ? CIN : ""}
                       </div>
                       <div
-                        className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor"
+                        className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor text-center"
                         onClick={handleUploadClick}
                       >
                         <input
@@ -160,6 +195,7 @@ const AddVendors = () => {
                           ref={fileInputRef}
                           onChange={handleFileChange}
                         />
+                        <img src={upload} alt="" className="inline mr-2 pb-1" />
                         Upload
                       </div>
                     </div>
@@ -186,7 +222,7 @@ const AddVendors = () => {
                         {CIN ? CIN : ""}
                       </div>
                       <div
-                        className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor"
+                        className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor text-center"
                         onClick={handleUploadClick}
                       >
                         <input
@@ -195,10 +231,80 @@ const AddVendors = () => {
                           ref={fileInputRef}
                           onChange={handleFileChange}
                         />
+                        <img src={upload} alt="" className="inline mr-2 pb-1" />
                         Upload
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div className="relative mb-4 lg:mb-6">
+                  <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
+                    Serviceable City
+                  </label>
+                  <div className="grid grid-cols-3">
+                    <div className="col-span-2 border-2 border-r-0 rounded-lg rounded-r-none w-full px-3 py-2">
+                      <input
+                        value={newCity}
+                        type="text"
+                        className="bg-layoutColor outline-none"
+                        onChange={(e) => setNewCity(e.target.value)}
+                      />
+                    </div>
+                    <div
+                      className=" border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor text-center"
+                      onClick={addCity}
+                    >
+                      <img src={add} alt="" className="inline mr-2 pb-1" />
+                      Add
+                    </div>
+                  </div>
+                </div>
+                <div className="mb-4">
+                  {serviceableCities.map((city, cityIndex) => (
+                    <div
+                      key={cityIndex}
+                      className="border p-4 mb-4 rounded-lg relative"
+                    >
+                      <label className="absolute -top-2.5 left-3 bg-layoutColor px-2 text-black">
+                        {city.city}
+                      </label>
+                      {/* Input for adding sub-places */}
+                      <div className="flex">
+                        <input
+                          type="text"
+                          className="px-1 bg-layoutColor outline-none"
+                          value={subPlaceInput[city.city] || ""}
+                          onChange={(e) =>
+                            handleSubPlaceChange(city.city, e.target.value)
+                          }
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              addSubPlace(cityIndex);
+                            }
+                          }}
+                          placeholder="Add sub-place"
+                        />
+                      </div>
+
+                      {/* List of sub-places */}
+                      <ul className="mt-2 flex gap-4">
+                        {city.subPlaces.map((subPlace, subPlaceIndex) => (
+                          <li
+                            key={subPlaceIndex}
+                            className="text-sm bg-background w-fit px-3 py-1 rounded-lg"
+                          >
+                            {subPlace}
+                            <img
+                              src={add}
+                              alt=""
+                              className="inline ml-2 pb-1 rotate-45"
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
 
                 <div className="mb-4">
@@ -209,9 +315,9 @@ const AddVendors = () => {
                     {["S", "M", "T", "W", "Th", "F", "Sa"].map((day, index) => (
                       <button
                         key={index}
-                        className={`bg-gray-200 hover:bg-blue-500 text-black hover:text-white px-3 py-1 rounded-lg ${
+                        className={`bg-gray-200 hover:bg-primary text-black hover:text-white px-3 py-1 rounded-full ring-0 outline-none  ${
                           serviceDays.includes(day)
-                            ? "bg-blue-500 text-white"
+                            ? "bg-primary text-white"
                             : ""
                         }`}
                         onClick={() =>
