@@ -1,7 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Header from "../header/Header";
 
 const AddVendors = () => {
+  const [CIN, setCIN] = useState("");
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setCIN(file.name);
+    }
+  };
+
+  const handleUploadClick = () => {
+    // Trigger the file input click
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   // States for form fields
   const [companyName, setCompanyName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -47,31 +64,36 @@ const AddVendors = () => {
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Left side form */}
             <div>
-              <div className="p-6 rounded-lg">
-                <div className="relative mb-4 lg:mb-6">
-                  <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                    Company Name
-                  </label>
-                  <input
-                    type="text"
-                    className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                    placeholder="Enter Company Name"
-                    value={companyName}
-                    onChange={(e) => setCompanyName(e.target.value)}
-                  />
-                </div>
+              <div className="p-3 pt-5 rounded-xl border-2">
+                <div className="grid grid-cols-3 mb-4">
+                  <div className="grid col-span-1 px-2">
+                    <div className="border border-gray-300 w-full h-full bg-background rounded-lg"></div>
+                  </div>
+                  <div className="grid col-span-2">
+                    <div className="relative mb-4 lg:mb-6">
+                      <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
+                        Company Name
+                      </label>
+                      <input
+                        type="text"
+                        className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                      />
+                    </div>
 
-                <div className="relative mb-4 lg:mb-6">
-                  <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                    placeholder="Enter Phone Number"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
+                    <div className="relative">
+                      <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
+                        Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="relative mb-4 lg:mb-6">
@@ -81,7 +103,6 @@ const AddVendors = () => {
                   <input
                     type="email"
                     className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                    placeholder="Enter Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -93,7 +114,6 @@ const AddVendors = () => {
                   </label>
                   <textarea
                     className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                    placeholder="Enter Address"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                   />
@@ -102,27 +122,82 @@ const AddVendors = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="relative mb-4 lg:mb-6">
                     <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
+                      CIN Certificate
+                    </label>
+                    <div className="grid grid-cols-2">
+                      <div className="border-2 border-r-0 rounded-lg rounded-r-none w-full px-3 py-2">
+                        {CIN ? CIN : ""}
+                      </div>
+                      <div
+                        className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor"
+                        onClick={handleUploadClick}
+                      >
+                        <input
+                          type="file"
+                          className="hidden" // Hide the default input
+                          ref={fileInputRef}
+                          onChange={handleFileChange}
+                        />
+                        Upload
+                      </div>
+                    </div>
+                  </div>
+                  <div className="relative mb-4 lg:mb-6">
+                    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
+                      GST Certificate
+                    </label>
+                    <div className="grid grid-cols-2">
+                      <div className="border-2 border-r-0 rounded-lg rounded-r-none w-full px-3 py-2">
+                        {CIN ? CIN : ""}
+                      </div>
+                      <div
+                        className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor"
+                        onClick={handleUploadClick}
+                      >
+                        <input
+                          type="file"
+                          className="hidden" // Hide the default input
+                          ref={fileInputRef}
+                          onChange={handleFileChange}
+                        />
+                        Upload
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="relative mb-4 lg:mb-6">
+                    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
                       GST Number
                     </label>
                     <input
                       type="text"
                       className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      placeholder="Enter GST Number"
                       value={gstNumber}
                       onChange={(e) => setGstNumber(e.target.value)}
                     />
                   </div>
                   <div className="relative mb-4 lg:mb-6">
                     <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                      Serviceable City
+                      Product Brochure
                     </label>
-                    <input
-                      type="text"
-                      className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      placeholder="Enter Serviceable City"
-                      value={serviceableCity}
-                      onChange={(e) => setServiceableCity(e.target.value)}
-                    />
+                    <div className="grid grid-cols-2">
+                      <div className="border-2 border-r-0 rounded-lg rounded-r-none w-full px-3 py-2">
+                        {CIN ? CIN : ""}
+                      </div>
+                      <div
+                        className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor"
+                        onClick={handleUploadClick}
+                      >
+                        <input
+                          type="file"
+                          className="hidden" // Hide the default input
+                          ref={fileInputRef}
+                          onChange={handleFileChange}
+                        />
+                        Upload
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -179,7 +254,6 @@ const AddVendors = () => {
                   <input
                     type="text"
                     className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                    placeholder="Enter Bank Name"
                     value={bankName}
                     onChange={(e) => setBankName(e.target.value)}
                   />
@@ -192,7 +266,6 @@ const AddVendors = () => {
                   <input
                     type="text"
                     className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                    placeholder="Enter Account Holder Name"
                     value={accountHolderName}
                     onChange={(e) => setAccountHolderName(e.target.value)}
                   />
@@ -206,7 +279,6 @@ const AddVendors = () => {
                     <input
                       type="text"
                       className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      placeholder="Enter Account Number"
                       value={accountNumber}
                       onChange={(e) => setAccountNumber(e.target.value)}
                     />
@@ -218,7 +290,6 @@ const AddVendors = () => {
                     <input
                       type="text"
                       className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      placeholder="Confirm Account Number"
                       value={confirmAccountNumber}
                       onChange={(e) => setConfirmAccountNumber(e.target.value)}
                     />
@@ -233,7 +304,6 @@ const AddVendors = () => {
                     <input
                       type="text"
                       className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      placeholder="Enter IFSC Code"
                       value={ifscCode}
                       onChange={(e) => setIfscCode(e.target.value)}
                     />
@@ -245,7 +315,6 @@ const AddVendors = () => {
                     <input
                       type="text"
                       className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      placeholder="Enter UPI ID"
                       value={upiId}
                       onChange={(e) => setUpiId(e.target.value)}
                     />
@@ -263,7 +332,6 @@ const AddVendors = () => {
                     <input
                       type="text"
                       className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      placeholder="Enter Product Name"
                       value={materialName}
                       onChange={(e) => setMaterialName(e.target.value)}
                     />
@@ -276,7 +344,6 @@ const AddVendors = () => {
                     <input
                       type="text"
                       className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      placeholder="Enter Price"
                       value={materialPrice}
                       onChange={(e) => setMaterialPrice(e.target.value)}
                     />
@@ -288,7 +355,6 @@ const AddVendors = () => {
                     </label>
                     <textarea
                       className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      placeholder="Enter Description"
                       value={materialDescription}
                       onChange={(e) => setMaterialDescription(e.target.value)}
                     />
