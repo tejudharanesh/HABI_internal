@@ -59,7 +59,7 @@ const Navbar = () => {
       icon: vendors,
       alt: "Vendors",
       label: "Vendors",
-      link: "/",
+      link: "/dashboard/vendors",
     },
     {
       id: "team",
