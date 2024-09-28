@@ -22,6 +22,7 @@ const AddVendors = () => {
   };
 
   // States for form fields
+  const [companyImage, setCompanyImage] = useState(null);
   const [companyName, setCompanyName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -39,6 +40,8 @@ const AddVendors = () => {
   const [upiId, setUpiId] = useState("");
 
   const [materials, setMaterials] = useState([]);
+  const [materialImage, setMaterialImage] = useState(null);
+
   const [materialName, setMaterialName] = useState("");
   const [materialPrice, setMaterialPrice] = useState("");
   const [materialDescription, setMaterialDescription] = useState("");
@@ -46,6 +49,24 @@ const AddVendors = () => {
   const [serviceableCities, setServiceableCities] = useState([]);
   const [newCity, setNewCity] = useState("");
   const [subPlaceInput, setSubPlaceInput] = useState({});
+
+  const handleFileChange1 = (e, type) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (type === "company") {
+        setCompanyImage(URL.createObjectURL(file));
+      } else if (type === "material") {
+        setMaterialImage(URL.createObjectURL(file));
+      }
+      setCIN(file.name);
+    }
+  };
+  const handleUploadClick1 = (type) => {
+    if (fileInputRef.current) {
+      fileInputRef.current.setAttribute("data-type", type);
+      fileInputRef.current.click();
+    }
+  };
 
   const addCity = () => {
     if (newCity.trim() !== "") {
@@ -87,6 +108,19 @@ const AddVendors = () => {
     setMaterialPrice("");
     setMaterialDescription("");
   };
+  const InputField = ({ label, value, onChange }) => (
+    <div className="relative mb-4 lg:mb-6">
+      <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
+        {label}
+      </label>
+      <input
+        type="text"
+        className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
+        value={value}
+        onChange={onChange}
+      />
+    </div>
+  );
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-layoutColor font-poppins">
@@ -94,66 +128,68 @@ const AddVendors = () => {
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
       >
         <Header />
-        <div className="p-4 text-black">
-          <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="p-4 text-black xl:px-60">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* Left side form */}
             <div>
               <div className="p-3 pt-5 rounded-xl border-2">
                 <div className="grid grid-cols-3 mb-4">
                   <div className="grid col-span-1 px-2">
-                    <div className="border border-gray-300 w-full h-full bg-background rounded-lg"></div>
+                    {/* company image upload */}
+                    <div
+                      className="border border-gray-300 w-full h-[90%] bg-background rounded-lg p-2"
+                      onClick={() => handleUploadClick1("company")}
+                    >
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        style={{ display: "none" }}
+                        onChange={(e) =>
+                          handleFileChange1(
+                            e,
+                            fileInputRef.current.getAttribute("data-type")
+                          )
+                        }
+                      />
+                      {companyImage ? (
+                        <img
+                          src={companyImage}
+                          alt="Company"
+                          className="w-full h-full object-cover rounded-lg"
+                        />
+                      ) : (
+                        <img src={upload} alt="Upload" className="m-auto" />
+                      )}
+                    </div>
                   </div>
                   <div className="grid col-span-2">
-                    <div className="relative mb-4 lg:mb-6">
-                      <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                        Company Name
-                      </label>
-                      <input
-                        type="text"
-                        className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                        value={companyName}
-                        onChange={(e) => setCompanyName(e.target.value)}
-                      />
-                    </div>
+                    <InputField
+                      label="Company name"
+                      value={companyName}
+                      onChange={(e) => setCompanyName(e.target.value)}
+                    />
 
-                    <div className="relative">
-                      <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                      />
-                    </div>
+                    <InputField
+                      label="Phone Number"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
                   </div>
                 </div>
 
-                <div className="relative mb-4 lg:mb-6">
-                  <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
+                <InputField
+                  label="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
 
-                <div className="relative mb-4 lg:mb-6">
-                  <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                    Address
-                  </label>
-                  <textarea
-                    className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                </div>
+                <InputField
+                  label="Address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid lg:grid-cols-2 gap-4">
                   <div className="relative mb-4 lg:mb-6">
                     <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
                       CIN Certificate
@@ -201,18 +237,12 @@ const AddVendors = () => {
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="relative mb-4 lg:mb-6">
-                    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                      GST Number
-                    </label>
-                    <input
-                      type="text"
-                      className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      value={gstNumber}
-                      onChange={(e) => setGstNumber(e.target.value)}
-                    />
-                  </div>
+                <div className="grid lg:grid-cols-2 gap-4">
+                  <InputField
+                    label="GST Number"
+                    value={gstNumber}
+                    onChange={(e) => setGstNumber(e.target.value)}
+                  />
                   <div className="relative mb-4 lg:mb-6">
                     <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
                       Product Brochure
@@ -306,41 +336,38 @@ const AddVendors = () => {
                     </div>
                   ))}
                 </div>
-
-                <div className="mb-4">
-                  <label className="block text-sm font-medium">
-                    Service Days
-                  </label>
-                  <div className="flex space-x-2">
-                    {["S", "M", "T", "W", "Th", "F", "Sa"].map((day, index) => (
-                      <button
-                        key={index}
-                        className={`bg-gray-200 hover:bg-primary text-black hover:text-white px-3 py-1 rounded-full ring-0 outline-none  ${
-                          serviceDays.includes(day)
-                            ? "bg-primary text-white"
-                            : ""
-                        }`}
-                        onClick={() =>
-                          setServiceDays((prev) =>
-                            prev.includes(day)
-                              ? prev.filter((d) => d !== day)
-                              : [...prev, day]
-                          )
-                        }
-                      >
-                        {day}
-                      </button>
-                    ))}
+                <div className="grid lg:grid-cols-3 gap-2">
+                  <div className="mb-4 lg:col-span-2">
+                    <label className="block text-sm font-medium mb-2">
+                      Days
+                    </label>
+                    <div className="flex space-x-1 lg:space-x-2">
+                      {["S", "M", "T", "W", "Th", "F", "Sa"].map(
+                        (day, index) => (
+                          <button
+                            key={index}
+                            className={`bg-gray-200 hover:bg-primary text-black hover:text-white lg:px-2 lg:py-0.5 px-3 py-2 rounded-full ring-0 outline-none  ${
+                              serviceDays.includes(day)
+                                ? "bg-primary text-white"
+                                : ""
+                            }`}
+                            onClick={() =>
+                              setServiceDays((prev) =>
+                                prev.includes(day)
+                                  ? prev.filter((d) => d !== day)
+                                  : [...prev, day]
+                              )
+                            }
+                          >
+                            {day}
+                          </button>
+                        )
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                <div className="relative mb-4 lg:mb-6">
-                  <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                    Time
-                  </label>
-                  <input
-                    type="time"
-                    className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
+                  <InputField
+                    label="Time"
                     value={time}
                     onChange={(e) => setTime(e.target.value)}
                   />
@@ -350,109 +377,110 @@ const AddVendors = () => {
 
             {/* Right side form */}
             <div>
-              <div className="p-6 rounded-lg">
+              <div className="md:flex justify-end mb-2 hidden">
+                <button className="bg-primary text-white rounded-xl">
+                  Add Vendor
+                </button>
+              </div>
+              <div className="p-3 pt-5 rounded-xl border-2">
                 <h2 className="text-lg font-semibold mb-4">Account Details</h2>
-
-                <div className="relative mb-4 lg:mb-6">
-                  <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                    Bank Name
-                  </label>
-                  <input
-                    type="text"
-                    className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
+                <div className="grid lg:grid-cols-2 gap-4">
+                  <InputField
+                    label="Bank Name"
                     value={bankName}
                     onChange={(e) => setBankName(e.target.value)}
                   />
-                </div>
-
-                <div className="relative mb-4 lg:mb-6">
-                  <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                    Account Holder Name
-                  </label>
-                  <input
-                    type="text"
-                    className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
+                  <InputField
+                    label="Account Holder Name"
                     value={accountHolderName}
                     onChange={(e) => setAccountHolderName(e.target.value)}
                   />
                 </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="relative mb-4 lg:mb-6">
-                    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                      Account Number
-                    </label>
-                    <input
-                      type="text"
-                      className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      value={accountNumber}
-                      onChange={(e) => setAccountNumber(e.target.value)}
-                    />
-                  </div>
-                  <div className="relative mb-4 lg:mb-6">
-                    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                      Confirm Account Number
-                    </label>
-                    <input
-                      type="text"
-                      className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      value={confirmAccountNumber}
-                      onChange={(e) => setConfirmAccountNumber(e.target.value)}
-                    />
-                  </div>
+                <div className="grid lg:grid-cols-2 gap-4">
+                  <InputField
+                    label="Account Number"
+                    value={accountNumber}
+                    onChange={(e) => setAccountNumber(e.target.value)}
+                  />
+                  <InputField
+                    label="Confirm Account Number"
+                    value={confirmAccountNumber}
+                    onChange={(e) => setConfirmAccountNumber(e.target.value)}
+                  />
                 </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="relative mb-4 lg:mb-6">
-                    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                      IFSC Code
-                    </label>
-                    <input
-                      type="text"
-                      className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      value={ifscCode}
-                      onChange={(e) => setIfscCode(e.target.value)}
-                    />
-                  </div>
-                  <div className="relative mb-4 lg:mb-6">
-                    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                      UPI ID
-                    </label>
-                    <input
-                      type="text"
-                      className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      value={upiId}
-                      onChange={(e) => setUpiId(e.target.value)}
-                    />
-                  </div>
+                <div className="grid lg:grid-cols-2 gap-4">
+                  <InputField
+                    label="IFSC Code"
+                    value={ifscCode}
+                    onChange={(e) => setIfscCode(e.target.value)}
+                  />
+                  <InputField
+                    label="UPI ID"
+                    value={upiId}
+                    onChange={(e) => setUpiId(e.target.value)}
+                  />
                 </div>
-
+              </div>
+              <div className="rounded-xl border-2 mt-3">
                 {/* Material Section */}
-                <div className="bg-white p-6 mt-4 rounded-lg shadow-md">
-                  <h2 className="text-lg font-semibold mb-4">Add Material</h2>
-
-                  <div className="relative mb-4 lg:mb-6">
-                    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                      Product Name
-                    </label>
-                    <input
-                      type="text"
-                      className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      value={materialName}
-                      onChange={(e) => setMaterialName(e.target.value)}
-                    />
+                <div className="bg-layoutColor p-3 rounded-lg">
+                  <div className="flex justify-between mb-2">
+                    <h2 className="text-lg font-semibold mb-4">
+                      Add Materials
+                    </h2>
+                    <button
+                      className="bg-layoutColor text-black m-0 py-0 inline "
+                      onClick={addMaterial}
+                    >
+                      <img src={add} alt="" className="inline mr-2 mb-1" />
+                      Add
+                    </button>
                   </div>
 
-                  <div className="relative mb-4 lg:mb-6">
-                    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                      Price
-                    </label>
-                    <input
-                      type="text"
-                      className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      value={materialPrice}
-                      onChange={(e) => setMaterialPrice(e.target.value)}
-                    />
+                  <div className="grid grid-cols-3 mb-4">
+                    <div className="grid col-span-1 px-2">
+                      <div className="border border-gray-300 w-full h-full bg-background rounded-lg">
+                        {/* material image upload */}
+                        <div
+                          className="border border-gray-300 w-full h-full bg-background rounded-lg"
+                          onClick={() => handleUploadClick1("material")}
+                        >
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            onChange={(e) =>
+                              handleFileChange1(
+                                e,
+                                fileInputRef.current.getAttribute("data-type")
+                              )
+                            }
+                          />
+                          {materialImage ? (
+                            <img
+                              src={materialImage}
+                              alt="Material"
+                              className="w-full h-full object-cover rounded-lg"
+                            />
+                          ) : (
+                            <img src={upload} alt="Upload" className="m-auto" />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="grid col-span-2">
+                      <InputField
+                        label="Material Name"
+                        value={materialName}
+                        onChange={(e) => setMaterialName(e.target.value)}
+                      />
+
+                      <InputField
+                        label="Price"
+                        value={materialPrice}
+                        onChange={(e) => setMaterialPrice(e.target.value)}
+                      />
+                    </div>
                   </div>
 
                   <div className="relative mb-4 lg:mb-6">
@@ -466,18 +494,11 @@ const AddVendors = () => {
                     />
                   </div>
 
-                  <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-                    onClick={addMaterial}
-                  >
-                    Add Material
-                  </button>
-
                   {/* Material List */}
                   <div className="mt-4">
                     <h3 className="text-md font-semibold">Materials</h3>
                     {materials.length === 0 ? (
-                      <p>No materials added yet.</p>
+                      <p>Add materials to display Here.</p>
                     ) : (
                       <ul>
                         {materials.map((material, index) => (
@@ -495,6 +516,11 @@ const AddVendors = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="md:hidden justify-center mb-2 sticky bottom-1 px-8 ">
+          <button className="bg-primary text-white rounded-xl w-full">
+            Add Vendor
+          </button>
         </div>
       </div>
     </div>
