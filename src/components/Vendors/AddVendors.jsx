@@ -121,20 +121,6 @@ const AddVendors = () => {
     // Clear material fields
     setMaterialImage(""); // Clear the image after adding the material
   };
-  const InputField = ({ label, name, value }) => (
-    <div className="relative mb-4 lg:mb-6">
-      <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-        {label}
-      </label>
-      <input
-        type="text"
-        name={name}
-        className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-        value={value}
-        onChange={handleInputChange} // Ensure the onChange is set here
-      />
-    </div>
-  );
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-layoutColor font-poppins">
@@ -180,22 +166,30 @@ const AddVendors = () => {
                       label="Company Name"
                       name="companyName"
                       value={formData.companyName}
+                      onChange={handleInputChange}
                     />
 
                     <InputField
                       label="Phone Number"
                       name="phoneNumber"
                       value={formData.phoneNumber}
+                      onChange={handleInputChange}
                     />
                   </div>
                 </div>
 
-                <InputField label="Email" name="email" value={formData.email} />
+                <InputField
+                  label="Email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
 
                 <InputField
                   label="Address"
                   name="address"
                   value={formData.address}
+                  onChange={handleInputChange}
                 />
 
                 <div className="grid lg:grid-cols-2 gap-4">
@@ -251,6 +245,7 @@ const AddVendors = () => {
                     label="GST Number"
                     name="gstNumber"
                     value={formData.gstNumber}
+                    onChange={handleInputChange}
                   />
                   <div className="relative mb-4 lg:mb-6">
                     <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
@@ -379,6 +374,7 @@ const AddVendors = () => {
                       label="Time"
                       name="time"
                       value={formData.time}
+                      onChange={handleInputChange}
                     />
                   </div>
                 </div>
@@ -399,11 +395,13 @@ const AddVendors = () => {
                     label="Bank Name"
                     value={formData.bankName}
                     name="bankName"
+                    onChange={handleInputChange}
                   />
                   <InputField
                     label="Account Holder Name"
                     value={formData.accountHolderName}
                     name="accountHolderName"
+                    onChange={handleInputChange}
                   />
                 </div>
                 <div className="grid lg:grid-cols-2 gap-4">
@@ -411,11 +409,13 @@ const AddVendors = () => {
                     label="Account Number"
                     value={formData.accountNumber}
                     name="accountNumber"
+                    onChange={handleInputChange}
                   />
                   <InputField
                     label="Confirm Account Number"
                     value={formData.confirmAccountNumber}
                     name="confirmAccountNumber"
+                    onChange={handleInputChange}
                   />
                 </div>
                 <div className="grid lg:grid-cols-2 gap-4">
@@ -423,11 +423,13 @@ const AddVendors = () => {
                     label="IFSC Code"
                     value={formData.ifscCode}
                     name="ifscCode"
+                    onChange={handleInputChange}
                   />
                   <InputField
                     label="UPI ID"
                     value={formData.upiId}
                     name="upiId"
+                    onChange={handleInputChange}
                   />
                 </div>
               </div>
@@ -481,13 +483,15 @@ const AddVendors = () => {
                       <InputField
                         label="Material Name"
                         value={formData.materialName}
-                        name=" materialName"
+                        name="materialName"
+                        onChange={handleInputChange}
                       />
 
                       <InputField
                         label="Price"
                         value={formData.materialPrice}
                         name="materialPrice"
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -536,5 +540,20 @@ const AddVendors = () => {
     </div>
   );
 };
+
+const InputField = ({ label, name, value, onChange }) => (
+  <div className="relative mb-4 lg:mb-6">
+    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
+      {label}
+    </label>
+    <input
+      type="text"
+      name={name}
+      className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
+      value={value}
+      onChange={onChange} // Ensure the onChange is set here
+    />
+  </div>
+);
 
 export default AddVendors;
