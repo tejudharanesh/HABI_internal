@@ -134,7 +134,7 @@ const AddVendors = () => {
             <div>
               <div className="p-3 pt-5 rounded-xl border-2">
                 <div className="grid grid-cols-3 mb-4">
-                  <div className="grid col-span-1 w-[100px] h-[100px] lg:w-[150px] lg:h-[150px]">
+                  <div className="grid col-span-1 w-[100px] h-[100px] lg:w-[150px] lg:h-[120px]">
                     {/* company image upload */}
                     <div
                       className="border border-gray-300 w-full h-full bg-background rounded-lg "
@@ -150,7 +150,7 @@ const AddVendors = () => {
                         <img
                           src={companyImage}
                           alt="Material"
-                          className="rounded-lg"
+                          className="rounded-lg w-[100px] h-[100px] lg:w-[150px] lg:h-[120px]"
                         />
                       ) : (
                         <img
@@ -467,7 +467,7 @@ const AddVendors = () => {
                             <img
                               src={materialImage}
                               alt="Material"
-                              className="w-full h-full object-cover rounded-lg"
+                              className="w-[100px] h-[100px] lg:w-[150px] lg:h-[120px] rounded-lg"
                             />
                           ) : (
                             <img
@@ -509,21 +509,39 @@ const AddVendors = () => {
                   </div>
 
                   {/* Material List */}
-                  <div className="mt-4">
+                  <div className="mt-2">
                     <h3 className="text-md font-semibold">Materials</h3>
                     {materials.length === 0 ? (
                       <p>Add materials to display Here.</p>
                     ) : (
-                      <ul>
+                      <div className="w-full">
                         {materials.map((material, index) => (
-                          <li
+                          <div
                             key={index}
-                            className="p-2 border border-gray-300 rounded-lg my-2"
+                            className="p-2 px-3 flex border-2 rounded-xl"
                           >
-                            {material.name} - ₹{material.price}
-                          </li>
+                            <div className="inline-block mr-2">
+                              <img
+                                src={material.image}
+                                alt=""
+                                className="w-24"
+                              />
+                            </div>
+                            <div className="inline">
+                              <h3 className="font-semibold text-black">
+                                {material.name} ({material.price})
+                              </h3>
+                              <p className="text-xs text-gray-400  ">
+                                {material.price}
+                              </p>
+                              <p className="text-xs text-gray-400  ">
+                                {material.description}
+                              </p>
+                            </div>
+                            <hr className="mt-2" />
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     )}
                   </div>
                 </div>
