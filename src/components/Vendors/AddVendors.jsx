@@ -18,32 +18,39 @@ const AddVendors = () => {
   const [materialImage, setMaterialImage] = useState(null);
 
   // States for form fields
-  const [companyName, setCompanyName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [gstNumber, setGstNumber] = useState("");
-  const [serviceableCity, setServiceableCity] = useState("");
+  const [formData, setFormData] = useState({
+    companyName: "",
+    phoneNumber: "",
+    email: "",
+    address: "",
+    gstNumber: "",
+    serviceableCity: "",
+    time: "",
+    bankName: "",
+    accountHolderName: "",
+    accountNumber: "",
+    confirmAccountNumber: "",
+    ifscCode: "",
+    upiId: "",
+    materialName: "",
+    materialPrice: "",
+    materialDescription: "",
+  });
   const [serviceDays, setServiceDays] = useState([]);
-  const [time, setTime] = useState("");
-
-  const [bankName, setBankName] = useState("");
-  const [accountHolderName, setAccountHolderName] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
-  const [confirmAccountNumber, setConfirmAccountNumber] = useState("");
-  const [ifscCode, setIfscCode] = useState("");
-  const [upiId, setUpiId] = useState("");
 
   const [materials, setMaterials] = useState([]);
-
-  const [materialName, setMaterialName] = useState("");
-  const [materialPrice, setMaterialPrice] = useState("");
-  const [materialDescription, setMaterialDescription] = useState("");
 
   const [serviceableCities, setServiceableCities] = useState([]);
   const [newCity, setNewCity] = useState("");
   const [subPlaceInput, setSubPlaceInput] = useState({});
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];
     if (file) {
@@ -121,30 +128,33 @@ const AddVendors = () => {
 
   const addMaterial = () => {
     const newMaterial = {
-      name: materialName,
-      price: materialPrice,
-      description: materialDescription,
+      name: formData.materialName,
+      price: formData.materialPrice,
+      description: formData.materialDescription,
       image: materialImage, // Add image to material
     };
 
     setMaterials([...materials, newMaterial]);
-
+    setFormData((prevData) => ({
+      ...prevData,
+      materialName: "",
+      materialPrice: "",
+      materialDescription: "",
+    }));
     // Clear material fields
-    setMaterialName("");
-    setMaterialPrice("");
-    setMaterialDescription("");
     setMaterialImage(""); // Clear the image after adding the material
   };
-  const InputField = ({ label, value, onChange }) => (
+  const InputField = ({ label, name, value, type = "text" }) => (
     <div className="relative mb-4 lg:mb-6">
       <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
         {label}
       </label>
       <input
-        type="text"
+        type={type}
+        name={name}
         className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
         value={value}
-        onChange={onChange}
+        onChange={handleInputChange}
       />
     </div>
   );
@@ -161,7 +171,7 @@ const AddVendors = () => {
             <div>
               <div className="p-3 pt-5 rounded-xl border-2">
                 <div className="grid grid-cols-3 mb-4">
-                  <div className="grid col-span-1 px-4">
+                  <div className="grid col-span-1 w-[100px] h-[100px] lg:w-[150px] lg:h-[150px]">
                     {/* company image upload */}
                     <div
                       className="border border-gray-300 w-full h-full bg-background rounded-lg "
@@ -190,29 +200,25 @@ const AddVendors = () => {
                   </div>
                   <div className="grid col-span-2">
                     <InputField
-                      label="Company name"
-                      value={companyName}
-                      onChange={(e) => setCompanyName(e.target.value)}
+                      label="Company Name"
+                      name="companyName"
+                      value={formData.companyName}
                     />
 
                     <InputField
                       label="Phone Number"
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      name="phoneNumber"
+                      value={formData.phoneNumber}
                     />
                   </div>
                 </div>
 
-                <InputField
-                  label="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+                <InputField label="Email" name="email" value={formData.email} />
 
                 <InputField
                   label="Address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  name="address"
+                  value={formData.address}
                 />
 
                 <div className="grid lg:grid-cols-2 gap-4">
@@ -266,8 +272,8 @@ const AddVendors = () => {
                 <div className="grid lg:grid-cols-2 gap-4">
                   <InputField
                     label="GST Number"
-                    value={gstNumber}
-                    onChange={(e) => setGstNumber(e.target.value)}
+                    name="gstNumber"
+                    value={formData.gstNumber}
                   />
                   <div className="relative mb-4 lg:mb-6">
                     <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
@@ -391,12 +397,13 @@ const AddVendors = () => {
                       )}
                     </div>
                   </div>
-
-                  <InputField
-                    label="Time"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                  />
+                  <div className="lg:mt-4">
+                    <InputField
+                      label="Time"
+                      name="time"
+                      value={formData.time}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -413,45 +420,45 @@ const AddVendors = () => {
                 <div className="grid lg:grid-cols-2 gap-4">
                   <InputField
                     label="Bank Name"
-                    value={bankName}
-                    onChange={(e) => setBankName(e.target.value)}
+                    value={formData.bankName}
+                    name="bankName"
                   />
                   <InputField
                     label="Account Holder Name"
-                    value={accountHolderName}
-                    onChange={(e) => setAccountHolderName(e.target.value)}
+                    value={formData.accountHolderName}
+                    name="accountHolderName"
                   />
                 </div>
                 <div className="grid lg:grid-cols-2 gap-4">
                   <InputField
                     label="Account Number"
-                    value={accountNumber}
-                    onChange={(e) => setAccountNumber(e.target.value)}
+                    value={formData.accountNumber}
+                    name="accountNumber"
                   />
                   <InputField
                     label="Confirm Account Number"
-                    value={confirmAccountNumber}
-                    onChange={(e) => setConfirmAccountNumber(e.target.value)}
+                    value={formData.confirmAccountNumber}
+                    name="confirmAccountNumber"
                   />
                 </div>
                 <div className="grid lg:grid-cols-2 gap-4">
                   <InputField
                     label="IFSC Code"
-                    value={ifscCode}
-                    onChange={(e) => setIfscCode(e.target.value)}
+                    value={formData.ifscCode}
+                    name="ifscCode"
                   />
                   <InputField
                     label="UPI ID"
-                    value={upiId}
-                    onChange={(e) => setUpiId(e.target.value)}
+                    value={formData.upiId}
+                    name="upiId"
                   />
                 </div>
               </div>
               <div className="rounded-xl border-2 mt-3">
                 {/* Material Section */}
                 <div className="bg-layoutColor p-3 rounded-lg">
-                  <div className="flex justify-between mb-2">
-                    <h2 className="text-lg font-semibold mb-4">
+                  <div className="flex justify-between mb-1">
+                    <h2 className="text-lg font-semibold mb-2">
                       Add Materials
                     </h2>
                     <button
@@ -463,9 +470,9 @@ const AddVendors = () => {
                     </button>
                   </div>
 
-                  <div className="grid grid-cols-3 mb-4">
+                  <div className="grid grid-cols-3 mb-1">
                     <div className="grid col-span-1 px-2">
-                      <div className="border border-gray-300 w-full h-full bg-background rounded-lg">
+                      <div className="grid col-span-1 w-[100px] h-[100px] lg:w-[150px] lg:h-[120px]">
                         {/* material image upload */}
                         <div
                           className="border border-gray-300 w-full h-full bg-background rounded-lg"
@@ -496,14 +503,14 @@ const AddVendors = () => {
                     <div className="grid col-span-2">
                       <InputField
                         label="Material Name"
-                        value={materialName}
-                        onChange={(e) => setMaterialName(e.target.value)}
+                        value={formData.materialName}
+                        name=" materialName"
                       />
 
                       <InputField
                         label="Price"
-                        value={materialPrice}
-                        onChange={(e) => setMaterialPrice(e.target.value)}
+                        value={formData.materialPrice}
+                        name="materialPrice"
                       />
                     </div>
                   </div>
@@ -514,8 +521,9 @@ const AddVendors = () => {
                     </label>
                     <textarea
                       className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      value={materialDescription}
-                      onChange={(e) => setMaterialDescription(e.target.value)}
+                      value={formData.materialDescription}
+                      name="materialDescription"
+                      onChange={handleInputChange}
                     />
                   </div>
 
