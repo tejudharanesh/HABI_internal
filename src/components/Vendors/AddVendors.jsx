@@ -46,10 +46,7 @@ const AddVendors = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData({ ...formData, [name]: value });
   };
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];
@@ -77,27 +74,7 @@ const AddVendors = () => {
       }
     }
   };
-  const handleUploadClick = (type) => {
-    switch (type) {
-      case "company":
-        companyInputRef.current.click();
-        break;
-      case "cin":
-        cinInputRef.current.click();
-        break;
-      case "gst":
-        gstInputRef.current.click();
-        break;
-      case "brochure":
-        brochureInputRef.current.click();
-        break;
-      case "material":
-        materialInputRef.current.click();
-        break;
-      default:
-        break;
-    }
-  };
+
   const addCity = () => {
     if (newCity.trim() !== "") {
       setServiceableCities([
@@ -144,17 +121,17 @@ const AddVendors = () => {
     // Clear material fields
     setMaterialImage(""); // Clear the image after adding the material
   };
-  const InputField = ({ label, name, value, type = "text" }) => (
+  const InputField = ({ label, name, value }) => (
     <div className="relative mb-4 lg:mb-6">
       <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
         {label}
       </label>
       <input
-        type={type}
+        type="text"
         name={name}
         className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
         value={value}
-        onChange={handleInputChange}
+        onChange={handleInputChange} // Ensure the onChange is set here
       />
     </div>
   );
@@ -175,7 +152,7 @@ const AddVendors = () => {
                     {/* company image upload */}
                     <div
                       className="border border-gray-300 w-full h-full bg-background rounded-lg "
-                      onClick={() => handleUploadClick("company")}
+                      onClick={() => companyInputRef.current.click()}
                     >
                       <input
                         type="file"
@@ -232,7 +209,7 @@ const AddVendors = () => {
                       </div>
                       <div
                         className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor text-center"
-                        onClick={() => handleUploadClick("cin")}
+                        onClick={() => cinInputRef.current.click()}
                       >
                         <input
                           type="file"
@@ -255,7 +232,7 @@ const AddVendors = () => {
                       </div>
                       <div
                         className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor text-center"
-                        onClick={() => handleUploadClick("gst")}
+                        onClick={() => gstInputRef.current.click()}
                       >
                         <input
                           type="file"
@@ -285,7 +262,7 @@ const AddVendors = () => {
                       </div>
                       <div
                         className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor text-center"
-                        onClick={() => handleUploadClick("brochure")}
+                        onClick={() => brochureInputRef.current.click()}
                       >
                         <input
                           type="file"
@@ -476,7 +453,7 @@ const AddVendors = () => {
                         {/* material image upload */}
                         <div
                           className="border border-gray-300 w-full h-full bg-background rounded-lg"
-                          onClick={() => handleUploadClick("material")}
+                          onClick={() => materialInputRef.current.click()}
                         >
                           <input
                             type="file"
