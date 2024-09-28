@@ -2,27 +2,22 @@ import React, { useState, useRef } from "react";
 import Header from "../header/Header";
 import upload from "../../assets/svg/upload.svg";
 import add from "../../assets/svg/add.svg";
+import file from "../../assets/svg/file.svg";
 
 const AddVendors = () => {
-  const [CIN, setCIN] = useState("");
-  const fileInputRef = useRef(null);
+  const companyInputRef = useRef(null);
+  const cinInputRef = useRef(null);
+  const gstInputRef = useRef(null);
+  const brochureInputRef = useRef(null);
+  const materialInputRef = useRef(null);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setCIN(file.name);
-    }
-  };
-
-  const handleUploadClick = () => {
-    // Trigger the file input click
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
+  const [companyImage, setCompanyImage] = useState(null);
+  const [cinFileName, setCinFileName] = useState("");
+  const [gstFileName, setGstFileName] = useState("");
+  const [brochureFileName, setBrochureFileName] = useState("");
+  const [materialImage, setMaterialImage] = useState(null);
 
   // States for form fields
-  const [companyImage, setCompanyImage] = useState(null);
   const [companyName, setCompanyName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -40,7 +35,6 @@ const AddVendors = () => {
   const [upiId, setUpiId] = useState("");
 
   const [materials, setMaterials] = useState([]);
-  const [materialImage, setMaterialImage] = useState(null);
 
   const [materialName, setMaterialName] = useState("");
   const [materialPrice, setMaterialPrice] = useState("");
@@ -50,24 +44,53 @@ const AddVendors = () => {
   const [newCity, setNewCity] = useState("");
   const [subPlaceInput, setSubPlaceInput] = useState({});
 
-  const handleFileChange1 = (e, type) => {
+  const handleFileChange = (e, type) => {
     const file = e.target.files[0];
     if (file) {
-      if (type === "company") {
-        setCompanyImage(URL.createObjectURL(file));
-      } else if (type === "material") {
-        setMaterialImage(URL.createObjectURL(file));
+      switch (type) {
+        case "company":
+          const companyURL = URL.createObjectURL(file);
+          setCompanyImage(companyURL);
+          break;
+        case "cin":
+          setCinFileName(file.name);
+          break;
+        case "gst":
+          setGstFileName(file.name);
+          break;
+        case "brochure":
+          setBrochureFileName(file.name);
+          break;
+        case "material":
+          const materialURL = URL.createObjectURL(file);
+          setMaterialImage(materialURL);
+          break;
+        default:
+          break;
       }
-      setCIN(file.name);
     }
   };
-  const handleUploadClick1 = (type) => {
-    if (fileInputRef.current) {
-      fileInputRef.current.setAttribute("data-type", type);
-      fileInputRef.current.click();
+  const handleUploadClick = (type) => {
+    switch (type) {
+      case "company":
+        companyInputRef.current.click();
+        break;
+      case "cin":
+        cinInputRef.current.click();
+        break;
+      case "gst":
+        gstInputRef.current.click();
+        break;
+      case "brochure":
+        brochureInputRef.current.click();
+        break;
+      case "material":
+        materialInputRef.current.click();
+        break;
+      default:
+        break;
     }
   };
-
   const addCity = () => {
     if (newCity.trim() !== "") {
       setServiceableCities([
@@ -101,12 +124,16 @@ const AddVendors = () => {
       name: materialName,
       price: materialPrice,
       description: materialDescription,
+      image: materialImage, // Add image to material
     };
+
     setMaterials([...materials, newMaterial]);
+
     // Clear material fields
     setMaterialName("");
     setMaterialPrice("");
     setMaterialDescription("");
+    setMaterialImage(""); // Clear the image after adding the material
   };
   const InputField = ({ label, value, onChange }) => (
     <div className="relative mb-4 lg:mb-6">
@@ -134,31 +161,30 @@ const AddVendors = () => {
             <div>
               <div className="p-3 pt-5 rounded-xl border-2">
                 <div className="grid grid-cols-3 mb-4">
-                  <div className="grid col-span-1 px-2">
+                  <div className="grid col-span-1 px-4">
                     {/* company image upload */}
                     <div
-                      className="border border-gray-300 w-full h-[90%] bg-background rounded-lg p-2"
-                      onClick={() => handleUploadClick1("company")}
+                      className="border border-gray-300 w-full h-full bg-background rounded-lg "
+                      onClick={() => handleUploadClick("company")}
                     >
                       <input
                         type="file"
-                        ref={fileInputRef}
+                        ref={companyInputRef}
                         style={{ display: "none" }}
-                        onChange={(e) =>
-                          handleFileChange1(
-                            e,
-                            fileInputRef.current.getAttribute("data-type")
-                          )
-                        }
+                        onChange={(e) => handleFileChange(e, "company")}
                       />
                       {companyImage ? (
                         <img
                           src={companyImage}
-                          alt="Company"
-                          className="w-full h-full object-cover rounded-lg"
+                          alt="Material"
+                          className="rounded-lg"
                         />
                       ) : (
-                        <img src={upload} alt="Upload" className="m-auto" />
+                        <img
+                          src={file}
+                          alt="Upload"
+                          className="m-auto flex mt-[25%] h-6 w-6"
+                        />
                       )}
                     </div>
                   </div>
@@ -196,17 +222,17 @@ const AddVendors = () => {
                     </label>
                     <div className="grid grid-cols-2">
                       <div className="border-2 border-r-0 rounded-lg rounded-r-none w-full px-3 py-2">
-                        {CIN ? CIN : ""}
+                        {cinFileName ? cinFileName : ""}
                       </div>
                       <div
                         className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor text-center"
-                        onClick={handleUploadClick}
+                        onClick={() => handleUploadClick("cin")}
                       >
                         <input
                           type="file"
                           className="hidden" // Hide the default input
-                          ref={fileInputRef}
-                          onChange={handleFileChange}
+                          ref={cinInputRef}
+                          onChange={(e) => handleFileChange(e, "cin")}
                         />
                         <img src={upload} alt="" className="inline mr-2 pb-1" />
                         Upload
@@ -219,17 +245,17 @@ const AddVendors = () => {
                     </label>
                     <div className="grid grid-cols-2">
                       <div className="border-2 border-r-0 rounded-lg rounded-r-none w-full px-3 py-2">
-                        {CIN ? CIN : ""}
+                        {gstFileName ? gstFileName : ""}
                       </div>
                       <div
                         className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor text-center"
-                        onClick={handleUploadClick}
+                        onClick={() => handleUploadClick("gst")}
                       >
                         <input
                           type="file"
                           className="hidden" // Hide the default input
-                          ref={fileInputRef}
-                          onChange={handleFileChange}
+                          ref={gstInputRef}
+                          onChange={(e) => handleFileChange(e, "gst")}
                         />
                         <img src={upload} alt="" className="inline mr-2 pb-1" />
                         Upload
@@ -249,17 +275,17 @@ const AddVendors = () => {
                     </label>
                     <div className="grid grid-cols-2">
                       <div className="border-2 border-r-0 rounded-lg rounded-r-none w-full px-3 py-2">
-                        {CIN ? CIN : ""}
+                        {brochureFileName ? brochureFileName : ""}
                       </div>
                       <div
                         className="border-2 border-dashed rounded-lg rounded-l-none w-full px-3 py-2 inline cursor-pointer bg-layoutColor text-center"
-                        onClick={handleUploadClick}
+                        onClick={() => handleUploadClick("brochure")}
                       >
                         <input
                           type="file"
                           className="hidden" // Hide the default input
-                          ref={fileInputRef}
-                          onChange={handleFileChange}
+                          ref={brochureInputRef}
+                          onChange={(e) => handleFileChange(e, "brochure")}
                         />
                         <img src={upload} alt="" className="inline mr-2 pb-1" />
                         Upload
@@ -443,18 +469,13 @@ const AddVendors = () => {
                         {/* material image upload */}
                         <div
                           className="border border-gray-300 w-full h-full bg-background rounded-lg"
-                          onClick={() => handleUploadClick1("material")}
+                          onClick={() => handleUploadClick("material")}
                         >
                           <input
                             type="file"
-                            ref={fileInputRef}
+                            ref={materialInputRef}
                             style={{ display: "none" }}
-                            onChange={(e) =>
-                              handleFileChange1(
-                                e,
-                                fileInputRef.current.getAttribute("data-type")
-                              )
-                            }
+                            onChange={(e) => handleFileChange(e, "material")}
                           />
                           {materialImage ? (
                             <img
@@ -463,7 +484,11 @@ const AddVendors = () => {
                               className="w-full h-full object-cover rounded-lg"
                             />
                           ) : (
-                            <img src={upload} alt="Upload" className="m-auto" />
+                            <img
+                              src={file}
+                              alt="Upload"
+                              className="m-auto flex mt-[25%] h-6 w-6"
+                            />
                           )}
                         </div>
                       </div>
