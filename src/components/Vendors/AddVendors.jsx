@@ -3,6 +3,8 @@ import Header from "../header/Header";
 import upload from "../../assets/svg/upload.svg";
 import add from "../../assets/svg/add.svg";
 import file from "../../assets/svg/file.svg";
+import edit from "../../assets/images/edit.png";
+import delete1 from "../../assets/images/delete.png";
 
 const AddVendors = () => {
   const companyInputRef = useRef(null);
@@ -120,6 +122,9 @@ const AddVendors = () => {
     }));
     // Clear material fields
     setMaterialImage(""); // Clear the image after adding the material
+    if (materialInputRef.current) {
+      materialInputRef.current.value = ""; // Clear the file input
+    }
   };
 
   return (
@@ -128,7 +133,7 @@ const AddVendors = () => {
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
       >
         <Header />
-        <div className="p-4 text-black xl:px-60">
+        <div className="p-1 md:p-4 text-black xl:px-60">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* Left side form */}
             <div>
@@ -518,27 +523,41 @@ const AddVendors = () => {
                         {materials.map((material, index) => (
                           <div
                             key={index}
-                            className="p-2 px-3 flex border-2 rounded-xl"
+                            className="p-2 border-2 rounded-xl grid grid-cols-4"
                           >
-                            <div className="inline-block mr-2">
+                            <div className="mr-2 col-span-1 ">
                               <img
                                 src={material.image}
                                 alt=""
-                                className="w-24"
+                                className="w-[90px] h-[90px] lg:w-[100px] lg:h-[100px] rounded-xl"
                               />
                             </div>
-                            <div className="inline">
-                              <h3 className="font-semibold text-black">
-                                {material.name} ({material.price})
-                              </h3>
-                              <p className="text-xs text-gray-400  ">
-                                {material.price}
-                              </p>
-                              <p className="text-xs text-gray-400  ">
+                            <div className="col-span-3">
+                              <div className="grid grid-cols-3 justify-between">
+                                <h3 className="font-semibold text-black">
+                                  {material.name}
+                                </h3>
+                                <h3 className="font-semibold text-black">
+                                  ₹{material.price}
+                                </h3>
+                                <div className="font-semibold text-black justify-end mr-3 flex">
+                                  <img
+                                    src={edit}
+                                    alt=""
+                                    className="mr-2 cursor-pointer"
+                                  />
+                                  <img
+                                    src={delete1}
+                                    alt=""
+                                    className="cursor-pointer"
+                                  />
+                                </div>
+                              </div>
+
+                              <p className="text-xs text-gray-400 mt-2">
                                 {material.description}
                               </p>
                             </div>
-                            <hr className="mt-2" />
                           </div>
                         ))}
                       </div>

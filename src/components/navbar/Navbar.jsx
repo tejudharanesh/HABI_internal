@@ -27,10 +27,34 @@ const Navbar = () => {
 
   const buttons = [
     { id: "home", icon: home, alt: "Home", label: "Home", link: "/dashboard" },
-    { id: "meeting", icon: meeting, alt: "Meeting", label: "Meetings", link: "/dashboard/meeting" },
-    { id: "projects", icon: projects, alt: "Projects", label: "Projects", link: "/dashboard/projects" },
-    { id: "leads", icon: leads, alt: "Leads", label: "Leads", link: "/dashboard/leads" },
-    { id: "vendors", icon: vendors, alt: "Vendors", label: "Vendors", link: "/dashboard/vendors" },
+    {
+      id: "meeting",
+      icon: meeting,
+      alt: "Meeting",
+      label: "Meetings",
+      link: "/dashboard/meeting",
+    },
+    {
+      id: "projects",
+      icon: projects,
+      alt: "Projects",
+      label: "Projects",
+      link: "/dashboard/projects",
+    },
+    {
+      id: "leads",
+      icon: leads,
+      alt: "Leads",
+      label: "Leads",
+      link: "/dashboard/leads",
+    },
+    {
+      id: "vendors",
+      icon: vendors,
+      alt: "Vendors",
+      label: "Vendors",
+      link: "/dashboard/vendors",
+    },
     { id: "team", icon: team, alt: "Teams", label: "Teams", link: "/" },
     { id: "report", icon: report, alt: "Report", label: "Report", link: "/" },
   ];
@@ -46,7 +70,11 @@ const Navbar = () => {
         <nav className="bg-layoutColor border-r-2 pt-10 md:pt-0 h-screen">
           <div className="flex flex-col justify-between h-screen relative">
             <div className="flex justify-center px-4 items-center py-4">
-              <img src={logo} alt="Logo" className="ml-3 w-10 h-10 hidden md:inline" />
+              <img
+                src={logo}
+                alt="Logo"
+                className="ml-3 w-10 h-10 hidden md:inline"
+              />
             </div>
 
             <div className="flex flex-col w-auto gap-y-2 xl:gap-y-4 h-screen relative">
@@ -66,12 +94,16 @@ const Navbar = () => {
                       src={button.icon}
                       alt={button.alt}
                       className={`w-6 h-6 md:ml-6 ${
-                        selected === button.id ? "text-primary fill-primary" : "#000000"
+                        selected === button.id
+                          ? "text-primary fill-primary"
+                          : "#000000"
                       }`}
                     />
-                    <span className={`md:hidden lg:flex font-[18px] ${
-                      selected === button.id ? "text-primary" : "text-black"
-                    }`}>
+                    <span
+                      className={`md:hidden lg:flex font-[18px] ${
+                        selected === button.id ? "text-primary" : "text-black"
+                      }`}
+                    >
                       {button.label}
                     </span>
                   </Link>
@@ -85,8 +117,14 @@ const Navbar = () => {
                   if (isOpen) toggleMenu();
                 }}
               >
-                <img src={logout} alt="Logout" className="inline-block mr-3 ml-4" />
-                <span className="text-black inline-block md:hidden lg:inline">Logout</span>
+                <img
+                  src={logout}
+                  alt="Logout"
+                  className="inline-block mr-3 ml-4"
+                />
+                <span className="text-black inline-block md:hidden lg:inline">
+                  Logout
+                </span>
               </button>
             </div>
           </div>
