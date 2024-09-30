@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 import Header from "../header/Header";
 import upload from "../../assets/svg/upload.svg";
@@ -8,11 +8,21 @@ import file from "../../assets/svg/file.svg";
 import InputField from "./InputField";
 import Materials from "./materials";
 
-const UpdateVendor = ({ vendor, updateVendor }) => {
+const UpdateVendor = ({ vendorData, updateVendor }) => {
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const vendorId = queryParams.get("Id");
   const navigate = useNavigate();
+
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get("id");
+  const [vendor, setVendor] = useState(null);
+  useEffect(() => {
+    if (vendorData && id) {
+      const selectedVendor = vendorData.find((v) => v.id === parseInt(id)); // Find vendor by ID
+      if (selectedVendor) {
+        setVendor(selectedVendor); // Set vendor data for editing
+      }
+    }
+  }, [id, vendorData]);
 
   const companyInputRef = useRef(null);
   const cinInputRef = useRef(null);
@@ -20,36 +30,34 @@ const UpdateVendor = ({ vendor, updateVendor }) => {
   const brochureInputRef = useRef(null);
 
   const [isEditing, setIsEditing] = useState(false); // State to track edit mode
-  const [companyImage, setCompanyImage] = useState(vendor.logo);
-  const [cinFileName, setCinFileName] = useState(vendor.Cin);
-  const [gstFileName, setGstFileName] = useState(vendor.gst);
-  const [brochureFileName, setBrochureFileName] = useState(vendor.brochure);
-  const [cinFile, setCinFile] = useState(null);
-  const [gstFile, setGstFile] = useState(null);
-  const [brochureFile, setBrochureFile] = useState(null);
+  const [companyImage, setCompanyImage] = useState(vendor ? vendor.logo : "");
+  const [cinFileName, setCinFileName] = useState(vendor ? vendor.Cin : "");
+  const [gstFileName, setGstFileName] = useState(vendor ? vendor.gst : "");
+  const [brochureFileName, setBrochureFileName] = useState(
+    vendor ? vendor.brochure : ""
+  );
+  const [serviceDays, setServiceDays] = useState(
+    vendor ? vendor.serviceDays : []
+  );
+  const [materials, setMaterials] = useState(vendor ? vendor.materials : []);
+  const [serviceableCities, setServiceableCities] = useState(
+    vendor ? vendor.serviceableCities : []
+  );
 
   const [formData, setFormData] = useState({
-    companyName: vendor.name,
-    phoneNumber: vendor.phone,
-    email: vendor.email,
-    address: vendor.address,
-    gstNumber: vendor.gstNumber,
-    bankName: vendor.bankName,
-    accountHolderName: vendor.accountHolderName,
-    accountNumber: vendor.accountNumber,
-    confirmAccountNumber: vendor.confirmAccountNumber,
-    ifscCode: vendor.ifscCode,
-    upiId: vendor.upiId,
-    materialName: "",
-    materialPrice: "",
-    materialDescription: "",
+    companyName: vendor ? vendor.name : "",
+    phoneNumber: vendor ? vendor.phone : "",
+    email: vendor ? vendor.email : "",
+    address: vendor ? vendor.address : "",
+    gstNumber: vendor ? vendor.gstNumber : "",
+    bankName: vendor ? vendor.bankName : "",
+    accountHolderName: vendor ? vendor.accountHolderName : "",
+    accountNumber: vendor ? vendor.accountNumber : "",
+    confirmAccountNumber: vendor ? vendor.confirmAccountNumber : "",
+    ifscCode: vendor ? vendor.ifscCode : "",
+    upiId: vendor ? vendor.upiId : "",
   });
 
-  const [serviceDays, setServiceDays] = useState(vendor.serviceDays);
-  const [materials, setMaterials] = useState(vendor.materials || []);
-  const [serviceableCities, setServiceableCities] = useState(
-    vendor.serviceableCities || []
-  );
   const [newCity, setNewCity] = useState("");
   const [subPlaceInput, setSubPlaceInput] = useState({});
 
@@ -132,7 +140,7 @@ const UpdateVendor = ({ vendor, updateVendor }) => {
     navigate("/dashboard/vendors");
   };
 
-  return (
+  return vendor ? (
     <div className="min-h-screen flex flex-col items-center bg-layoutColor font-poppins">
       <div
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
@@ -446,6 +454,8 @@ const UpdateVendor = ({ vendor, updateVendor }) => {
         </div>
       </div>
     </div>
+  ) : (
+    <div>Loading vendor Data</div>
   );
 };
 

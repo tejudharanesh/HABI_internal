@@ -39,9 +39,6 @@ const AddVendors = ({ addVendor }) => {
     confirmAccountNumber: "",
     ifscCode: "",
     upiId: "",
-    materialName: "",
-    materialPrice: "",
-    materialDescription: "",
   });
   const [serviceDays, setServiceDays] = useState([]);
   const [materials, setMaterials] = useState([]);
