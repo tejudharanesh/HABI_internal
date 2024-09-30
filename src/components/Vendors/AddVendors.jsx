@@ -1,4 +1,6 @@
 import React, { useState, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import Header from "../header/Header";
 import upload from "../../assets/svg/upload.svg";
 import add from "../../assets/svg/add.svg";
@@ -6,7 +8,9 @@ import file from "../../assets/svg/file.svg";
 import InputField from "./InputField";
 import Materials from "./materials";
 
-const AddVendors = () => {
+const AddVendors = ({ addVendor }) => {
+  const navigate = useNavigate();
+
   const companyInputRef = useRef(null);
   const cinInputRef = useRef(null);
   const gstInputRef = useRef(null);
@@ -18,8 +22,6 @@ const AddVendors = () => {
   const [cinFileName, setCinFileName] = useState("");
   const [gstFileName, setGstFileName] = useState("");
   const [brochureFileName, setBrochureFileName] = useState("");
-  const [materialImage, setMaterialImage] = useState(null);
-
   const [cinFile, setCinFile] = useState(null);
   const [gstFile, setGstFile] = useState(null);
   const [brochureFile, setBrochureFile] = useState(null);
@@ -109,43 +111,43 @@ const AddVendors = () => {
   };
 
   const handleAddVendor = async () => {
-    const vendorData = new FormData();
-    const excludeKeys = [
-      "materialName",
-      "materialPrice",
-      "materialDescription",
-    ];
+    // Create a vendor object in the same format as initialVendors
+    const newVendor = {
+      name: formData.companyName,
+      phone: formData.phoneNumber,
+      email: formData.email,
+      address: formData.address,
+      logo: companyImage, // Assuming companyProfile is a file object
+      Cin: cinFileName,
+      brochure: brochureFileName, // Assuming brochureFile is a file object
+      gst: gstFileName,
+      gstNumber: formData.gstNumber,
+      serviceableCities: serviceableCities,
+      serviceDays: serviceDays,
+      bankName: formData.bankName,
+      accountHolderName: formData.accountHolderName,
+      accountNumber: formData.accountNumber,
+      confirmAccountNumber: formData.confirmAccountNumber,
+      ifscCode: formData.ifscCode,
+      upiId: formData.upiId,
+    };
 
-    // Append text fields, excluding specified keys
-    Object.keys(formData)
-      .filter((key) => !excludeKeys.includes(key))
-      .forEach((key) => {
-        vendorData.append(key, formData[key]);
-      });
+    // Append other necessary data if required (e.g., serviceable cities, materials)
+    newVendor.materials = materials.map((material) => ({
+      name: material.name,
+      price: material.price,
+      description: material.description,
+      image: material.profile, // Assuming this is a URL or base64 string
+    }));
 
-    // Append file fields
-    vendorData.append("companyImage", companyProfile);
-    vendorData.append("cinFile", cinFile);
-    vendorData.append("gstFile", gstFile);
-    vendorData.append("brochureFile", brochureFile);
+    // Log the new vendor object to see its structure
+    console.log("New Vendor:", newVendor);
 
-    // Append additional data
-    vendorData.append("serviceableCities", JSON.stringify(serviceableCities));
-    vendorData.append("serviceDays", JSON.stringify(serviceDays));
-    materials.forEach((material, index) => {
-      vendorData.append(`materials[${index}][name]`, material.name);
-      vendorData.append(`materials[${index}][price]`, material.price);
-      vendorData.append(
-        `materials[${index}][description]`,
-        material.description
-      );
-      vendorData.append(`materials[${index}][image]`, material.image);
-    });
+    // Here, you can add the new vendor to the state or make an API call
+    addVendor(newVendor);
 
-    // Log FormData entries
-    for (const [key, value] of vendorData.entries()) {
-      console.log(`${key}:`, value);
-    }
+    // If you need to navigate back to the Vendors page, you can do so here
+    navigate("/dashboard/vendors");
   };
 
   return (
@@ -404,7 +406,10 @@ const AddVendors = () => {
               <div className="md:flex justify-end mb-2 hidden">
                 <button
                   className="bg-primary text-white rounded-xl"
-                  onClick={handleAddVendor}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleAddVendor(); // Call this to add the vendor and handle navigation
+                  }}
                 >
                   Add Vendor
                 </button>

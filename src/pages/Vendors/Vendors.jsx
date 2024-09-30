@@ -2,31 +2,10 @@ import React, { useState } from "react";
 import Header from "../../components/header/Header";
 import { useNavigate } from "react-router-dom";
 
-function Vendors() {
+function Vendors({ vendors, deleteSelectedVendors }) {
   const navigate = useNavigate();
   // Sample vendor data
-  const initialVendors = [
-    {
-      id: 1,
-      name: "Company Name 1",
-      phone: "1234567890",
-      email: "company1@gmail.com",
-      address:
-        "43, Second Floor, Leela Palace Rd, behind The Leela Palace, HAL 2nd Stage, Kodihalli, Bengaluru, Karnataka 560008",
-      logo: "https://via.placeholder.com/50",
-    },
-    {
-      id: 2,
-      name: "Company Name 2",
-      phone: "0987654321",
-      email: "company2@gmail.com",
-      address: "12, MG Road, near Brigade Road, Bengaluru, Karnataka 560001",
-      logo: "https://via.placeholder.com/50",
-    },
-    // Add more vendor objects here...
-  ];
 
-  const [vendors, setVendors] = useState(initialVendors);
   const [isSelectMode, setIsSelectMode] = useState(false); // Track select mode
   const [selectedVendors, setSelectedVendors] = useState([]); // Track selected vendors
 
@@ -44,15 +23,11 @@ function Vendors() {
       setSelectedVendors([...selectedVendors, id]);
     }
   };
+  const deleteSelectedVendors1 = () => {
+    deleteSelectedVendors(selectedVendors);
+  };
 
   // Handle delete of selected vendors
-  const deleteSelectedVendors = () => {
-    const remainingVendors = vendors.filter(
-      (vendor) => !selectedVendors.includes(vendor.id)
-    );
-    setVendors(remainingVendors);
-    setSelectedVendors([]); // Reset after deletion
-  };
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-layoutColor font-poppins">
@@ -83,7 +58,7 @@ function Vendors() {
               {isSelectMode && (
                 <button
                   className={`   px-9 py-2 rounded-lg outline-none focus:outline-none ring-0 bg-red-100 text-red-400 border-red-500`}
-                  onClick={deleteSelectedVendors}
+                  onClick={deleteSelectedVendors1}
                 >
                   Delete
                 </button>
