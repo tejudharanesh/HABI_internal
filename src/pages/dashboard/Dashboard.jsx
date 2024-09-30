@@ -41,7 +41,6 @@ function Dashboard() {
       (vendor) => !selectedVendors.includes(vendor.id)
     );
     setVendors(remainingVendors);
-    setSelectedVendors([]); // Reset after deletion
   };
   // Function to add a new vendor
   const addVendor = (newVendor) => {

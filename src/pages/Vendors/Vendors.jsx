@@ -83,7 +83,7 @@ function Vendors({ vendors, deleteSelectedVendors }) {
                 key={vendor.id}
                 className="relative border border-gray-200 rounded-2xl p-4 bg-layoutColor shadow-sm"
                 onClick={() => {
-                  navigate(`/dashboard/updateVendor?id=${vendor.id}`);
+                  navigate(`/dashboard/updateVendor/${vendor.id}`);
                 }}
               >
                 {isSelectMode && (

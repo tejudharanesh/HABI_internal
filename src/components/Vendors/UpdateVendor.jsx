@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 import Header from "../header/Header";
@@ -9,17 +9,17 @@ import InputField from "./InputField";
 import Materials from "./materials";
 
 const UpdateVendor = ({ vendorData, updateVendor }) => {
-  const location = useLocation();
   const navigate = useNavigate();
 
-  const queryParams = new URLSearchParams(location.search);
-  const id = queryParams.get("id");
+  const { id } = useParams(); // use useParams to get the id from the URL
+
   const [vendor, setVendor] = useState(null);
   useEffect(() => {
     if (vendorData && id) {
       const selectedVendor = vendorData.find((v) => v.id === parseInt(id)); // Find vendor by ID
       if (selectedVendor) {
         setVendor(selectedVendor); // Set vendor data for editing
+        console.log(selectedVendor);
       }
     }
   }, [id, vendorData]);
