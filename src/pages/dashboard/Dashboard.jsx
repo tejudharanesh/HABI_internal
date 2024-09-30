@@ -11,6 +11,7 @@ import Leads from "../Leads/Leads";
 import Vendors from "../Vendors/Vendors";
 import LeadInformation from "../../components/Leads/LeadInformation";
 import AddVendors from "../../components/Vendors/AddVendors";
+import UpdateVendor from "../../components/Vendors/UpdateVendor";
 
 function Dashboard() {
   const initialVendors = [
@@ -49,6 +50,14 @@ function Dashboard() {
       { id: prevVendors.length + 1, ...newVendor },
     ]);
   };
+  // Function to update an existing vendor
+  const updateVendor = (updatedVendor) => {
+    setVendors((prevVendors) =>
+      prevVendors.map((vendor) =>
+        vendor.id === updatedVendor.id ? updatedVendor : vendor
+      )
+    );
+  };
   return (
     <div className="flex h-screen">
       {/* Navbar */}
@@ -79,6 +88,12 @@ function Dashboard() {
           <Route
             path="/AddVendor"
             element={<AddVendors addVendor={addVendor} />}
+          />
+          <Route
+            path="/EditVendor/:Id" // Route for editing vendor
+            element={
+              <UpdateVendor vendors={vendors} updateVendor={updateVendor} />
+            }
           />
         </Routes>
       </div>

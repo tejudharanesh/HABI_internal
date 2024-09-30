@@ -36,7 +36,7 @@ function Vendors({ vendors, deleteSelectedVendors }) {
       >
         <Header />
 
-        <div className="p-6">
+        <div className="p-1 py-2 md:p-6">
           <div className="flex justify-end mb-4">
             <div className="flex space-x-2">
               <button
@@ -82,6 +82,9 @@ function Vendors({ vendors, deleteSelectedVendors }) {
               <div
                 key={vendor.id}
                 className="relative border border-gray-200 rounded-2xl p-4 bg-layoutColor shadow-sm"
+                onClick={() => {
+                  navigate(`/dashboard/updateVendor?Id=${vendor.id}`);
+                }}
               >
                 {isSelectMode && (
                   <input
