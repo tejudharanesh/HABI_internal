@@ -184,7 +184,10 @@ const Leads = () => {
         <select
           value={lead.level}
           className="border border-gray-300 rounded-lg p-2 focus:outline-none text-black bg-white"
-          onChange={(e) => handleLevelChange(lead.id, e.target.value)}
+          onClick={(e) => e.stopPropagation()}
+          onChange={(e) => {
+            handleLevelChange(lead.id, e.target.value);
+          }}
         >
           <option></option>
           <option>Level 0</option>
@@ -214,7 +217,7 @@ const Leads = () => {
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 min-h-screen h-auto w-screen md:pl-24 lg:pl-40 text-black`}
       >
         <Header />
-        <div className="p-2 md:p-4">
+        <div className="p-2 md:p-4 lg:px-[5%] xl:px-[10%]">
           {/* Add Lead Button */}
           <div className="flex justify-end mb-4">
             <button
@@ -273,6 +276,7 @@ const Leads = () => {
                         type="checkbox"
                         className="h-4 w-4 text-primary bg-layoutColor border-gray-300 border-2 rounded focus:ring-primary appearance-none checked:appearance-auto checked:bg-layoutColor checked:border-black checked:text-black"
                         checked={isSelected(lead.id)}
+                        onClick={(e) => e.stopPropagation()}
                         onChange={() => handleCheckboxChange(lead.id)}
                       />
                     </td>
@@ -284,9 +288,10 @@ const Leads = () => {
                       <select
                         value={lead.level}
                         className="border border-gray-300 rounded-lg p-2 focus:outline-none text-black bg-white"
-                        onChange={(e) =>
-                          handleLevelChange(lead.id, e.target.value)
-                        }
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e) => {
+                          handleLevelChange(lead.id, e.target.value);
+                        }}
                       >
                         <option></option>
                         <option>Level 0</option>
@@ -358,6 +363,7 @@ const Leads = () => {
                         type="checkbox"
                         className="h-4 w-4 text-primary bg-layoutColor border-gray-300 border-2 rounded focus:ring-primary appearance-none checked:appearance-auto checked:bg-layoutColor checked:border-black checked:text-black"
                         checked={isSelected(lead.id)}
+                        onClick={(e) => e.stopPropagation()}
                         onChange={() => handleCheckboxChange(lead.id)}
                       />
                     </td>
@@ -369,9 +375,10 @@ const Leads = () => {
                       <select
                         value={lead.level}
                         className="border border-gray-300 rounded-lg p-2 focus:outline-none text-black bg-white"
-                        onChange={(e) =>
-                          handleLevelChange(lead.id, e.target.value)
-                        }
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e) => {
+                          handleLevelChange(lead.id, e.target.value);
+                        }}
                       >
                         <option>Level 0</option>
                         <option>Level 1</option>

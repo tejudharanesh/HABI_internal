@@ -64,7 +64,7 @@ const Navbar = () => {
       {/* Side Navbar */}
       <div
         className={`h-full bg-layoutColor text-white transition-transform duration-300 ease-in-out transform ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          isOpen ? "translate-x-0" : "-translate-x-full hidden md:inline"
         } md:translate-x-0`}
       >
         <nav className="bg-layoutColor border-r-2 pt-10 md:pt-0 h-screen">

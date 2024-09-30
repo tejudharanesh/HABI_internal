@@ -3,21 +3,26 @@ import Header from "../header/Header";
 import upload from "../../assets/svg/upload.svg";
 import add from "../../assets/svg/add.svg";
 import file from "../../assets/svg/file.svg";
-import edit from "../../assets/images/edit.png";
-import delete1 from "../../assets/images/delete.png";
+import InputField from "./InputField";
+import Materials from "./materials";
 
 const AddVendors = () => {
   const companyInputRef = useRef(null);
   const cinInputRef = useRef(null);
   const gstInputRef = useRef(null);
   const brochureInputRef = useRef(null);
-  const materialInputRef = useRef(null);
 
+  const [companyProfile, setCompanyProfile] = useState(null);
   const [companyImage, setCompanyImage] = useState(null);
+
   const [cinFileName, setCinFileName] = useState("");
   const [gstFileName, setGstFileName] = useState("");
   const [brochureFileName, setBrochureFileName] = useState("");
   const [materialImage, setMaterialImage] = useState(null);
+
+  const [cinFile, setCinFile] = useState(null);
+  const [gstFile, setGstFile] = useState(null);
+  const [brochureFile, setBrochureFile] = useState(null);
 
   // States for form fields
   const [formData, setFormData] = useState({
@@ -26,8 +31,6 @@ const AddVendors = () => {
     email: "",
     address: "",
     gstNumber: "",
-    serviceableCity: "",
-    time: "",
     bankName: "",
     accountHolderName: "",
     accountNumber: "",
@@ -39,7 +42,6 @@ const AddVendors = () => {
     materialDescription: "",
   });
   const [serviceDays, setServiceDays] = useState([]);
-
   const [materials, setMaterials] = useState([]);
 
   const [serviceableCities, setServiceableCities] = useState([]);
@@ -56,21 +58,22 @@ const AddVendors = () => {
       switch (type) {
         case "company":
           const companyURL = URL.createObjectURL(file);
+          setCompanyProfile(file);
           setCompanyImage(companyURL);
           break;
         case "cin":
+          setCinFile(file);
           setCinFileName(file.name);
           break;
         case "gst":
+          setGstFile(file);
           setGstFileName(file.name);
           break;
         case "brochure":
+          setBrochureFile(file);
           setBrochureFileName(file.name);
           break;
-        case "material":
-          const materialURL = URL.createObjectURL(file);
-          setMaterialImage(materialURL);
-          break;
+
         default:
           break;
       }
@@ -105,25 +108,43 @@ const AddVendors = () => {
     }
   };
 
-  const addMaterial = () => {
-    const newMaterial = {
-      name: formData.materialName,
-      price: formData.materialPrice,
-      description: formData.materialDescription,
-      image: materialImage, // Add image to material
-    };
+  const handleAddVendor = async () => {
+    const vendorData = new FormData();
+    const excludeKeys = [
+      "materialName",
+      "materialPrice",
+      "materialDescription",
+    ];
 
-    setMaterials([...materials, newMaterial]);
-    setFormData((prevData) => ({
-      ...prevData,
-      materialName: "",
-      materialPrice: "",
-      materialDescription: "",
-    }));
-    // Clear material fields
-    setMaterialImage(""); // Clear the image after adding the material
-    if (materialInputRef.current) {
-      materialInputRef.current.value = ""; // Clear the file input
+    // Append text fields, excluding specified keys
+    Object.keys(formData)
+      .filter((key) => !excludeKeys.includes(key))
+      .forEach((key) => {
+        vendorData.append(key, formData[key]);
+      });
+
+    // Append file fields
+    vendorData.append("companyImage", companyProfile);
+    vendorData.append("cinFile", cinFile);
+    vendorData.append("gstFile", gstFile);
+    vendorData.append("brochureFile", brochureFile);
+
+    // Append additional data
+    vendorData.append("serviceableCities", JSON.stringify(serviceableCities));
+    vendorData.append("serviceDays", JSON.stringify(serviceDays));
+    materials.forEach((material, index) => {
+      vendorData.append(`materials[${index}][name]`, material.name);
+      vendorData.append(`materials[${index}][price]`, material.price);
+      vendorData.append(
+        `materials[${index}][description]`,
+        material.description
+      );
+      vendorData.append(`materials[${index}][image]`, material.image);
+    });
+
+    // Log FormData entries
+    for (const [key, value] of vendorData.entries()) {
+      console.log(`${key}:`, value);
     }
   };
 
@@ -345,17 +366,17 @@ const AddVendors = () => {
                     </div>
                   ))}
                 </div>
-                <div className="grid lg:grid-cols-3 gap-2">
-                  <div className="mb-4 lg:col-span-2">
+                <div className="grid">
+                  <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">
                       Days
                     </label>
-                    <div className="flex space-x-1 lg:space-x-2">
+                    <div className="flex flex-wrap space-x-0.5 lg:space-x-2">
                       {["S", "M", "T", "W", "Th", "F", "Sa"].map(
                         (day, index) => (
                           <button
                             key={index}
-                            className={`bg-gray-200 hover:bg-primary text-black hover:text-white lg:px-2 lg:py-0.5 px-3 py-2 rounded-full ring-0 outline-none  ${
+                            className={`bg-gray-200 hover:bg-primary text-black hover:text-white lg:px-4 lg:py-2 px-3 py-2 rounded-full ring-0 outline-none ${
                               serviceDays.includes(day)
                                 ? "bg-primary text-white"
                                 : ""
@@ -374,14 +395,6 @@ const AddVendors = () => {
                       )}
                     </div>
                   </div>
-                  <div className="lg:mt-4">
-                    <InputField
-                      label="Time"
-                      name="time"
-                      value={formData.time}
-                      onChange={handleInputChange}
-                    />
-                  </div>
                 </div>
               </div>
             </div>
@@ -389,7 +402,10 @@ const AddVendors = () => {
             {/* Right side form */}
             <div>
               <div className="md:flex justify-end mb-2 hidden">
-                <button className="bg-primary text-white rounded-xl">
+                <button
+                  className="bg-primary text-white rounded-xl"
+                  onClick={handleAddVendor}
+                >
                   Add Vendor
                 </button>
               </div>
@@ -438,133 +454,12 @@ const AddVendors = () => {
                   />
                 </div>
               </div>
-              <div className="rounded-xl border-2 mt-3">
-                {/* Material Section */}
-                <div className="bg-layoutColor p-3 rounded-lg">
-                  <div className="flex justify-between mb-1">
-                    <h2 className="text-lg font-semibold mb-2">
-                      Add Materials
-                    </h2>
-                    <button
-                      className="bg-layoutColor text-black m-0 py-0 inline "
-                      onClick={addMaterial}
-                    >
-                      <img src={add} alt="" className="inline mr-2 mb-1" />
-                      Add
-                    </button>
-                  </div>
-
-                  <div className="grid grid-cols-3 mb-1">
-                    <div className="grid col-span-1 px-2">
-                      <div className="grid col-span-1 w-[100px] h-[100px] lg:w-[150px] lg:h-[120px]">
-                        {/* material image upload */}
-                        <div
-                          className="border border-gray-300 w-full h-full bg-background rounded-lg"
-                          onClick={() => materialInputRef.current.click()}
-                        >
-                          <input
-                            type="file"
-                            ref={materialInputRef}
-                            style={{ display: "none" }}
-                            onChange={(e) => handleFileChange(e, "material")}
-                          />
-                          {materialImage ? (
-                            <img
-                              src={materialImage}
-                              alt="Material"
-                              className="w-[100px] h-[100px] lg:w-[150px] lg:h-[120px] rounded-lg"
-                            />
-                          ) : (
-                            <img
-                              src={file}
-                              alt="Upload"
-                              className="m-auto flex mt-[25%] h-6 w-6"
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="grid col-span-2">
-                      <InputField
-                        label="Material Name"
-                        value={formData.materialName}
-                        name="materialName"
-                        onChange={handleInputChange}
-                      />
-
-                      <InputField
-                        label="Price"
-                        value={formData.materialPrice}
-                        name="materialPrice"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative mb-4 lg:mb-6">
-                    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-                      Description
-                    </label>
-                    <textarea
-                      className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-                      value={formData.materialDescription}
-                      name="materialDescription"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-
-                  {/* Material List */}
-                  <div className="mt-2">
-                    <h3 className="text-md font-semibold">Materials</h3>
-                    {materials.length === 0 ? (
-                      <p>Add materials to display Here.</p>
-                    ) : (
-                      <div className="w-full">
-                        {materials.map((material, index) => (
-                          <div
-                            key={index}
-                            className="p-2 border-2 rounded-xl grid grid-cols-4"
-                          >
-                            <div className="mr-2 col-span-1 ">
-                              <img
-                                src={material.image}
-                                alt=""
-                                className="w-[90px] h-[90px] lg:w-[100px] lg:h-[100px] rounded-xl"
-                              />
-                            </div>
-                            <div className="col-span-3">
-                              <div className="grid grid-cols-3 justify-between">
-                                <h3 className="font-semibold text-black">
-                                  {material.name}
-                                </h3>
-                                <h3 className="font-semibold text-black">
-                                  ₹{material.price}
-                                </h3>
-                                <div className="font-semibold text-black justify-end mr-3 flex">
-                                  <img
-                                    src={edit}
-                                    alt=""
-                                    className="mr-2 cursor-pointer"
-                                  />
-                                  <img
-                                    src={delete1}
-                                    alt=""
-                                    className="cursor-pointer"
-                                  />
-                                </div>
-                              </div>
-
-                              <p className="text-xs text-gray-400 mt-2">
-                                {material.description}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <Materials
+                materials={materials}
+                setMaterials={setMaterials}
+                formData={formData}
+                setFormData={setFormData}
+              />
             </div>
           </div>
         </div>
@@ -577,20 +472,5 @@ const AddVendors = () => {
     </div>
   );
 };
-
-const InputField = ({ label, name, value, onChange }) => (
-  <div className="relative mb-4 lg:mb-6">
-    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-      {label}
-    </label>
-    <input
-      type="text"
-      name={name}
-      className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-      value={value}
-      onChange={onChange} // Ensure the onChange is set here
-    />
-  </div>
-);
 
 export default AddVendors;
