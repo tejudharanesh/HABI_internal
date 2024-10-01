@@ -1,103 +1,144 @@
 import React, { useState } from "react";
 import close from "../../assets/svg/close1.svg";
 import upload from "../../assets/images/upload.png";
+import profile from "../../assets/images/profile.png";
 
-const AssignTask = ({ closeDrawer }) => {
+const InputField = ({ label, value, onChange, type = "text", placeholder }) => (
+  <div className="relative mb-4 lg:mb-6">
+    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
+      {label}
+    </label>
+    {type === "textarea" ? (
+      <textarea
+        className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
+    ) : (
+      <input
+        type={type}
+        className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        style={{
+          colorScheme: "light", // Makes the calendar icon and text dark themed
+        }}
+      />
+    )}
+  </div>
+);
+
+const DropdownField = ({ label, options, value, onChange }) => (
+  <div className="relative mb-4 lg:mb-6">
+    <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
+      {label}
+    </label>
+    <select
+      className="text-black block w-full px-3 py-2.5 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
+      value={value}
+      onChange={onChange}
+    >
+      <option value="">Select {label}</option>
+      {options.map((option, index) => (
+        <option key={index} value={option}>
+          {option}
+        </option>
+      ))}
+    </select>
+  </div>
+);
+
+const AssignTask = ({ closeDrawer, addNewTask }) => {
   const [taskTitle, setTaskTitle] = useState("");
   const [description, setDescription] = useState("");
   const [members, setMembers] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [dueDate, setStartDate] = useState("");
   const [type, setType] = useState("");
-  const [project, setProject] = useState("");
-  const [category, setCategory] = useState("");
-  const [priority, setPriority] = useState("Low");
+  const [priority, setPriority] = useState("");
+  const [attachedFiles, setAttachedFiles] = useState([]); // State for managing file uploads
+
+  const membersOptions = ["Member 1", "Member 2", "Member 3"];
+  const typeOptions = ["Bug", "Feature", "Improvement"];
+
+  // Handle file upload
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setAttachedFiles(files);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    closeDrawer(); // Close the drawer after submission
+
+    // Create new task object
+    const newTask = {
+      title: taskTitle,
+      description,
+      members: members.split(",").map((name) => ({ name })),
+      dueDate,
+      project: "",
+      projectId: "",
+      clientId: "",
+      category: type,
+      priority,
+      attachments: attachedFiles,
+      status: "Pending",
+      team: [
+        { name: "Darshan", desgn: "architect", avatar: profile },
+        { name: "Teju", desgn: "Developer", avatar: profile },
+      ],
+    };
+
+    addNewTask(newTask); // Pass the new task to parent component
+    closeDrawer(); // Close drawer after submission
   };
 
   return (
-    <div className="">
+    <div>
       <div className="flex justify-between items-center mb-8 bg-secondary1 px-8 py-3">
-        <h2 className="text-xl font-semibold text-black">Assign Task</h2>
-        <img src={close} alt="" onClick={closeDrawer} className="cursor-pointer"/>
+        <h2 className="font-semibold text-black">Assign Task</h2>
+        <img
+          src={close}
+          alt="close"
+          onClick={closeDrawer}
+          className="cursor-pointer"
+        />
       </div>
       <form onSubmit={handleSubmit} className="px-4">
-        {/* Task Title */}
-        <div className="relative mb-4 lg:mb-6">
-          <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-            Task Title*
-          </label>
-          <input
-            type="text"
-            className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-            placeholder="Write a task name"
-            value={taskTitle}
-            onChange={(e) => setTaskTitle(e.target.value)}
-          />
-        </div>
-
-        {/* Description */}
-        <div className="relative mb-4 lg:mb-6">
-          <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-            Description
-          </label>
-          <textarea
-            className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-            placeholder="What is this task about?"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-
-        {/* Members */}
-        <div className="relative mb-4 lg:mb-6">
-          <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-            Members*
-          </label>
-          <input
-            type="text"
-            className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-            placeholder="Add members"
-            value={members}
-            onChange={(e) => setMembers(e.target.value)}
-          />
-        </div>
-
-        {/* Duration */}
+        <InputField
+          label="Task Title*"
+          value={taskTitle}
+          onChange={(e) => setTaskTitle(e.target.value)}
+          placeholder="Write a task name"
+        />
+        <InputField
+          label="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="What is this task about?"
+          type="textarea"
+        />
+        <DropdownField
+          label="Members*"
+          options={membersOptions}
+          value={members}
+          onChange={(e) => setMembers(e.target.value)}
+        />
         <div className="flex space-x-4">
-          <div className="relative mb-4 lg:mb-6 flex-1">
-            <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-              Days*
-            </label>
-            <input
-              type="number"
-              placeholder=""
-              className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              style={{
-                colorScheme: "light", // Makes the calendar icon and text dark themed
-              }}
-            />
-          </div>
-          <div className="relative mb-4 lg:mb-6">
-            <label className="absolute -top-2.5 left-3 bg-layoutColor px-1 text-sm text-black">
-              Type
-            </label>
-            <input
-              type="text"
-              className="text-black block w-full px-3 py-2 border border-gray-300 rounded-xl bg-layoutColor focus:outline-none"
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-            />
-          </div>
+          <InputField
+            label="Due Date*"
+            value={dueDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            type="date"
+          />
+          <DropdownField
+            label="Type"
+            options={typeOptions}
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          />
         </div>
-
-        {/* Type */}
 
         {/* Attach Files */}
         <div className="relative mb-4 lg:mb-6">
@@ -110,6 +151,8 @@ const AssignTask = ({ closeDrawer }) => {
             <input
               type="file"
               className="absolute inset-0 opacity-0 cursor-pointer"
+              onChange={handleFileChange}
+              multiple // Allow multiple file uploads
             />
           </div>
         </div>
@@ -117,26 +160,27 @@ const AssignTask = ({ closeDrawer }) => {
         {/* Priority */}
         <p className="text-black ml-2 mb-4 lg:mb-6">Priority</p>
         <div className="grid grid-cols-1 space-y-3 md:space-y-0 md:grid-cols-2 justify-between">
-          <div className="">
-            <div className="inline mr-4">
-              <button
-                type="button"
-                className="bg-layoutColor border-1 border-gray-400 text-black"
-                onClick={() => setPriority("Low")}
-              >
-                High
-              </button>
-            </div>
-            <div className="inline">
-              <button
-                type="button"
-                className="bg-layoutColor border-1 border-gray-400 text-black"
-                onClick={() => setPriority("Low")}
-              >
-                Low
-              </button>
-            </div>
+          <div>
+            <button
+              type="button"
+              className={`bg-layoutColor border-1 border-gray-400 text-black mr-2 ${
+                priority === "High" ? "bg-primary text-white" : ""
+              }`}
+              onClick={() => setPriority("High")}
+            >
+              High
+            </button>
+            <button
+              type="button"
+              className={`bg-layoutColor border-1 border-gray-400 text-black ${
+                priority === "Low" ? "bg-primary text-white" : ""
+              }`}
+              onClick={() => setPriority("Low")}
+            >
+              Low
+            </button>
           </div>
+
           {/* Submit Button */}
           <button
             type="submit"

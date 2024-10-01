@@ -50,7 +50,8 @@ function Home() {
     };
   }, [isTaskDrawerOpen, isAddEmployeeDrawerOpen, isTaskDetailsOpen]);
 
-  const tasks = [
+  // Task state to store tasks
+  const [tasks, setTasks] = useState([
     {
       title: "Interior Design",
       project: "Charan Project",
@@ -65,61 +66,15 @@ function Home() {
         { name: "Darshan", desgn: "architect", avatar: profile },
         { name: "Teju", desgn: "Developer", avatar: profile },
       ],
-      attachments: [{}],
     },
-    {
-      title: "Interior Design",
-      project: "Teju project",
-      projectId: "CHA2024",
-      category: "Architecture design",
-      dates: "25 May 2024 - 26 May 2024",
-      status: "In Progress",
-      priority: "Low",
-      team: [
-        { name: "Person 1", avatar: "avatar-url" },
-        { name: "Person 2", avatar: "avatar-url" },
-      ],
-    },
-    {
-      title: "Interior Design",
-      project: "Balaji Project",
-      projectId: "CHA2024",
-      category: "Architecture design",
-      dates: "25 May 2024 - 26 May 2024",
-      status: "In Progress",
-      priority: "Low",
-      team: [
-        { name: "Person 1", avatar: "avatar-url" },
-        { name: "Person 2", avatar: "avatar-url" },
-      ],
-    },
-    {
-      title: "Interior Design",
-      project: "Charan Project",
-      dates: "25 May 2024 - 26 May 2024",
-      status: "Pending",
-      priority: "High Priority",
-      team: [
-        { name: "Person 1", avatar: "avatar-url" },
-        { name: "Person 2", avatar: "avatar-url" },
-      ],
-    },
-    // Add more tasks
-  ];
-  const meetings = [
-    {
-      project: "Charan Project",
-      date: "10 August 2024",
-      time: "4:00 PM",
-      projectId: "CHA2024",
-    },
-    {
-      project: "Charan Project",
-      date: "10 August 2024",
-      time: "4:00 PM",
-      projectId: "CHA2024",
-    },
+    // Other tasks...
+  ]);
 
+  const addNewTask = (newTask) => {
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+  };
+
+  const meetings = [
     {
       project: "Charan Project",
       date: "10 August 2024",
@@ -220,7 +175,7 @@ function Home() {
             isTaskDrawerOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <AssignTask closeDrawer={toggleTaskDrawer} />
+          <AssignTask closeDrawer={toggleTaskDrawer} addNewTask={addNewTask} />
         </div>
 
         {/* Overlay for Add Employee Drawer */}

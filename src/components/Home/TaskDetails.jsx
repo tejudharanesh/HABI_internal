@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import close from "../../assets/svg/close1.svg";
 import upload from "../../assets/images/upload.png";
+import pdf from "../../assets/images/pdf.png";
 
 function TaskDetails({ closeDrawer, task }) {
   const [attachedFiles, setAttachedFiles] = useState([]);
@@ -86,12 +87,36 @@ function TaskDetails({ closeDrawer, task }) {
 
         {/* Attachments */}
         {task.attachments && task.attachments.length > 0 && (
-          <div className="flex relative">
-            <h3 className="text-gray-400">Attachment</h3>
-            <div className="grid grid-cols-4 space-x-3 absolute left-32">
-              <div className="w-20 h-20 border-2 border-dotted p-2">
-                <img src="https://via.placeholder.com/100" alt="Attachment" />
-              </div>
+          <div className="flex relative mt-4">
+            <h3 className="text-gray-400">Attachments</h3>
+            <div className="grid grid-cols-4 gap-3 absolute left-32">
+              {task.attachments.map((attachment, index) => (
+                <div
+                  key={index}
+                  className="w-16 h-16  border-2 border-dotted p-2"
+                >
+                  {/* Render image if it's a supported image type, otherwise show as a file link */}
+                  {attachment.type.startsWith("image/") ? (
+                    <img
+                      src={URL.createObjectURL(attachment)} // Create an object URL from the file
+                      alt={`Attachment ${index + 1}`}
+                      className="w-full h-full object-cover cursor-pointer"
+                      onClick={() =>
+                        window.open(URL.createObjectURL(attachment), "_blank")
+                      } // Open the image in a new tab
+                    />
+                  ) : (
+                    <div
+                      className="flex items-center justify-center cursor-pointer w-full h-full"
+                      onClick={() =>
+                        window.open(URL.createObjectURL(attachment), "_blank")
+                      }
+                    >
+                      <img src={pdf} alt="" className="w-10" />
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         )}
