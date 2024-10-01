@@ -15,7 +15,7 @@ function TaskDetails({ closeDrawer, task }) {
     <div className="">
       {/* Header */}
       <div className="flex justify-between items-center mb-8 bg-secondary1 px-8 py-4">
-        <h2 className="text-xl font-medium text-black">Task Details</h2>
+        <h2 className="font-semibold text-black">Task Details</h2>
         <img
           src={close}
           alt="Close"
@@ -27,7 +27,7 @@ function TaskDetails({ closeDrawer, task }) {
       {/* Task Content */}
       <div className="px-8">
         {/* Task Details */}
-        <div className="space-y-4 text-gray-600 mb-4">
+        <div className="space-y-3 text-gray-600 mb-4">
           <div className="flex relative">
             <span className="text-gray-400">Title</span>
             <span className="absolute left-32 text-black font-medium">
@@ -36,12 +36,12 @@ function TaskDetails({ closeDrawer, task }) {
             <span className="text-gray-400 absolute right-2">Priority</span>
           </div>
           <div className="flex relative">
-            <span className="text-gray-400">Project </span>
+            <span className="text-gray-400">Project</span>
             <span className="absolute left-32 text-black font-medium">
               {task.project}
             </span>
             <span
-              className={`px-2 py-1 text-[10px] rounded-lg absolute right-4 -top-2 ${
+              className={`px-2 py-1 text-[10px] rounded-lg absolute right-4 -top-1 ${
                 task.priority === "High Priority"
                   ? "bg-secondary1 text-secondary"
                   : "bg-primaryO text-primary"
@@ -103,8 +103,12 @@ function TaskDetails({ closeDrawer, task }) {
             <div className="grid grid-cols-2 absolute left-32 w-2/3">
               {task.team.map((member, idx) => (
                 <div key={idx} className="grid grid-cols-2 relative my-1">
-                  <img src={member.avatar} alt="D" className="rounded-full" />
-                  <div className="grid grid-cols-1 absolute left-12 top-1">
+                  <img
+                    src={member.avatar}
+                    alt="D"
+                    className="rounded-full w-9 h-9"
+                  />
+                  <div className="grid grid-cols-1 absolute left-10 top-0">
                     <span className="text-sm text-gray-600">{member.name}</span>
                     <span className="text-xs text-gray-400">
                       {member.desgn}

@@ -11,7 +11,7 @@ function Meetings({ meetings }) {
           see all meetings
         </a>
       </div>
-      <ul className="mt-5">
+      <ul className="mt-3">
         {meetings.map((meeting, idx) => (
           <li key={idx} className="items-center p-2 border-2 mb-2 rounded-lg">
             <div className="flex items-center justify-between">

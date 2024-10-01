@@ -2,11 +2,11 @@ import React from "react";
 import profile from "../../assets/images/profile.png";
 import bell from "../../assets/svg/bell.svg";
 import search from "../../assets/svg/search.svg";
-const Header = () => {
+const Header = ({ title }) => {
   return (
     <div className="sticky top-0 left-0 h-14 border-b py-2 bg-layoutColor z-10">
       <p className="text-black text-lg absolute left-20 md:left-4 top-4 font-semibold">
-        Home
+        {title}
       </p>
       <div className="md:border rounded-xl p-1 absolute right-20 md:right-48 mr-6 mt-1">
         <img src={search} alt="" className="inline-block mr-1" />

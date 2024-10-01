@@ -42,7 +42,7 @@ function Taskcard({ task, toggleTaskDetails }) {
         </div>
       </div>
       <div className="mt-2 flex justify-between items-center">
-        <p className="text-xs text-gray-500">{task.dueDate}</p>
+        <p className="text-xs text-gray-500 mt-1">{task.dueDate}</p>
 
         <span className="text-xs text-gray-500">{task.status}</span>
       </div>

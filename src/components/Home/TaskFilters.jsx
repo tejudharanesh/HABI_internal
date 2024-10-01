@@ -16,7 +16,7 @@ function TaskFilters({ toggleTaskDrawer, toggleAddEmployeeDrawer, setFilter }) {
   };
 
   return (
-    <div className="relative py-3 md:pl-4">
+    <div className="relative py-3 md:pl-4 mt-2">
       {/* Dropdown for mobile screens */}
       <div className="inline-block md:hidden">
         <select

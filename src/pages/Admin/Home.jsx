@@ -142,7 +142,7 @@ function Home() {
       <div
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
       >
-        <Header />
+        <Header title="Home" />
         <TaskFilters
           toggleTaskDrawer={toggleTaskDrawer}
           toggleAddEmployeeDrawer={toggleAddEmployeeDrawer}
@@ -216,7 +216,7 @@ function Home() {
 
         {/* Sliding Drawer for Assign Task */}
         <div
-          className={`fixed top-0 right-0 w-full md:w-2/4 xl:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
+          className={`fixed top-0 right-0 w-full md:w-2/4 lg:w-[40%] xl:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
             isTaskDrawerOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -233,7 +233,7 @@ function Home() {
 
         {/* Sliding Drawer for Add Employee */}
         <div
-          className={`fixed top-0 right-0 w-full md:w-2/4 xl:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
+          className={`fixed top-0 right-0 w-full md:w-2/4 lg:w-[40%] xl:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
             isAddEmployeeDrawerOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -252,7 +252,7 @@ function Home() {
 
         {/* Sliding Drawer for Task Details */}
         <div
-          className={`fixed top-0 right-0 w-full md:w-2/4 xl:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
+          className={`fixed top-0 right-0 w-full md:w-2/4 lg:w-[40%] xl:w-1/3 h-full bg-layoutColor shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
             isTaskDetailsOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
