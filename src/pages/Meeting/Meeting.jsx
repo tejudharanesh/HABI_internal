@@ -39,11 +39,9 @@ const Meeting = () => {
     setIsModalOpen(false); // Close the modal after submission
   };
   const clientMeetings = meetingsData.filter(
-    (meeting) => meeting.type === "client"
+    (meeting) => meeting.type == "client"
   );
-  const leadMeetings = meetingsData.filter(
-    (meeting) => meeting.type === "lead"
-  );
+  const leadMeetings = meetingsData.filter((meeting) => meeting.type == "lead");
 
   const renderMeetingTableRow = (meeting, index) => (
     <div className="grid grid-cols-5 mx-4 mr-10 space-y-4 relative" key={index}>
