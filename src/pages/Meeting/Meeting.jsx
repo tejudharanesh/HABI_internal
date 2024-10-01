@@ -5,7 +5,7 @@ import link from "../../assets/svg/link.svg";
 import option from "../../assets/images/option.png";
 import NewMeeting from "../../components/Meeting/NewMeeting";
 
-const meetingsData = [
+const initialMeetingsData = [
   {
     name: "Charan Project",
     id: "CHA2024",
@@ -13,34 +13,7 @@ const meetingsData = [
     time: "11:00 am",
     type: "client",
   },
-  {
-    name: "Charan Project",
-    id: "CHA2024",
-    date: "1 Sept 2024",
-    time: "11:00 am",
-    type: "client",
-  },
-  {
-    name: "Charan Project",
-    id: "CHA2024",
-    date: "1 Sept 2024",
-    time: "11:00 am",
-    type: "client",
-  },
-  {
-    name: "Charan Project",
-    id: "CHA2024",
-    date: "1 Sept 2024",
-    time: "11:00 am",
-    type: "lead",
-  },
-  {
-    name: "Charan Project",
-    id: "CHA2024",
-    date: "1 Sept 2024",
-    time: "11:00 am",
-    type: "lead",
-  },
+
   {
     name: "Charan Project",
     id: "CHA2024",
@@ -52,16 +25,25 @@ const meetingsData = [
 ];
 
 const Meeting = () => {
+  const [meetingsData, setMeetingsData] = useState(initialMeetingsData); // Use state for meetings data
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen); // Toggle modal visibility
+  };
+
+  const addNewMeeting = (newMeetingData) => {
+    setMeetingsData((prevData) => [...prevData, newMeetingData]);
+    console.log(meetingsData);
+
+    setIsModalOpen(false); // Close the modal after submission
+  };
   const clientMeetings = meetingsData.filter(
     (meeting) => meeting.type === "client"
   );
   const leadMeetings = meetingsData.filter(
     (meeting) => meeting.type === "lead"
   );
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen); // Toggle modal visibility
-  };
 
   const renderMeetingTableRow = (meeting, index) => (
     <div className="grid grid-cols-5 mx-4 mr-10 space-y-4 relative" key={index}>
@@ -163,8 +145,8 @@ const Meeting = () => {
       <div
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
       >
-        <Header />
-        <div className="p-2 md:p-6 lg:mx-14 xl:mx-32">
+        <Header title="Meeting" />
+        <div className="p-2 md:p-6 lg:mx-14 xl:mx-40">
           {/* Client Meeting Section */}
           <div className="mb-8">
             <div className="flex justify-between items-center mb-4">
@@ -225,7 +207,9 @@ const Meeting = () => {
             </div>
           </div>
         </div>
-        {isModalOpen && <NewMeeting onClose={toggleModal} />}
+        {isModalOpen && (
+          <NewMeeting onClose={toggleModal} onAddMeeting={addNewMeeting} />
+        )}
         {/* Render the modal if open */}
       </div>
     </div>

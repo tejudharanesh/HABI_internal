@@ -3,12 +3,23 @@ import close from "../../assets/svg/close1.svg";
 
 const members = ["John Doe", "Jane Smith", "Emily Johnson", "Michael Brown"]; // Example members list
 
-const NewMeeting = ({ onClose }) => {
+const NewMeeting = ({ onClose, onAddMeeting }) => {
   // States for form inputs
   const [selectedMember, setSelectedMember] = useState(""); // Selected member from the dropdown
   const [meetingLink, setMeetingLink] = useState(""); // Meeting link
   const [meetingDate, setMeetingDate] = useState(""); // Meeting date
   const [meetingTime, setMeetingTime] = useState(""); // Meeting time
+
+  const [accessOptions, setAccessOptions] = useState({
+    admin: false,
+    architect: false,
+    sales: false,
+    siteSupervisor: false,
+  });
+  const handleInputChange = (e) => {
+    const { name, checked } = e.target;
+    setAccessOptions((prev) => ({ ...prev, [name]: checked }));
+  };
 
   // Handle form submission
   const handleSubmit = (e) => {
@@ -22,17 +33,38 @@ const NewMeeting = ({ onClose }) => {
 
     // You can handle the form submission here (e.g., send data to an API)
     const meetingData = {
-      member: selectedMember,
+      name: selectedMember,
       link: meetingLink,
       date: meetingDate,
       time: meetingTime,
+      id: "CHA2024",
+      type: "lead",
+      accessOptions,
     };
 
     console.log("New Meeting Data: ", meetingData);
 
     // Close the modal after submission (You can modify this as needed)
-    onClose();
+    onAddMeeting(meetingData);
   };
+  const accessData = [
+    { name: "admin", label: "Admin" },
+    { name: "architect", label: "Architect" },
+    { name: "sales", label: "Sales" },
+    { name: "siteSupervisor", label: "Site Supervisor" },
+  ];
+  const renderCheckbox = ({ name, label }) => (
+    <label className="flex items-center space-x-2 my-1">
+      <input
+        type="checkbox"
+        name={name}
+        checked={accessOptions[name]}
+        onChange={handleInputChange}
+        className="h-4 w-4 text-primary bg-layoutColor border-gray-300 border-2 rounded focus:ring-primary appearance-none checked:appearance-auto checked:bg-layoutColor checked:border-black checked:text-black"
+      />
+      <span className="text-black text-sm">{label}</span>
+    </label>
+  );
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -60,9 +92,19 @@ const NewMeeting = ({ onClose }) => {
         {/* Form Fields */}
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Member Selection (Dropdown) */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <h3 className="text-black">Add Employees</h3>
+              {renderCheckbox(accessData[0])}
+              {renderCheckbox(accessData[1])}
+              {renderCheckbox(accessData[2])}
+              {renderCheckbox(accessData[3])}
+            </div>
+          </div>
+
           <div className="relative">
             <label className="absolute -top-2.5 left-3 bg-white px-2 text-sm text-black">
-              Select a member
+              Select Client/Lead
             </label>
             <select
               value={selectedMember}
@@ -70,9 +112,7 @@ const NewMeeting = ({ onClose }) => {
               className="block w-full px-3 py-2 border border-gray-300 rounded-xl bg-white text-black focus:outline-none"
               required
             >
-              <option value="" disabled>
-                Select a member
-              </option>
+              <option value="" disabled></option>
               {members.map((member, index) => (
                 <option key={index} value={member}>
                   {member}
