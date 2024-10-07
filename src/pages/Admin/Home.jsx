@@ -20,7 +20,7 @@ function Home({ role }) {
 
   const [selectedTask, setSelectedTask] = useState({}); // New state for selected task
 
-  const [openClientIndex, setOpenClientIndex] = useState(null);
+  const [openClientIndex, setOpenClientIndex] = useState(0);
 
   const toggleClientTasks = (clientIndex) => {
     if (openClientIndex === clientIndex) {
