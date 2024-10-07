@@ -10,7 +10,6 @@ import Payment from "../../components/Projects/Payment/Payment";
 import Leads from "../Leads/Leads";
 import Vendors from "../Vendors/Vendors";
 import LeadInformation from "../../components/Leads/LeadInformation";
-import AddVendors from "../../components/Vendors/AddVendors";
 
 function Dashboard() {
   const initialVendors = [
@@ -85,7 +84,7 @@ function Dashboard() {
           />
           <Route
             path="/AddVendor"
-            element={<AddVendors addVendor={addVendor} />}
+            element={<Vendors addVendor={addVendor} />}
           />
           <Route
             path="/updateVendor/:id" // Route for editing vendor
