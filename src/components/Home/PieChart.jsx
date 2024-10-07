@@ -12,7 +12,7 @@ function PieChart({ data }) {
       {
         label: "Task Overview",
         data: data,
-        backgroundColor: ["#0FB4C3", "#FFB400", "#EEEEEE"],
+        backgroundColor: ["#0FB4C3", "#FFB969", "#EEEEEE"],
         borderWidth: 1,
       },
     ],
@@ -22,7 +22,28 @@ function PieChart({ data }) {
     cutout: "70%", // This creates a 90% cutout (doughnut effect)
   };
 
-  return <Doughnut data={chartData} options={options} />;
+  return (
+    <div className="bg-layoutColor py-2 px-2 rounded-lg border-2">
+      <h3 className="font-semibold text-black">Tasks Overview</h3>
+      <div className="w-60 mx-auto p-3">
+        <Doughnut data={chartData} options={options} />
+      </div>
+      <div className="flex space-x-4 justify-center mt-2">
+        <div className="flex items-center space-x-1">
+          <div className="w-2 h-2 bg-primary rounded-full"></div>
+          <p className="text-black text-xs">In Progress</p>
+        </div>
+        <div className="flex items-center space-x-1">
+          <div className="w-2 h-2 bg-primary rounded-full"></div>
+          <p className="text-black text-xs">In Progress</p>
+        </div>
+        <div className="flex items-center space-x-1">
+          <div className="w-2 h-2 bg-primary rounded-full"></div>
+          <p className="text-black text-xs">In Progress</p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default PieChart;

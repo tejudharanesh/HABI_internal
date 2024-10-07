@@ -1,10 +1,9 @@
 import React from "react";
-import Taskcard from "./Taskcard";
+import { Taskcard, Taskcard1 } from "./Taskcard";
 
-function Task({ title, tasks, toggleTaskDetails }) {
+export function Task({ tasks, toggleTaskDetails }) {
   return (
     <div className="mb-6">
-      <h2 className="text-lg font-semibold mb-2 text-black">{title}</h2>
       {tasks.length > 0 ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3">
           {tasks.map((task, id) => (
@@ -16,10 +15,28 @@ function Task({ title, tasks, toggleTaskDetails }) {
           ))}
         </div>
       ) : (
-        <p className="text-gray-500 text-sm">No tasks in {title}</p>
+        <p className="text-gray-500 text-sm">No tasks</p>
       )}
     </div>
   );
 }
 
-export default Task;
+export function Task1({ tasks, toggleTaskDetails }) {
+  return (
+    <div className="mb-6">
+      {tasks.length > 0 ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3">
+          {tasks.map((task, id) => (
+            <Taskcard1
+              key={id}
+              task={task}
+              toggleTaskDetails={toggleTaskDetails}
+            />
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-500 text-sm">No tasks</p>
+      )}
+    </div>
+  );
+}

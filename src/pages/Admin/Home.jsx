@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/header/Header";
 import TaskFilters from "../../components/Home/TaskFilters";
-import Task from "../../components/Home/Task";
+import { Task, Task1 } from "../../components/Home/Task";
 import Meetings from "../../components/Home/Meetings";
 import PieChart from "../../components/Home/PieChart";
 import AssignTask from "../../components/Home/AssignTask";
@@ -10,6 +10,7 @@ import TaskDetails from "../../components/Home/TaskDetails";
 import profile from "../../assets/images/profile.png";
 
 function Home() {
+  const role = "siteSupervisor";
   const [isTaskDrawerOpen, setTaskDrawerOpen] = useState(false);
   const [isAddEmployeeDrawerOpen, setAddEmployeeDrawerOpen] = useState(false);
   const [isTaskDetailsOpen, setTaskDetailsOpen] = useState(false);
@@ -69,7 +70,22 @@ function Home() {
     },
     // Other tasks...
   ]);
+  const projectTask = [
+    {
+      title: "Site Clearance",
+      project: "Charan Project",
+      projectId: "CHA2024",
+      clientId: "1272829",
+      Date: "26 mar 2024 - 27 mar 2024",
+      status: "Pending",
+      progress: 10,
+    },
+  ];
 
+  const projects = [
+    
+  ]
+  // Other tasks...
   const addNewTask = (newTask) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
@@ -105,61 +121,25 @@ function Home() {
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pr-3 md:px-4 gap-4">
           <div className="md:col-span-1 lg:col-span-2 xl:col-span-3">
-            <Task
-              title="My Task"
-              tasks={filteredTasks}
-              toggleTaskDetails={toggleTaskDetails}
-            />
-            <Task
-              title="Assigned Task"
-              tasks={filteredTasks}
-              toggleTaskDetails={toggleTaskDetails}
-            />
+            <h4 className="text-black font-semibold">My Task</h4>
+            <Task tasks={filteredTasks} toggleTaskDetails={toggleTaskDetails} />
+            {role == "Admin" && (
+              <Task
+                tasks={filteredTasks}
+                toggleTaskDetails={toggleTaskDetails}
+              />
+            )}
+            {role == "siteSupervisor" && (
+              <Task1
+                tasks={projectTask}
+                toggleTaskDetails={toggleTaskDetails}
+              />
+            )}
           </div>
           <div className="space-y-4 md:col-span-1 xl:col-span-1">
             <Meetings meetings={meetings} />
-            <div className="bg-layoutColor py-2 px-2 rounded-lg border-2">
-              <h3 className="font-semibold text-black">Tasks Overview</h3>
-              <div className="w-60 mx-auto">
-                <PieChart data={taskOverviewData} />
-              </div>
-              <div className="flex space-x-4 justify-center mt-2">
-                <div className="flex items-center space-x-1">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <p className="text-black text-xs">In Progress</p>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <p className="text-black text-xs">In Progress</p>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <p className="text-black text-xs">In Progress</p>
-                </div>
-              </div>
-            </div>
-            <div className="bg-layoutColor p-2 rounded-lg border-2">
-              <h3 className="font-semibold text-black">
-                Assigned Tasks Overview
-              </h3>
-              <div className="w-60 mx-auto">
-                <PieChart data={taskOverviewData} />
-              </div>
-              <div className="flex space-x-4 justify-center mt-2">
-                <div className="flex items-center space-x-1">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <p className="text-black text-xs">In Progress</p>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <p className="text-black text-xs">In Progress</p>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <p className="text-black text-xs">In Progress</p>
-                </div>
-              </div>
-            </div>
+
+            <PieChart data={taskOverviewData} />
           </div>
         </div>
         {isTaskDrawerOpen && (

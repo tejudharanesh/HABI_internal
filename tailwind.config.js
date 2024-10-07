@@ -32,7 +32,7 @@ export default {
         background: "#EEEEEE",
         layoutColor: "#F8F8FF",
         layoutColor1: "rgba(248, 248, 255, 0.1)",
-        secondary: "#FFB400",
+        secondary: "#ffb969",
         secondary1: "rgba(255, 180, 0, 0.1)",
 
         BlackO: "#111111",
