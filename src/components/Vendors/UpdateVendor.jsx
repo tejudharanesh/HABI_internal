@@ -3,11 +3,9 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 import Header from "../header/Header";
 import upload from "../../assets/svg/upload.svg";
-import add from "../../assets/svg/add.svg";
 import file from "../../assets/svg/file.svg";
 import InputField from "./InputField";
 import Materials from "./materials";
-
 const UpdateVendor = ({ vendorData, updateVendor }) => {
   const navigate = useNavigate();
 

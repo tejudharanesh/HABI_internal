@@ -218,7 +218,7 @@ function Home() {
             )}
 
             {role === "siteSupervisor" ||
-              (role === "Architect" &&
+              (role == "Architect" &&
                 projects.map((project, projectIndex) =>
                   project.clients.map((client, clientIndex) => (
                     <PieChart
