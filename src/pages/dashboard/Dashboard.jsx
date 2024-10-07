@@ -11,7 +11,6 @@ import Leads from "../Leads/Leads";
 import Vendors from "../Vendors/Vendors";
 import LeadInformation from "../../components/Leads/LeadInformation";
 import AddVendors from "../../components/Vendors/AddVendors";
-import UpdateVendor from "../../components/Vendors/UpdateVendor";
 
 function Dashboard() {
   const initialVendors = [
