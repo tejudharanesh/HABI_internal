@@ -5,7 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
 // Register the necessary components
 ChartJS.register(ArcElement, Tooltip);
 
-function PieChart({ data }) {
+function PieChart({ data, title }) {
   const chartData = {
     labels: ["In Progress", "Pending", "On Hold"],
     datasets: [
@@ -24,7 +24,7 @@ function PieChart({ data }) {
 
   return (
     <div className="bg-layoutColor py-2 px-2 rounded-lg border-2">
-      <h3 className="font-semibold text-black">Tasks Overview</h3>
+      <h3 className="font-semibold text-black">{title} Project overview</h3>
       <div className="w-60 mx-auto p-3">
         <Doughnut data={chartData} options={options} />
       </div>

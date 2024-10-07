@@ -8,9 +8,11 @@ import AssignTask from "../../components/Home/AssignTask";
 import AddEmployee from "../../components/Home/AddEmployee";
 import TaskDetails from "../../components/Home/TaskDetails";
 import profile from "../../assets/images/profile.png";
+import arrow from "../../assets/svg/downArrow.svg";
+import DelayReport from "../../components/Home/DelayReport";
 
 function Home() {
-  const role = "siteSupervisor";
+  const role = "Architect";
   const [isTaskDrawerOpen, setTaskDrawerOpen] = useState(false);
   const [isAddEmployeeDrawerOpen, setAddEmployeeDrawerOpen] = useState(false);
   const [isTaskDetailsOpen, setTaskDetailsOpen] = useState(false);
@@ -163,13 +165,14 @@ function Home() {
       >
         <Header title="Home" />
         <TaskFilters
+          role={role}
           toggleTaskDrawer={toggleTaskDrawer}
           toggleAddEmployeeDrawer={toggleAddEmployeeDrawer}
           setFilter={setFilter} // Pass setFilter function
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pr-3 md:px-4 gap-4">
           <div className="md:col-span-1 lg:col-span-2 xl:col-span-3">
-            <h4 className="text-black font-semibold">My Task</h4>
+            <h4 className="text-black font-semibold mb-3">My Task</h4>
             <Task tasks={filteredTasks} toggleTaskDetails={toggleTaskDetails} />
             {role == "Admin" && (
               <Task
@@ -177,29 +180,54 @@ function Home() {
                 toggleTaskDetails={toggleTaskDetails}
               />
             )}
-            {role === "siteSupervisor" &&
-              projects.map((project, projectIndex) =>
-                project.clients.map((client, clientIndex) => (
-                  <div key={clientIndex} className="dropdown my-10">
-                    {/* Client name that toggles the visibility of tasks */}
-                    <p
-                      className="text-black my-1 ml-2 cursor-pointer"
-                      onClick={() => toggleClientTasks(clientIndex)} // Toggle tasks on click
-                    >
-                      {client.clientName}
-                    </p>
-                    {/* Conditionally render Task1 based on the open client */}
-                    {openClientIndex === clientIndex && (
-                      <Task1 tasks={client.tasks} />
-                    )}
-                  </div>
-                ))
-              )}
+            {role === "siteSupervisor" ||
+              (role === "Architect" &&
+                projects.map((project, projectIndex) =>
+                  project.clients.map((client, clientIndex) => (
+                    <div key={clientIndex} className="dropdown my-10">
+                      {/* Client name that toggles the visibility of tasks */}
+                      <p
+                        className="text-black my-1 ml-2 cursor-pointer w-fit"
+                        onClick={() => toggleClientTasks(clientIndex)} // Toggle tasks on click
+                      >
+                        {client.clientName}
+                        <img
+                          src={arrow}
+                          alt=""
+                          className={`inline ml-2 ${
+                            clientIndex == openClientIndex
+                              ? "pb-1"
+                              : "rotate-180"
+                          }`}
+                        />
+                      </p>
+
+                      {/* Conditionally render Task1 based on the open client */}
+                      {openClientIndex === clientIndex && (
+                        <Task1 tasks={client.tasks} />
+                      )}
+                    </div>
+                  ))
+                ))}
           </div>
           <div className="space-y-4 md:col-span-1 xl:col-span-1">
-            <Meetings meetings={meetings} />
+            {role == "siteSupervisor" ? (
+              <DelayReport />
+            ) : (
+              <Meetings meetings={meetings} />
+            )}
 
-            <PieChart data={taskOverviewData} />
+            {role === "siteSupervisor" ||
+              (role === "Architect" &&
+                projects.map((project, projectIndex) =>
+                  project.clients.map((client, clientIndex) => (
+                    <PieChart
+                      data={taskOverviewData}
+                      title={client.clientName}
+                    />
+                  ))
+                ))}
+            {tasks.length >= 1 && <PieChart data={taskOverviewData} />}
           </div>
         </div>
         {isTaskDrawerOpen && (

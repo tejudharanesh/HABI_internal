@@ -22,8 +22,6 @@ export function Task({ tasks, toggleTaskDetails }) {
 }
 
 export function Task1({ tasks, toggleTaskDetails }) {
-  console.log("wekijdjhweud");
-
   return (
     <div className="mb-6">
       {tasks.length > 0 ? (
