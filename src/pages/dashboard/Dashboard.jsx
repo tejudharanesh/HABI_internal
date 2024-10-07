@@ -91,7 +91,7 @@ function Dashboard() {
           <Route
             path="/updateVendor/:id" // Route for editing vendor
             element={
-              <UpdateVendor vendorData={vendors} updateVendor={updateVendor} />
+              <Vendors vendorData={vendors} updateVendor={updateVendor} />
             }
           />
         </Routes>
