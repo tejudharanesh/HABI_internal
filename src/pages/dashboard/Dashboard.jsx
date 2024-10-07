@@ -12,6 +12,8 @@ import Vendors from "../Vendors/Vendors";
 import LeadInformation from "../../components/Leads/LeadInformation";
 
 function Dashboard() {
+  const role = "siteSupervisor";
+
   const initialVendors = [
     {
       id: 1,
@@ -58,13 +60,13 @@ function Dashboard() {
   return (
     <div className="flex h-screen">
       {/* Navbar */}
-      <Navbar />
+      <Navbar role={role} />
 
       {/* Main Content */}
       <div className="flex-grow h-screen">
         <Routes>
           {/* Define routes relative to "/dashboard" */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home role={role} />} />
           <Route path="/meeting" element={<Meeting />} />
           <Route path="/projects" element={<Project />} />
           <Route path="/projectsDetails" element={<ProjectDetails />} />

@@ -11,8 +11,7 @@ import profile from "../../assets/images/profile.png";
 import arrow from "../../assets/svg/downArrow.svg";
 import DelayReport from "../../components/Home/DelayReport";
 
-function Home() {
-  const role = "Architect";
+function Home({ role }) {
   const [isTaskDrawerOpen, setTaskDrawerOpen] = useState(false);
   const [isAddEmployeeDrawerOpen, setAddEmployeeDrawerOpen] = useState(false);
   const [isTaskDetailsOpen, setTaskDetailsOpen] = useState(false);
@@ -180,35 +179,32 @@ function Home() {
                 toggleTaskDetails={toggleTaskDetails}
               />
             )}
-            {role === "siteSupervisor" ||
-              (role === "Architect" &&
-                projects.map((project, projectIndex) =>
-                  project.clients.map((client, clientIndex) => (
-                    <div key={clientIndex} className="dropdown my-10">
-                      {/* Client name that toggles the visibility of tasks */}
-                      <p
-                        className="text-black my-1 ml-2 cursor-pointer w-fit"
-                        onClick={() => toggleClientTasks(clientIndex)} // Toggle tasks on click
-                      >
-                        {client.clientName}
-                        <img
-                          src={arrow}
-                          alt=""
-                          className={`inline ml-2 ${
-                            clientIndex == openClientIndex
-                              ? "pb-1"
-                              : "rotate-180"
-                          }`}
-                        />
-                      </p>
+            {(role === "siteSupervisor" || role === "Architect") &&
+              projects.map((project, projectIndex) =>
+                project.clients.map((client, clientIndex) => (
+                  <div key={clientIndex} className="dropdown my-10">
+                    {/* Client name that toggles the visibility of tasks */}
+                    <p
+                      className="text-black my-1 ml-2 cursor-pointer w-fit"
+                      onClick={() => toggleClientTasks(clientIndex)} // Toggle tasks on click
+                    >
+                      {client.clientName}
+                      <img
+                        src={arrow}
+                        alt=""
+                        className={`inline ml-2 ${
+                          clientIndex == openClientIndex ? "pb-1" : "rotate-180"
+                        }`}
+                      />
+                    </p>
 
-                      {/* Conditionally render Task1 based on the open client */}
-                      {openClientIndex === clientIndex && (
-                        <Task1 tasks={client.tasks} />
-                      )}
-                    </div>
-                  ))
-                ))}
+                    {/* Conditionally render Task1 based on the open client */}
+                    {openClientIndex === clientIndex && (
+                      <Task1 tasks={client.tasks} />
+                    )}
+                  </div>
+                ))
+              )}
           </div>
           <div className="space-y-4 md:col-span-1 xl:col-span-1">
             {role == "siteSupervisor" ? (
@@ -217,16 +213,12 @@ function Home() {
               <Meetings meetings={meetings} />
             )}
 
-            {role === "siteSupervisor" ||
-              (role == "Architect" &&
-                projects.map((project, projectIndex) =>
-                  project.clients.map((client, clientIndex) => (
-                    <PieChart
-                      data={taskOverviewData}
-                      title={client.clientName}
-                    />
-                  ))
-                ))}
+            {(role === "siteSupervisor" || role == "Architect") &&
+              projects.map((project, projectIndex) =>
+                project.clients.map((client, clientIndex) => (
+                  <PieChart data={taskOverviewData} title={client.clientName} />
+                ))
+              )}
             {tasks.length >= 1 && <PieChart data={taskOverviewData} />}
           </div>
         </div>

@@ -14,7 +14,7 @@ import logout from "../../assets/svg/logout.svg";
 import hamberger from "../../assets/svg/burger.svg";
 import close from "../../assets/svg/close.svg";
 
-const Navbar = () => {
+const Navbar = ({ role }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const [selected, setSelected] = useState(
@@ -26,13 +26,35 @@ const Navbar = () => {
   };
 
   const buttons = [
-    { id: "home", icon: home, alt: "Home", label: "Home", link: "/dashboard" },
+    {
+      id: "home",
+      icon: home,
+      alt: "Home",
+      label: "Home",
+      link: "/dashboard",
+      roles: [
+        "Admin",
+        "Sales",
+        "ProjectManager",
+        "User",
+        "Architect",
+        "siteSupervisor",
+      ],
+    }, // Available for all roles
     {
       id: "meeting",
       icon: meeting,
       alt: "Meeting",
       label: "Meetings",
       link: "/dashboard/meeting",
+      roles: [
+        "Admin",
+        "Sales",
+        "ProjectManager",
+        "User",
+        "Architect",
+        "siteSupervisor",
+      ],
     },
     {
       id: "projects",
@@ -40,6 +62,7 @@ const Navbar = () => {
       alt: "Projects",
       label: "Projects",
       link: "/dashboard/projects",
+      roles: ["Admin", "ProjectManager"],
     },
     {
       id: "leads",
@@ -47,6 +70,7 @@ const Navbar = () => {
       alt: "Leads",
       label: "Leads",
       link: "/dashboard/leads",
+      roles: ["Admin", "Sales"],
     },
     {
       id: "vendors",
@@ -54,10 +78,29 @@ const Navbar = () => {
       alt: "Vendors",
       label: "Vendors",
       link: "/dashboard/vendors",
+      roles: ["Admin", "Sales", "ProjectManager"],
     },
-    { id: "team", icon: team, alt: "Teams", label: "Teams", link: "/" },
-    { id: "report", icon: report, alt: "Report", label: "Report", link: "/" },
+    {
+      id: "team",
+      icon: team,
+      alt: "Teams",
+      label: "Teams",
+      link: "/",
+      roles: ["Admin", "Sales", "ProjectManager", "User", "Architect"],
+    },
+    {
+      id: "report",
+      icon: report,
+      alt: "Report",
+      label: "Report",
+      link: "/",
+      roles: ["Admin", "ProjectManager", "siteSupervisor"],
+    },
   ];
+
+  const filteredButtons = buttons.filter((button) =>
+    button.roles.includes(role)
+  );
 
   return (
     <div className="fixed top-0 left-0 md:w-24 lg:w-40 z-20">
@@ -78,7 +121,7 @@ const Navbar = () => {
             </div>
 
             <div className="flex flex-col w-auto gap-y-2 xl:gap-y-4 h-screen relative">
-              {buttons.map((button) => (
+              {filteredButtons.map((button) => (
                 <div key={button.id} className="relative w-auto">
                   <Link
                     to={button.link}
