@@ -19,6 +19,16 @@ function Home() {
 
   const [selectedTask, setSelectedTask] = useState({}); // New state for selected task
 
+  const [openClientIndex, setOpenClientIndex] = useState(null);
+
+  const toggleClientTasks = (clientIndex) => {
+    if (openClientIndex === clientIndex) {
+      setOpenClientIndex(null); // Close the tasks if the same client is clicked again
+    } else {
+      setOpenClientIndex(clientIndex); // Open the clicked client's tasks
+    }
+  };
+
   // Function to toggle the task drawer
   const toggleTaskDrawer = () => {
     setTaskDrawerOpen(!isTaskDrawerOpen);
@@ -70,21 +80,59 @@ function Home() {
     },
     // Other tasks...
   ]);
-  const projectTask = [
-    {
-      title: "Site Clearance",
-      project: "Charan Project",
-      projectId: "CHA2024",
-      clientId: "1272829",
-      Date: "26 mar 2024 - 27 mar 2024",
-      status: "Pending",
-      progress: 10,
-    },
-  ];
 
   const projects = [
-    
-  ]
+    {
+      clients: [
+        {
+          clientName: "jdjdjk2233",
+          tasks: [
+            {
+              title: "Site Clearance",
+              project: "Charan Project",
+              projectId: "CHA2024",
+              clientId: "1272829",
+              Date: "26 mar 2024 - 27 mar 2024",
+              status: "Pending",
+              progress: 10,
+            },
+            {
+              title: "Site",
+              project: "Charan Project",
+              projectId: "CHA2024",
+              clientId: "1272829",
+              Date: "2 mar 2024 - 7 mar 2024",
+              status: "Pending",
+              progress: 70,
+            },
+          ],
+        },
+        {
+          clientName: "teju223",
+          tasks: [
+            {
+              title: "Site Clearance",
+              project: "Charan ",
+              projectId: "CHA2024",
+              clientId: "1272829",
+              Date: "6 mar 2024 - 7 mar 2024",
+              status: "Pending",
+              progress: 50,
+            },
+            {
+              title: "Clearance",
+              project: "Charan Project",
+              projectId: "CHA2024",
+              clientId: "1272829",
+              Date: "26 mar 2024 - 27 mar 2024",
+              status: "Pending",
+              progress: 80,
+            },
+          ],
+        },
+      ],
+    },
+  ];
   // Other tasks...
   const addNewTask = (newTask) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
@@ -129,12 +177,24 @@ function Home() {
                 toggleTaskDetails={toggleTaskDetails}
               />
             )}
-            {role == "siteSupervisor" && (
-              <Task1
-                tasks={projectTask}
-                toggleTaskDetails={toggleTaskDetails}
-              />
-            )}
+            {role === "siteSupervisor" &&
+              projects.map((project, projectIndex) =>
+                project.clients.map((client, clientIndex) => (
+                  <div key={clientIndex} className="dropdown my-10">
+                    {/* Client name that toggles the visibility of tasks */}
+                    <p
+                      className="text-black my-1 ml-2 cursor-pointer"
+                      onClick={() => toggleClientTasks(clientIndex)} // Toggle tasks on click
+                    >
+                      {client.clientName}
+                    </p>
+                    {/* Conditionally render Task1 based on the open client */}
+                    {openClientIndex === clientIndex && (
+                      <Task1 tasks={client.tasks} />
+                    )}
+                  </div>
+                ))
+              )}
           </div>
           <div className="space-y-4 md:col-span-1 xl:col-span-1">
             <Meetings meetings={meetings} />
