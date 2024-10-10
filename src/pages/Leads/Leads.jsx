@@ -201,8 +201,11 @@ const Leads = () => {
       {showDropdown === lead.id && (
         <div className="mt-2 bg-layoutColor shadow-lg z-10 rounded-full absolute top-10 right-1">
           <button
-            className="block w-full px-3 py-1 text-red-600 hover:bg-gray-100 rounded-full"
-            onClick={() => DeleteLead(lead.id)}
+            className="block w-full px-3 py-1 text-red-500 hover:bg-gray-100 rounded-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              DeleteLead(lead.id);
+            }}
           >
             Delete
           </button>
@@ -310,10 +313,13 @@ const Leads = () => {
                       }}
                     />
                     {showDropdown === lead.id && ( // Check if the dropdown should be shown for this specific lead
-                      <div className="absolute right-2 top-4 mt-2 bg-layoutColor shadow-lg rounded-lg z-10">
+                      <div className="absolute right-2 top-4 mt-2 bg-layoutColor shadow-lg rounded-lg z-20">
                         <button
                           className="block w-full px-3 text-red-600 hover:bg-layoutColor"
-                          onClick={() => DeleteLead(lead.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            DeleteLead(lead.id);
+                          }}
                         >
                           Delete
                         </button>
@@ -399,7 +405,10 @@ const Leads = () => {
                       <div className="absolute right-2 top-4 mt-2 bg-layoutColor shadow-lg rounded-lg z-10">
                         <button
                           className="block w-full px-3 text-red-600 hover:bg-layoutColor"
-                          onClick={() => DeleteLead(lead.id)}
+                          onClick={(e) => {
+                            e.stopPropagation;
+                            DeleteLead(lead.id);
+                          }}
                         >
                           Delete
                         </button>
