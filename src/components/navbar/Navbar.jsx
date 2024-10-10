@@ -89,11 +89,11 @@ const Navbar = ({ role }) => {
       roles: ["Admin", "Sales", "ProjectManager", "User", "Architect"],
     },
     {
-      id: "report",
+      id: "SnagList",
       icon: report,
       alt: "Report",
-      label: "Report",
-      link: "/",
+      label: "Snag List",
+      link: "/dashboard/snagList",
       roles: ["Admin", "ProjectManager", "siteSupervisor"],
     },
   ];

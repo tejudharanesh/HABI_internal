@@ -34,7 +34,7 @@ function Vendors({ vendors, deleteSelectedVendors }) {
       <div
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
       >
-        <Header />
+        <Header title="Vendors" />
 
         <div className="p-1 py-2 md:p-6">
           <div className="flex justify-end mb-4">

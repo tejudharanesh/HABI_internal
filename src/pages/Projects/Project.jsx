@@ -123,7 +123,7 @@ const ProjectCard = ({ project }) => {
   const navigate = useNavigate();
   return (
     <div
-      className="bg-layoutColor rounded-3xl bg-no-repeat w-[173px] h-[262px] md:w-[270px] md:h-[323px] relative cursor-pointer"
+      className="bg-layoutColor rounded-3xl bg-no-repeat w-[173px] h-[262px] md:w-[270px] md:h-[323px] relative cursor-pointer inline-block mr-2 md:mr-4"
       style={{ backgroundImage: `url(${background})` }}
       onClick={() => {
         navigate("/dashboard/projectsDetails");
@@ -171,8 +171,8 @@ const Project = () => {
       <div
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 h-auto w-screen md:pl-24 lg:pl-40`}
       >
-        <Header />
-        <div className="p-3 md:p-6 space-y-8">
+        <Header title="Projects" />
+        <div className="py-3 md:p-6 space-y-8">
           {/* Active Projects */}
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold text-gray-600">
@@ -186,7 +186,7 @@ const Project = () => {
             </button>
           </div>
           <div className="md:pr-[20%] lg:pr-0">
-            <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            <div>
               {projects.map((project, index) => (
                 <ProjectCard key={index} project={project} />
               ))}
@@ -198,7 +198,7 @@ const Project = () => {
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               Completed Projects
             </h2>
-            <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            <div className="">
               {completedProjects.map((project, index) => (
                 <ProjectCard key={index} project={project} />
               ))}

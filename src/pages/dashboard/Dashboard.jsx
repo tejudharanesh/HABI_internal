@@ -10,9 +10,10 @@ import Payment from "../../components/Projects/Payment/Payment";
 import Leads from "../Leads/Leads";
 import Vendors from "../Vendors/Vendors";
 import LeadInformation from "../../components/Leads/LeadInformation";
+import SnagList from "../SnagList/SnagList";
 
 function Dashboard() {
-  const role = "siteSupervisor";
+  const role = "Admin";
 
   const initialVendors = [
     {
@@ -74,6 +75,8 @@ function Dashboard() {
           <Route path="/payment" element={<Payment />} />
           <Route path="/leads" element={<Leads />} />
           <Route path="/lead-details/:id" element={<LeadInformation />} />
+          <Route path="/snagList" element={<SnagList />} />
+
           <Route
             path="/vendors"
             element={

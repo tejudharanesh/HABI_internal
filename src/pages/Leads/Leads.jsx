@@ -216,7 +216,7 @@ const Leads = () => {
       <div
         className={`flex flex-col bg-layoutColor pl-2 md:px-2 min-h-screen h-auto w-screen md:pl-24 lg:pl-40 text-black`}
       >
-        <Header />
+        <Header title="Leads" />
         <div className="p-2 md:p-4 lg:px-[5%] xl:px-[10%]">
           {/* Add Lead Button */}
           <div className="flex justify-end mb-4">
